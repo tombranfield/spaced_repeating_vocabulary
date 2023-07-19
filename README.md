@@ -1,2 +1,3 @@
-# spaced_repeating_vocabulary
-Learning foreign language vocabulary with spaced repetition
+# Learning Foreign Language Vocabulary with Spaced Repetition
+
+Learning foreign language vocabulary with spaced repetition.
