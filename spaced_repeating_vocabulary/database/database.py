@@ -21,7 +21,7 @@ class Database:
         self._db_path = db_path
         self._create_new_table()
 
-    def _connect_and_execute(self, query: str):
+    def connect_and_execute(self, query: str):
         """
         Connects to the database, executes the supplied query,
         then closes the connection.
@@ -34,6 +34,7 @@ class Database:
         connection.close()
 
     # TODO have an internal create query method?
+    # Test that this works!
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
         create_table_query = """CREATE TABLE master_wordlist (
@@ -49,7 +50,7 @@ class Database:
                                 num_incorrect INTEGER NOT NULL,
                                 is_known INTEGER NOT NULL,
                                 is_review INTEGER NOT NULL);"""
-        self._connect_and_execute(create_table_query)
+        self.connect_and_execute(create_table_query)
         print("SQLite table", self._db_path, "created.")
 
 
