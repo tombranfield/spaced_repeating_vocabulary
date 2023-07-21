@@ -13,6 +13,8 @@ class Database:
     words with their corresponding translations and other related 
     information.
     """
+# TODO put this back later, after doing casual testing for
+# insertion, deletion, etc.
 #    DB_PATH = str(Path("../../data/wordlists.db"))
     DB_PATH = str(Path("wordlists.db"))
         
