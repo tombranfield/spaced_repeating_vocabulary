@@ -13,6 +13,7 @@ class Database:
     words with their corresponding translations and other related 
     information.
     """
+
 # TODO put this back later, after doing casual testing for
 # insertion, deletion, etc.
 #    DB_PATH = str(Path("../../data/wordlists.db"))
@@ -67,6 +68,9 @@ class Database:
         self.connect_and_execute(create_table_query)
         print("SQLite table", self._db_path, "created.")
 
+    # TODO a list flag would be useful
+    # be default, search the whole db
+    # but with a flag, searches with only that list
     def total_words(self):
         """
         Returns the total number of words in the entire database
@@ -76,8 +80,51 @@ class Database:
         query_result = self.result_from_query(total_words_query)        
         return int(query_result[0][0])
 
+
+    def _create_insert_query(self, foreign_word, translated_word,
+                            foreign_language, word_list_name):
+        """
+        Creates a query string that will be used to insert words into the
+        database.
+        """
+        insert_query = ("INSERT INTO " + + self.TABLE_NAME + " (list_name," 
+                + "foreign_word, translated_word, language, level, "
+                + "learnt_datetime, when_review, num_correct, "
+                + "num_incorrect, is_known, is_review) VALUES( "
+                + "\'" + word_list_name + "\', "
+                + "'" + foreign_word + "\',"
+                + "'" + translated_word + "\',"
+                + "'" + foreign_language + "\',"
+                + "0,"
+                + "'" + current_datetime + "\',"
+                + "'" + current_datetime + "\',"
+                + "0,0,0,0)")
+        return insert_query
+
+        
+
+    # TODO Equivalent to insert_individual in old program
+    def insert_word(self, foreign_word, translated_word, 
+                    foreign_language, word_list_name):
+        """Inserts an individual word into the database"""
+        # OK how to insert into a database?
+
+        query = _create_insert_query
+                + "
+        self.connect_and_execute(query)
+
+
 if __name__ == "__main__":
     # Quick tests here... don't forget to pytest.
 
-    db = Database("test_db.db")
+    db = Database("temporary_from_main.db")
     print("Total words:", db.total_words())
+
+    foreign_word = "bullig"
+    translated_word = "cheap"
+    foreign_language = "german"
+    word_list_name = "Harry Potter und der Stein der Weisen"
+
+    insert_query = db._create_insert_query(foreign_word, translated_word,
+                                           foreign_language, word_list_name)
+    print(insert_query)                                           
