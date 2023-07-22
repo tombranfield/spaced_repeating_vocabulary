@@ -5,6 +5,7 @@ Testing database.py
 import database
 import pytest
 from pathlib import Path
+from row import Row
 from tempfile import TemporaryDirectory
 
 
@@ -16,13 +17,20 @@ def empty_db():
         db = database.Database(db_path)
         yield db
 
+
+@pytest.fixture
+def row_of_data():
+    row = Row("bullig", "cheap", "german", 
+              "Harry Potter und der Stein der Weisen")
+    return row
+
+
 def test_database_is_created(empty_db):
     num_words_in_db = empty_db.total_words()
     assert num_words_in_db == 0
 
-def test_database_insert_word(empty_db):
-    num_words_before = empty_db.total_words()
-    empty_db.insert_word("bullig", "cheap", "german", 
-                    "Harry Potter und der Stein der Weisen")
-    num_words_after = empty_db.total_words()
-    assert num_words_before == 0 and num_words_after == 1
+def test_database_insert_row(empty_db, row_of_data):
+    num_rows_before = empty_db.total_rows()
+    empty_db.insert_row(row_of_data)
+    num_rows_after = empty_db.total_rows()
+    assert num_rows_before == 0 and num_rows_after == 1

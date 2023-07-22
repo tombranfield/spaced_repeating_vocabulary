@@ -5,6 +5,7 @@ It holds the words, their translations, and other related information.
 
 from datetime import datetime
 from pathlib import Path
+from row import Row
 import sqlite3
 
 
@@ -73,13 +74,13 @@ class Database:
     # TODO a list flag would be useful
     # be default, search the whole db
     # but with a flag, searches with only that list
-    def total_words(self):
+    def total_rows(self):
         """
         Returns the total number of words in the entire database
         from all word lists.
         """
-        total_words_query = "SELECT COUNT(*) FROM " + self.TABLE_NAME
-        query_result = self.result_from_query(total_words_query)        
+        total_rows_query = "SELECT COUNT(*) FROM " + self.TABLE_NAME
+        query_result = self.result_from_query(total_rows_query)        
         return int(query_result[0][0])
 
 
@@ -127,4 +128,7 @@ if __name__ == "__main__":
     foreign_language = "german"
     word_list_name = "Harry Potter und der Stein der Weisen"
 
-    db.insert_word(foreign_word, translated_word, foreign_language, word_list_name)
+    new_row = Row(foreign_word, translated_word, foreign_language,
+                  word_list_name)
+
+    db.insert_row(new_row)
