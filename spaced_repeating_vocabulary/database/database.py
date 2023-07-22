@@ -3,8 +3,9 @@ Represents the database for the Spaced Repeating Vocabulary program.
 It holds the words, their translations, and other related information.
 """
 
-import sqlite3
+from datetime import datetime
 from pathlib import Path
+import sqlite3
 
 
 class Database:
@@ -50,6 +51,7 @@ class Database:
 
     # TODO have an internal create query method?
     # Test that this works!
+    # Takes up too much room - flatten it
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
         create_table_query = "CREATE TABLE " + self.TABLE_NAME + """ (
@@ -59,7 +61,7 @@ class Database:
                                 translated_word TEXT NOT NULL,
                                 language TEXT NOT NULL,      
                                 level INTEGER NOT NULL,
-                                learnt_datetime DATETIME,
+                                last_learnt_datetime DATETIME,
                                 when_review DATETIME, 
                                 num_correct INTEGER NOT NULL,
                                 num_incorrect INTEGER NOT NULL,
@@ -87,18 +89,19 @@ class Database:
         Creates a query string that will be used to insert words into the
         database.
         """
-        insert_query = ("INSERT INTO " + + self.TABLE_NAME + " (list_name," 
-                + "foreign_word, translated_word, language, level, "
-                + "learnt_datetime, when_review, num_correct, "
-                + "num_incorrect, is_known, is_review) VALUES( "
-                + "\'" + word_list_name + "\', "
-                + "'" + foreign_word + "\',"
-                + "'" + translated_word + "\',"
-                + "'" + foreign_language + "\',"
-                + "0,"
-                + "'" + current_datetime + "\',"
-                + "'" + current_datetime + "\',"
-                + "0,0,0,0)")
+        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        insert_query = ("INSERT INTO " + self.TABLE_NAME + " (list_name," 
+                     + "foreign_word, translated_word, language, level, "
+                     + "last_learnt_datetime, when_review, num_correct, "
+                     + "num_incorrect, is_known, is_review) VALUES( "
+                     + "\'" + word_list_name + "\', "
+                     + "'" + foreign_word + "\',"
+                     + "'" + translated_word + "\',"
+                     + "'" + foreign_language + "\',"
+                     + "0,"
+                     + "'" + current_datetime + "\',"
+                     + "'" + current_datetime + "\',"
+                     + "0,0,0,0)")
         return insert_query
 
         
@@ -108,10 +111,9 @@ class Database:
                     foreign_language, word_list_name):
         """Inserts an individual word into the database"""
         # OK how to insert into a database?
-
-        query = _create_insert_query
-                + "
-        self.connect_and_execute(query)
+        insert_query = self._create_insert_query(foreign_word, translated_word,
+                                            foreign_language, word_list_name)
+        self.connect_and_execute(insert_query)
 
 
 if __name__ == "__main__":
@@ -125,6 +127,4 @@ if __name__ == "__main__":
     foreign_language = "german"
     word_list_name = "Harry Potter und der Stein der Weisen"
 
-    insert_query = db._create_insert_query(foreign_word, translated_word,
-                                           foreign_language, word_list_name)
-    print(insert_query)                                           
+    db.insert_word(foreign_word, translated_word, foreign_language, word_list_name)
