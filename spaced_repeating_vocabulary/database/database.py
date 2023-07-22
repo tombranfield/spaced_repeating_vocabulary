@@ -35,6 +35,16 @@ class Database:
         cursor.close()
         connection.close()
 
+    def result_from_query(query: str):
+        """Returns a tuple result after query to the database"""
+        connection = sqlite3.connect(self._db_path)
+        cursor = connection.cursor()
+        cursor.execute(query)
+        record = cursor.fetchall()
+        cursor.close()
+        connection.close()
+        return record
+
     # TODO have an internal create query method?
     # Test that this works!
     def _create_new_table(self):
@@ -54,6 +64,15 @@ class Database:
                                 is_review INTEGER NOT NULL);"""
         self.connect_and_execute(create_table_query)
         print("SQLite table", self._db_path, "created.")
+
+    def total_words(self):
+        """
+        Returns the total number of words in the entire database
+        from all word lists.
+        """
+        total_words_query = "SELECT COUNT(*) FROM master_wordlist" 
+        
+
 
 
 if __name__ == "__main__":
