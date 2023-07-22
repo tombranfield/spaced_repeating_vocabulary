@@ -17,17 +17,21 @@ class Database:
     words with their corresponding translations and other related 
     information.
     """
-
-# TODO put this back later, after doing casual testing for
-# insertion, deletion, etc.
-#    DB_PATH = str(Path("../../data/wordlists.db"))
-    DB_PATH = str(Path("wordlists.db"))
-    TABLE_NAME = "MASTER_WORD_LIST"
+    _DB_PATH = str(Path("wordlists.db"))
+    _TABLE_NAME = "MASTER_WORD_LIST"
         
-    def __init__(self, db_path=DB_PATH):
+    def __init__(self, db_path=_DB_PATH):
         """Initializes the database."""
         self._db_path = db_path
         self._create_new_table()
+
+    @property
+    def path(self):
+        return self._DB_PATH
+
+    @property
+    def table_name(self):
+        return self._TABLE_NAME
 
     def connect_and_execute(self, query: str):
         """
@@ -57,7 +61,7 @@ class Database:
     # Takes up too much room - flatten it
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
-        create_table_query = "CREATE TABLE IF NOT EXISTS " + self.TABLE_NAME + """ (
+        create_table_query = "CREATE TABLE IF NOT EXISTS " + self.table_name + """ (
                                 id INTEGER PRIMARY KEY,
                                 list_name TEXT NOT NULL, 
                                 foreign_word TEXT NOT NULL,
@@ -81,7 +85,7 @@ class Database:
         Returns the total number of words in the entire database
         from all word lists.
         """
-        total_rows_query = "SELECT COUNT(*) FROM " + self.TABLE_NAME
+        total_rows_query = "SELECT COUNT(*) FROM " + self.table_name
         query_result = self.result_from_query(total_rows_query)        
         return int(query_result[0][0])
 
@@ -92,7 +96,7 @@ class Database:
         database.
         """
         current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        insert_query = ("INSERT INTO " + self.TABLE_NAME + " (list_name," 
+        insert_query = ("INSERT INTO " + self.table_name + " (list_name," 
                      + "foreign_word, translated_word, language, level, "
                      + "last_learnt_datetime, when_review, num_correct, "
                      + "num_incorrect, is_known, is_review) VALUES( "
@@ -119,7 +123,7 @@ class Database:
 if __name__ == "__main__":
     # Quick tests here... don't forget to pytest.
 
-    db = Database("temporary_from_main.db")
+    db = Database()
     print("Total words:", db.total_rows())
 
     foreign_word = "bullig"
@@ -131,3 +135,6 @@ if __name__ == "__main__":
                   word_list_name)
 
     db.insert_row(new_row)
+
+    print("Path:",db.path)
+    print("Table name:", db.table_name)
