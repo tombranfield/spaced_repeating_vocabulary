@@ -8,7 +8,7 @@ from pathlib import Path
 
 import sqlite3
 
-from row import Row
+from src.core.row import Row
 
 
 class Database:
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     # Quick tests here... don't forget to pytest.
 
     db = Database("temporary_from_main.db")
-    print("Total words:", db.total_words())
+    print("Total words:", db.total_rows())
 
     foreign_word = "bullig"
     translated_word = "cheap"
