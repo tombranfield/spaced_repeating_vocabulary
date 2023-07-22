@@ -17,6 +17,7 @@ class Database:
 # insertion, deletion, etc.
 #    DB_PATH = str(Path("../../data/wordlists.db"))
     DB_PATH = str(Path("wordlists.db"))
+    TABLE_NAME = "MASTER_WORD_LIST"
         
     def __init__(self, db_path=DB_PATH):
         """Initializes the database."""
@@ -35,7 +36,7 @@ class Database:
         cursor.close()
         connection.close()
 
-    def result_from_query(query: str):
+    def result_from_query(self, query: str):
         """Returns a tuple result after query to the database"""
         connection = sqlite3.connect(self._db_path)
         cursor = connection.cursor()
@@ -45,11 +46,12 @@ class Database:
         connection.close()
         return record
 
+
     # TODO have an internal create query method?
     # Test that this works!
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
-        create_table_query = """CREATE TABLE master_wordlist (
+        create_table_query = "CREATE TABLE " + self.TABLE_NAME + """ (
                                 id INTEGER PRIMARY KEY,
                                 list_name TEXT NOT NULL, 
                                 foreign_word TEXT NOT NULL,
@@ -70,12 +72,12 @@ class Database:
         Returns the total number of words in the entire database
         from all word lists.
         """
-        total_words_query = "SELECT COUNT(*) FROM master_wordlist" 
-        
-
-
+        total_words_query = "SELECT COUNT(*) FROM " + self.TABLE_NAME
+        query_result = self.result_from_query(total_words_query)        
+        return int(query_result[0][0])
 
 if __name__ == "__main__":
     # Quick tests here... don't forget to pytest.
 
     db = Database("test_db.db")
+    print("Total words:", db.total_words())
