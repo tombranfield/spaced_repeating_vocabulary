@@ -2,11 +2,12 @@
 Testing database.py
 """
 
-import database
 import pytest
 from pathlib import Path
-from row import Row
 from tempfile import TemporaryDirectory
+
+import database
+from row import Row
 
 
 @pytest.fixture
