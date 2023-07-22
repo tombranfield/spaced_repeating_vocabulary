@@ -2,7 +2,6 @@
 Testing database.py
 """
 
-# OK pytest.ini isn't working
 import database
 import pytest
 from pathlib import Path
@@ -15,7 +14,7 @@ from tempfile import TemporaryDirectory
 @pytest.fixture
 def empty_db():
     with TemporaryDirectory() as db_dir:
-        db_path = str(Path(db_dir))
+        db_path = str(Path(db_dir)) + "temp_db.db"
         temp_db = database.Database(db_path)
 
 
