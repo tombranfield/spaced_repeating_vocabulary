@@ -5,8 +5,10 @@ It holds the words, their translations, and other related information.
 
 from datetime import datetime
 from pathlib import Path
-from row import Row
+
 import sqlite3
+
+from row import Row
 
 
 class Database:
@@ -55,7 +57,7 @@ class Database:
     # Takes up too much room - flatten it
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
-        create_table_query = "CREATE TABLE " + self.TABLE_NAME + """ (
+        create_table_query = "CREATE TABLE IF NOT EXISTS " + self.TABLE_NAME + """ (
                                 id INTEGER PRIMARY KEY,
                                 list_name TEXT NOT NULL, 
                                 foreign_word TEXT NOT NULL,
