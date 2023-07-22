@@ -6,13 +6,18 @@ Data Access Object responsible for inserting into the database
 
 from datetime import datetime
 from pathlib import Path
-from row import Row
+
 import sqlite3
 
+#from ..core.row import Row
+from spaced_repeating_vocabulary.core.row import Row
 
-class InsertionDAO:
+
+
+class RowDAO:
     """
-    Acts as an interface to the database in order to insert data into it.
+    Acts as an interface to the database in order to perform
+    operations on rows such as insertion or deletion.
     """
     # Get the DB path and table name from the database
     def __init__(self, db_path=DB_PATH):
