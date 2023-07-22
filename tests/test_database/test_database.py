@@ -26,8 +26,8 @@ def row_of_data():
 
 
 def test_database_is_created(empty_db):
-    num_words_in_db = empty_db.total_words()
-    assert num_words_in_db == 0
+    num_rows_in_db = empty_db.total_rows()
+    assert num_rows_in_db == 0
 
 def test_database_insert_row(empty_db, row_of_data):
     num_rows_before = empty_db.total_rows()

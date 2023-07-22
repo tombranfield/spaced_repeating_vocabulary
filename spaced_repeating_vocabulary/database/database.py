@@ -84,8 +84,7 @@ class Database:
         return int(query_result[0][0])
 
 
-    def _create_insert_query(self, foreign_word, translated_word,
-                            foreign_language, word_list_name):
+    def _create_insert_query(self, row):
         """
         Creates a query string that will be used to insert words into the
         database.
@@ -95,10 +94,10 @@ class Database:
                      + "foreign_word, translated_word, language, level, "
                      + "last_learnt_datetime, when_review, num_correct, "
                      + "num_incorrect, is_known, is_review) VALUES( "
-                     + "\'" + word_list_name + "\', "
-                     + "'" + foreign_word + "\',"
-                     + "'" + translated_word + "\',"
-                     + "'" + foreign_language + "\',"
+                     + "\'" + row.word_list_name + "\', "
+                     + "'" + row.foreign_word + "\',"
+                     + "'" + row.translated_word + "\',"
+                     + "'" + row.language + "\',"
                      + "0,"
                      + "'" + current_datetime + "\',"
                      + "'" + current_datetime + "\',"
@@ -108,12 +107,10 @@ class Database:
         
 
     # TODO Equivalent to insert_individual in old program
-    def insert_word(self, foreign_word, translated_word, 
-                    foreign_language, word_list_name):
+    def insert_row(self, row):
         """Inserts an individual word into the database"""
         # OK how to insert into a database?
-        insert_query = self._create_insert_query(foreign_word, translated_word,
-                                            foreign_language, word_list_name)
+        insert_query = self._create_insert_query(row)
         self.connect_and_execute(insert_query)
 
 
