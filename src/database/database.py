@@ -64,7 +64,7 @@ class Database:
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
         query = "CREATE TABLE IF NOT EXISTS " + self.table_name + """ (
-                 rowid INTEGER PRIMARY KEY AUTOINCREMENT,
+                 rowid INTEGER PRIMARY KEY,
                  word_list_name TEXT, 
                  foreign_word TEXT,
                  translated_word TEXT,

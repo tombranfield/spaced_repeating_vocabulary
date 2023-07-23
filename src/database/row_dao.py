@@ -28,6 +28,8 @@ class RowDAO:
     def insert_rows(self, rows):
         """Inserts rows into the database"""
         formatted_rows = self._format_rows(rows)
+
+        # TODO write the query for insert rows
         # query = "
         with self.db.cursor() as cursor:
             cursor.executemany(query, formatted_rows)
@@ -83,17 +85,20 @@ class RowDAO:
 
     def _create_insert_query(self, row):
         current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        insert_query = ("INSERT INTO " + Database.table_name +" VALUES( "
+        insert_query = ("INSERT INTO " + Database.table_name + " ("
+                     + "word_list_name, foreign_word, translated_word, "
+                     + "language, last_learnt_datetime, when_review) "
+                     + "VALUES( "
                      + "\'" + row.word_list_name + "\', "
                      + "'" + row.foreign_word + "\',"
                      + "'" + row.translated_word + "\',"
                      + "'" + row.language + "\',"
-                     + "0,"
                      + "'" + current_datetime + "\',"
-                     + "'" + current_datetime + "\',"
-                     + "0,0,0,0)")
+                     + "'" + current_datetime + "\')")
         return insert_query
 
+
+        
 
     def old_create_insert_query(self, row):
         """
@@ -140,3 +145,9 @@ if __name__ == "__main__":
     row = Row(foreign_word, translated_word, language, word_list_name)
 
     my_dao.insert_row(row)
+
+    row2 = Row("foreign", "trans", "lang", "list_name")
+    row3 = Row("A", "B", "C", "D")
+
+    my_dao.insert_row(row2)
+    my_dao.insert_row(row3)
