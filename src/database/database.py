@@ -3,9 +3,9 @@ Represents the database for the Spaced Repeating Vocabulary program.
 It holds the words, their translations, and other related information.
 """
 
+from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
-
 import sqlite3
 
 from src.core.row import Row
