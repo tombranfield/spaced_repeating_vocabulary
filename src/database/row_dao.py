@@ -27,12 +27,13 @@ class RowDAO:
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
 
-    # TODO see line 377 onwards in original
     def delete_row(self, foreign_word):
         """
         Deletes the row containing the supplied foreign word from the database.
         """
-        pass
+        query = ("DELETE FROM " + Database.table_name + " where "
+                 "foreign_word = \'" + foreign_word + "\'")
+        self.db.connect_and_execute(query)
 
     def delete_rows_of_word_list(self, word_list_name):
         """Deletes all the rows associated with the supplied word list"""
@@ -41,6 +42,7 @@ class RowDAO:
 
     # TODO Might be nice to supply a word_list_name, so you can get
     # the total number of words for that list
+    # If not, may as well use the one in the database
     def total_rows(self):
         """
         Returns the total number of rows in the entire database from all word

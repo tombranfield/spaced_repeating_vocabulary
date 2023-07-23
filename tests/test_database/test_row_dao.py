@@ -46,3 +46,8 @@ def test_row_dao_one_row_db(row_dao_one_row_db):
 def test_is_word_already_there(row_dao_one_row_db, row_of_data):
     foreign_word = row_of_data.foreign_word
     assert row_dao_one_row_db.is_word_already_there(foreign_word) == True
+
+
+def test_is_word_not_there(row_dao_one_row_db, row_of_data):
+    foreign_word = "random nonsense string"
+    assert row_dao_one_row_db.is_word_already_there(foreign_word) == False
