@@ -81,3 +81,13 @@ def test_insert_rows(row_dao_empty_db, rows_of_data):
     num_rows_before = row_dao_empty_db.total_rows()
     row_dao_empty_db.insert_rows(rows_of_data)
     num_rows_after = row_dao_empty_db.total_rows()
+
+
+def test_format_rows(row_dao_empty_db, rows_of_data):
+    formatted_rows = row_dao_empty_db._format_rows(rows_of_data)
+    print(formatted_rows)
+    assert isinstance(formatted_rows, list)
+    assert len(formatted_rows) == 3
+    assert formatted_rows[0] == ("bonjour", "hello", "french", "basic words")
+    assert formatted_rows[1] == ("merci", "thank you", "french", "basic words")
+    assert formatted_rows[2] == ("au revoir", "goodbye", "french", "basic words")

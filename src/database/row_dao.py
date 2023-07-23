@@ -41,7 +41,7 @@ class RowDAO:
             row_data_tuple = (row.foreign_word, row.translated_word,
                               row.language, row.word_list_name)
             row_list_for_executemany.append(row_data_tuple)
-
+        return row_list_for_executemany
 
 
 
