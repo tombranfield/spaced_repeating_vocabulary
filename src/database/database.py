@@ -123,9 +123,6 @@ class Database:
 
 
 if __name__ == "__main__":
-    # Quick tests here... don't forget to pytest.
-
-    """
     db = Database()
     print("Total words:", db.total_rows())
 
@@ -139,8 +136,5 @@ if __name__ == "__main__":
 
     db.insert_row(new_row)
 
-    print("Path:",db.path)
-    print("Table name:", db.table_name)
-    """
-    print("Class path:", Database.path)
-    print("Class table name:", Database.table_name)
+    print("Path:", Database.path)
+    print("Table name:", Database.table_name)
