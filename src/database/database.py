@@ -76,11 +76,9 @@ class Database:
         self.connect_and_execute(create_table_query)
         print("SQLite table", self._db_path, "created.")
 
-    # TODO a list flag would be useful
-    # be default, search the whole db
-    # but with a flag, searches with only that list
+   
     def total_rows(self):
-        """
+        """        
         Returns the total number of words in the entire database
         from all word lists.
         """

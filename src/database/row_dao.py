@@ -22,6 +22,34 @@ class RowDAO:
         """Initializes the row data access object"""
         self.db = Database(db_path)
 
+    def insert_row(self, row):
+        """Inserts an individual row into the database"""
+        insert_query = self._create_insert_query(row)
+        self.db.connect_and_execute(insert_query)
+
+    # TODO see line 377 onwards in original
+    def delete_row(self, foreign_word):
+        """
+        Deletes the row containing the supplied foreign word from the database.
+        """
+        pass
+
+    def delete_rows_of_word_list(self, word_list_name):
+        """Deletes all the rows associated with the supplied word list"""
+        pass
+
+
+    # TODO Might be nice to supply a word_list_name, so you can get
+    # the total number of words for that list
+    def total_rows(self):
+        """
+        Returns the total number of rows in the entire database from all word
+        lists.
+        """
+        total_rows_query = "SELECT COUNT(*) FROM " + Database.table_name
+        query_result = self.db.result_from_query(total_rows_query)
+        return int(query_result[0][0])
+
 
     def _create_insert_query(self, row):
         """
@@ -43,19 +71,7 @@ class RowDAO:
                      + "0,0,0,0)")
         return insert_query
 
-    def insert_row(self, row):
-        """Inserts an individual word into the database"""
-        insert_query = self._create_insert_query(row)
-        self.db.connect_and_execute(insert_query)
 
-    def total_rows(self):
-        """
-        Returns the total number of rows in the entire database from all word
-        lists.
-        """
-        total_rows_query = "SELECT COUNT(*) FROM " + Database.table_name
-        query_result = self.db.result_from_query(total_rows_query)
-        return int(query_result[0][0])
 
 
 if __name__ == "__main__":
