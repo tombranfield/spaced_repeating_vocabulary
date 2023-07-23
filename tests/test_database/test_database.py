@@ -18,12 +18,6 @@ def empty_db():
         db = Database(db_path)
         yield db
 
-@pytest.fixture
-def row_of_data():
-    row = Row("bullig", "cheap", "german", 
-              "Harry Potter und der Stein der Weisen")
-    return row
-
 
 def test_database_is_created(empty_db):
     num_rows_in_db = empty_db.total_rows()

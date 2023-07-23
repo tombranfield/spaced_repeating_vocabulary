@@ -11,13 +11,6 @@ from src.database.row_dao import RowDAO
 
 
 @pytest.fixture
-def row_of_data():
-    row = Row("bullig", "cheap", "german",
-              "Harry Potter und der Stein der Weisen")
-    return row
-
-
-@pytest.fixture
 def row_dao_empty_db():
     with TemporaryDirectory() as tmp_dir:
         db_name = "temp_testing_db.db"
