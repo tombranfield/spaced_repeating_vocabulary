@@ -48,11 +48,13 @@ class RowDAO:
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
 
+    def stuff(self):
+        print("waddup")
+
 
 if __name__ == "__main__":
 
     my_dao = RowDAO()
-    my_dao.stuff()
 
     foreign_word = "bullig"
     translated_word = "cheap"
@@ -62,3 +64,5 @@ if __name__ == "__main__":
     row = Row(foreign_word, translated_word, language, word_list_name)
 
     my_dao.insert_row(row)
+
+    my_dao.stuff()
