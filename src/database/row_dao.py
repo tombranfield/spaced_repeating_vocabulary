@@ -28,11 +28,10 @@ class RowDAO:
     def insert_rows(self, rows):
         """Inserts rows into the database"""
         formatted_rows = self._format_rows(rows)
-#        query = stuff
-        with self.db.cursor_operation as cursor:
+        # query = "
+        with self.db.cursor() as cursor:
             cursor.executemany(query, formatted_rows)
             
-
     def _format_rows(self, rows):
         """
         Converts a list or tuple of Rows into a list of tuples where each
@@ -80,7 +79,23 @@ class RowDAO:
         return int(query_result[0][0])
 
 
+
+
     def _create_insert_query(self, row):
+        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        insert_query = ("INSERT INTO " + Database.table_name +" VALUES( "
+                     + "\'" + row.word_list_name + "\', "
+                     + "'" + row.foreign_word + "\',"
+                     + "'" + row.translated_word + "\',"
+                     + "'" + row.language + "\',"
+                     + "0,"
+                     + "'" + current_datetime + "\',"
+                     + "'" + current_datetime + "\',"
+                     + "0,0,0,0)")
+        return insert_query
+
+
+    def old_create_insert_query(self, row):
         """
         Creates a query string that will be used to insert words into the
         database.
@@ -125,5 +140,3 @@ if __name__ == "__main__":
     row = Row(foreign_word, translated_word, language, word_list_name)
 
     my_dao.insert_row(row)
-
-    my_dao.stuff()

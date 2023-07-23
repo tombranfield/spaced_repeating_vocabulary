@@ -63,20 +63,20 @@ class Database:
     # Takes up too much room - flatten it
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
-        create_table_query = "CREATE TABLE IF NOT EXISTS " + self.table_name + """ (
-                                id INTEGER PRIMARY KEY,
-                                word_list_name TEXT NOT NULL, 
-                                foreign_word TEXT NOT NULL,
-                                translated_word TEXT NOT NULL,
-                                language TEXT NOT NULL,      
-                                level INTEGER NOT NULL,
-                                last_learnt_datetime DATETIME,
-                                when_review DATETIME, 
-                                num_correct INTEGER NOT NULL,
-                                num_incorrect INTEGER NOT NULL,
-                                is_known INTEGER NOT NULL,
-                                is_review INTEGER NOT NULL);"""
-        self.connect_and_execute(create_table_query)
+        query = "CREATE TABLE IF NOT EXISTS " + self.table_name + """ (
+                 rowid INTEGER PRIMARY KEY AUTOINCREMENT,
+                 word_list_name TEXT, 
+                 foreign_word TEXT,
+                 translated_word TEXT,
+                 language TEXT,      
+                 level INTEGER DEFAULT 0,
+                 last_learnt_datetime DATETIME,
+                 when_review DATETIME, 
+                 num_correct INTEGER DEFAULT 0,
+                 num_incorrect INTEGER DEFAULT 0,
+                 is_known INTEGER DEFAULT 0,
+                 is_review INTEGER DEFAULT 0);"""
+        self.connect_and_execute(query)
         print("SQLite table", self._db_path, "created.")
 
    
