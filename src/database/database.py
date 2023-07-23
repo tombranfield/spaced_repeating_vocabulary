@@ -57,9 +57,6 @@ class Database:
         connection.close()
         return record
 
-
-    # TODO have an internal create query method?
-    # Test that this works!
     # Takes up too much room - flatten it
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
@@ -92,49 +89,8 @@ class Database:
         return int(query_result[0][0])
 
 
-    def _create_insert_query(self, row):
-        """
-        Creates a query string that will be used to insert words into the
-        database.
-        """
-        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        insert_query = ("INSERT INTO " + self.table_name + " (list_name," 
-                     + "foreign_word, translated_word, language, level, "
-                     + "last_learnt_datetime, when_review, num_correct, "
-                     + "num_incorrect, is_known, is_review) VALUES( "
-                     + "\'" + row.word_list_name + "\', "
-                     + "'" + row.foreign_word + "\',"
-                     + "'" + row.translated_word + "\',"
-                     + "'" + row.language + "\',"
-                     + "0,"
-                     + "'" + current_datetime + "\',"
-                     + "'" + current_datetime + "\',"
-                     + "0,0,0,0)")
-        return insert_query
-
-        
-
-    # TODO Equivalent to insert_individual in old program
-    def insert_row(self, row):
-        """Inserts an individual word into the database"""
-        # OK how to insert into a database?
-        insert_query = self._create_insert_query(row)
-        self.connect_and_execute(insert_query)
-
-
 if __name__ == "__main__":
     db = Database()
-    print("Total words:", db.total_rows())
-
-    foreign_word = "bullig"
-    translated_word = "cheap"
-    foreign_language = "german"
-    word_list_name = "Harry Potter und der Stein der Weisen"
-
-    new_row = Row(foreign_word, translated_word, foreign_language,
-                  word_list_name)
-
-    db.insert_row(new_row)
 
     print("Path:", Database.path)
     print("Table name:", Database.table_name)
