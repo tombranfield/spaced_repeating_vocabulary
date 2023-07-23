@@ -38,6 +38,14 @@ def test_row_dao_insert_row(row_dao_empty_db, row_of_data):
     assert num_rows_before == 0 and num_rows_after == 1
 
 
+def test_insert_row_in_succession(row_dao_empty_db, rows_of_data):
+    num_rows_before = row_dao_empty_db.total_rows()
+    for row in rows_of_data:
+        row_dao_empty_db.insert_row(row)
+    num_rows_after = row_dao_empty_db.total_rows()
+    assert num_rows_before == 0 and num_rows_after == 3
+
+
 def test_row_dao_one_row_db(row_dao_one_row_db):
     num_rows = row_dao_one_row_db.total_rows()
     assert num_rows == 1
