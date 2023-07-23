@@ -51,6 +51,9 @@ class RowDAO:
     def stuff(self):
         print("waddup")
 
+    def total_rows(self):
+        return self.db.total_rows()
+
 
 if __name__ == "__main__":
 
