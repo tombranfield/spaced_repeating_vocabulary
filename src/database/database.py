@@ -25,13 +25,15 @@ class Database:
         self._db_path = db_path
         self._create_new_table()
 
+    @classmethod
     @property
-    def path(self):
-        return self._DB_PATH
+    def path(cls):
+        return cls._DB_PATH
 
+    @classmethod
     @property
-    def table_name(self):
-        return self._TABLE_NAME
+    def table_name(cls):
+        return cls._TABLE_NAME
 
     def connect_and_execute(self, query: str):
         """
@@ -123,6 +125,7 @@ class Database:
 if __name__ == "__main__":
     # Quick tests here... don't forget to pytest.
 
+    """
     db = Database()
     print("Total words:", db.total_rows())
 
@@ -138,3 +141,6 @@ if __name__ == "__main__":
 
     print("Path:",db.path)
     print("Table name:", db.table_name)
+    """
+    print("Class path:", Database.path)
+    print("Class table name:", Database.table_name)
