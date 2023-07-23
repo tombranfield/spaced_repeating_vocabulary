@@ -6,12 +6,10 @@ Data Access Object responsible for inserting into the database
 
 from datetime import datetime
 from pathlib import Path
-
 import sqlite3
 
-#from ..core.row import Row
-from spaced_repeating_vocabulary.core.row import Row
-
+from src.database.database import Database
+from src.core.row import Row
 
 
 class RowDAO:
