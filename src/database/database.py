@@ -62,7 +62,7 @@ class Database:
         """Creates a new database, if it doesn't already exist."""
         create_table_query = "CREATE TABLE IF NOT EXISTS " + self.table_name + """ (
                                 id INTEGER PRIMARY KEY,
-                                list_name TEXT NOT NULL, 
+                                word_list_name TEXT NOT NULL, 
                                 foreign_word TEXT NOT NULL,
                                 translated_word TEXT NOT NULL,
                                 language TEXT NOT NULL,      

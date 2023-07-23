@@ -1,8 +1,6 @@
 """
-insertion_dao.py
-
-Data Access Object responsible for operations associated with rows
-such as insertion or deletion.
+Responsible for database operations associated with rows such as insertion
+or deletion.
 """
 
 from datetime import datetime
@@ -38,7 +36,7 @@ class RowDAO:
     def delete_rows_of_word_list(self, word_list_name):
         """Deletes all the rows associated with the supplied word list"""
         query = ("DELETE FROM " + Database.table_name + " where "
-                 "word_list_name = \'" + foreign_word + "\'")
+                 "word_list_name = \'" + word_list_name + "\'")
         self.db.connect_and_execute(query)
 
 
@@ -64,7 +62,7 @@ class RowDAO:
         database.
         """
         current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        insert_query = ("INSERT INTO " + Database.table_name + " (list_name," 
+        insert_query = ("INSERT INTO " + Database.table_name + " (word_list_name," 
                      + "foreign_word, translated_word, language, level, "
                      + "last_learnt_datetime, when_review, num_correct, "
                      + "num_incorrect, is_known, is_review) VALUES( "
