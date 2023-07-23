@@ -74,9 +74,9 @@ class RowDAO:
 
     def is_word_already_there(self, foreign_word):
         """Looks in the database to see if the foreign word is already in it"""
-        query = "SELECT(EXISTS(SELECT foreign_word FROM " + Database.table_name
-              + " where foreign_word = '" + foreign_word + "\'))"
-        query_result = self.sb.result_from_query(query)
+        query = ("SELECT(EXISTS(SELECT foreign_word FROM " + Database.table_name
+              + " where foreign_word = '" + foreign_word + "\'))")
+        query_result = self.db.result_from_query(query)
         return query_result[0][0]
 
 
