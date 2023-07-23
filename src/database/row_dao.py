@@ -48,11 +48,14 @@ class RowDAO:
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
 
-    def stuff(self):
-        print("waddup")
-
     def total_rows(self):
-        return self.db.total_rows()
+        """
+        Returns the total number of rows in the entire database from all word
+        lists.
+        """
+        total_rows_query = "SELECT COUNT(*) FROM " + Database.table_name
+        query_result = self.db.result_from_query(total_rows_query)
+        return int(query_result[0][0])
 
 
 if __name__ == "__main__":
