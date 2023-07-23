@@ -6,8 +6,8 @@ from pathlib import Path
 import pytest
 from tempfile import TemporaryDirectory
 
-import src.database.database as database
-import src.core.row as row
+from src.database.database import Database
+from src.core.row import Row
 
 
 @pytest.fixture
@@ -15,14 +15,14 @@ def empty_db():
     with TemporaryDirectory() as db_dir:
         db_name = "temp_testing_db.db"
         db_path = str(Path(db_dir)) + db_name
-        db = database.Database(db_path)
+        db = Database(db_path)
         yield db
 
 @pytest.fixture
 def row_of_data():
-    new_row = row.Row("bullig", "cheap", "german", 
+    row = Row("bullig", "cheap", "german", 
               "Harry Potter und der Stein der Weisen")
-    return new_row
+    return row
 
 
 def test_database_is_created(empty_db):
