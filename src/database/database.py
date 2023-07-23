@@ -35,6 +35,17 @@ class Database:
     def table_name(cls):
         return cls._TABLE_NAME
 
+
+    @contextmanager
+    def db_cursor():
+        connection = sqlite3.connect(self._db_path)
+        cursor = connection.cursor()
+        yield cursor
+        connection.commit()
+        connection.close()
+
+
+    # Want to replace this with a context manager
     def connect_and_execute(self, query: str):
         """
         Connects to the database, executes the supplied query,

@@ -27,8 +27,11 @@ class RowDAO:
 
     def insert_rows(self, rows):
         """Inserts rows into the database"""
-        # Convert list or tuple of rows into a list of tuples
-        # Need this format to use executemany for sqlite3
+        formatted_rows = self._format_rows(rows)
+#        query = stuff
+        with self.db.cursor_operation as cursor:
+            cursor.executemany(query, formatted_rows)
+            
 
     def _format_rows(self, rows):
         """
