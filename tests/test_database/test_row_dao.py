@@ -51,3 +51,10 @@ def test_is_word_already_there(row_dao_one_row_db, row_of_data):
 def test_is_word_not_there(row_dao_one_row_db, row_of_data):
     foreign_word = "random nonsense string"
     assert row_dao_one_row_db.is_word_already_there(foreign_word) == False
+
+
+def test_delete_row(row_dao_one_row_db, row_of_data):
+    num_rows_before = row_dao_one_row_db.total_rows()
+    row_dao_one_row_db.delete_row(row_of_data.foreign_word)
+    num_rows_after = row_dao_one_row_db.total_rows()
+    assert num_rows_before == 1 and num_rows_after == 0
