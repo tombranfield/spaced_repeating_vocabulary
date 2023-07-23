@@ -35,38 +35,30 @@ class Database:
     def table_name(cls):
         return cls._TABLE_NAME
 
-
     @contextmanager
-    def db_cursor():
+    def db_cursor(self):
+        """Handles connecting and disconnecting from the db"""
         connection = sqlite3.connect(self._db_path)
         cursor = connection.cursor()
         yield cursor
         connection.commit()
         connection.close()
 
-
-    # Want to replace this with a context manager
     def connect_and_execute(self, query: str):
         """
         Connects to the database, executes the supplied query,
         then closes the connection.
         """
-        connection = sqlite3.connect(self._db_path)
-        cursor = connection.cursor()
-        cursor.execute(query)
-        connection.commit()
-        cursor.close()
-        connection.close()
+        with self.db_cursor() as cursor:
+            cursor.execute(query)
 
     def result_from_query(self, query: str):
         """Returns a tuple result after query to the database"""
-        connection = sqlite3.connect(self._db_path)
-        cursor = connection.cursor()
-        cursor.execute(query)
-        record = cursor.fetchall()
-        cursor.close()
-        connection.close()
+        with self.db_cursor() as cursor:
+            cursor.execute(query)
+            record = cursor.fetchall()
         return record
+
 
     # Takes up too much room - flatten it
     def _create_new_table(self):
