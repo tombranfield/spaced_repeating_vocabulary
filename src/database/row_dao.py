@@ -25,6 +25,27 @@ class RowDAO:
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
 
+    def insert_rows(self, rows):
+        """Inserts rows into the database"""
+        # Convert list or tuple of rows into a list of tuples
+        # Need this format to use executemany for sqlite3
+
+    def _format_rows(self, rows):
+        """
+        Converts a list or tuple of Rows into a list of tuples where each
+        tuple contains the data of the row. This is necessary in order to use
+        the executemany instruction in sqlite3.
+        """
+        row_list_for_executemany = []
+        for row in rows:
+            row_data_tuple = (row.foreign_word, row.translated_word,
+                              row.language, row.word_list_name)
+            row_list_for_executemany.append(row_data_tuple)
+
+
+
+
+
     def delete_row(self, foreign_word):
         """
         Deletes the row containing the supplied foreign word from the database.
@@ -75,6 +96,8 @@ class RowDAO:
                      + "'" + current_datetime + "\',"
                      + "0,0,0,0)")
         return insert_query
+
+
 
 
     def is_word_already_there(self, foreign_word):
