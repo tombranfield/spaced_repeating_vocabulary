@@ -2,12 +2,12 @@
 Testing database.py
 """
 
-import pytest
 from pathlib import Path
+import pytest
 from tempfile import TemporaryDirectory
 
-import database
-from row import Row
+import src.database.database as database
+import src.core.row as row
 
 
 @pytest.fixture
@@ -18,12 +18,11 @@ def empty_db():
         db = database.Database(db_path)
         yield db
 
-
 @pytest.fixture
 def row_of_data():
-    row = Row("bullig", "cheap", "german", 
+    new_row = row.Row("bullig", "cheap", "german", 
               "Harry Potter und der Stein der Weisen")
-    return row
+    return new_row
 
 
 def test_database_is_created(empty_db):
