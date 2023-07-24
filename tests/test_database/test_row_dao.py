@@ -11,7 +11,7 @@ from src.database.row_dao import RowDAO
 
 
 @pytest.fixture
-def row_dao_empty_db():
+def row_dao():
     with TemporaryDirectory() as tmp_dir:
         db_name = "temp_testing_db.db"
         db_path = str(Path(tmp_dir)) + db_name
@@ -20,29 +20,29 @@ def row_dao_empty_db():
 
 
 @pytest.fixture
-def row_dao_one_row_db(row_dao_empty_db, row_of_data):
-    row_dao_empty_db.insert_row(row_of_data)
-    yield row_dao_empty_db
+def row_dao_one_row_db(row_dao, row_of_data):
+    row_dao.insert_row(row_of_data)
+    yield row_dao
 
 
 
-def test_row_dao_creates_db(row_dao_empty_db):
-    num_rows = row_dao_empty_db.total_rows()
+def test_row_dao_creates_db(row_dao):
+    num_rows = row_dao.total_rows()
     assert num_rows == 0
 
 
-def test_row_dao_insert_row(row_dao_empty_db, row_of_data):
-    num_rows_before = row_dao_empty_db.total_rows()
-    row_dao_empty_db.insert_row(row_of_data)
-    num_rows_after = row_dao_empty_db.total_rows()
+def test_row_dao_insert_row(row_dao, row_of_data):
+    num_rows_before = row_dao.total_rows()
+    row_dao.insert_row(row_of_data)
+    num_rows_after = row_dao.total_rows()
     assert num_rows_before == 0 and num_rows_after == 1
 
 
-def test_insert_row_in_succession(row_dao_empty_db, rows_of_data):
-    num_rows_before = row_dao_empty_db.total_rows()
+def test_insert_row_in_succession(row_dao, rows_of_data):
+    num_rows_before = row_dao.total_rows()
     for row in rows_of_data:
-        row_dao_empty_db.insert_row(row)
-    num_rows_after = row_dao_empty_db.total_rows()
+        row_dao.insert_row(row)
+    num_rows_after = row_dao.total_rows()
     assert num_rows_before == 0 and num_rows_after == 3
 
 
@@ -77,14 +77,14 @@ def test_delete_rows_of_word_list(row_dao_one_row_db, row_of_data):
 
 
 @pytest.mark.skip(reason="need to write function")
-def test_insert_rows(row_dao_empty_db, rows_of_data):
-    num_rows_before = row_dao_empty_db.total_rows()
-    row_dao_empty_db.insert_rows(rows_of_data)
-    num_rows_after = row_dao_empty_db.total_rows()
+def test_insert_rows(row_dao, rows_of_data):
+    num_rows_before = row_dao.total_rows()
+    row_dao.insert_rows(rows_of_data)
+    num_rows_after = row_dao.total_rows()
 
 
-def test_format_rows(row_dao_empty_db, rows_of_data):
-    formatted_rows = row_dao_empty_db._format_rows(rows_of_data)
+def test_format_rows(row_dao, rows_of_data):
+    formatted_rows = row_dao._format_rows(rows_of_data)
     print(formatted_rows)
     assert isinstance(formatted_rows, list)
     assert len(formatted_rows) == 3

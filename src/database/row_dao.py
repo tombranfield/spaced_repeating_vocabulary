@@ -28,9 +28,7 @@ class RowDAO:
     def insert_rows(self, rows):
         """Inserts rows into the database"""
         formatted_rows = self._format_rows(rows)
-
-        # TODO write the query for insert rows
-        # query = "
+        query = _multiple_insert_query
         with self.db.cursor() as cursor:
             cursor.executemany(query, formatted_rows)
             
@@ -42,8 +40,8 @@ class RowDAO:
         """
         row_list_for_executemany = []
         for row in rows:
-            row_data_tuple = (row.foreign_word, row.translated_word,
-                              row.language, row.word_list_name)
+            row_data_tuple = (row.word_list_name, row.foreign_word, 
+                              row.translated_word, row.language)
             row_list_for_executemany.append(row_data_tuple)
         return row_list_for_executemany
 
@@ -83,6 +81,17 @@ class RowDAO:
 
 
 
+    def _multiple_insert_query(self, row):
+        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        insert_query = ("INSERT INTO " + Database.table_name + " ("
+                     + "word_list_name, foreign_word, translated_word, "
+                     + "language, last_learnt_datetime, when_review) "
+                     + "VALUES(?, ?, ?, ?,"
+                     + "'" + current_datetime + "\',"
+                     + "'" + current_datetime + "\')")
+        return insert_query
+
+
     def _create_insert_query(self, row):
         current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         insert_query = ("INSERT INTO " + Database.table_name + " ("
@@ -98,31 +107,7 @@ class RowDAO:
         return insert_query
 
 
-        
-
-    def old_create_insert_query(self, row):
-        """
-        Creates a query string that will be used to insert words into the
-        database.
-        """
-        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        insert_query = ("INSERT INTO " + Database.table_name + " (word_list_name," 
-                     + "foreign_word, translated_word, language, level, "
-                     + "last_learnt_datetime, when_review, num_correct, "
-                     + "num_incorrect, is_known, is_review) VALUES( "
-                     + "\'" + row.word_list_name + "\', "
-                     + "'" + row.foreign_word + "\',"
-                     + "'" + row.translated_word + "\',"
-                     + "'" + row.language + "\',"
-                     + "0,"
-                     + "'" + current_datetime + "\',"
-                     + "'" + current_datetime + "\',"
-                     + "0,0,0,0)")
-        return insert_query
-
-
-
-
+    # TODO add word_list_name to this already
     def is_word_already_there(self, foreign_word):
         """Looks in the database to see if the foreign word is already in it"""
         query = ("SELECT(EXISTS(SELECT foreign_word FROM " + Database.table_name
