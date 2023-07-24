@@ -24,14 +24,14 @@ class RowDAO:
         """Inserts an individual row into the database"""
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
-
+        
     def insert_rows(self, rows):
         """Inserts rows into the database"""
         formatted_rows = self._format_rows(rows)
-        query = _multiple_insert_query
-        with self.db.cursor() as cursor:
+        query = self._multiple_insert_query()
+        with self.db.db_cursor() as cursor:
             cursor.executemany(query, formatted_rows)
-            
+
     def _format_rows(self, rows):
         """
         Converts a list or tuple of Rows into a list of tuples where each
@@ -44,9 +44,6 @@ class RowDAO:
                               row.translated_word, row.language)
             row_list_for_executemany.append(row_data_tuple)
         return row_list_for_executemany
-
-
-
 
     def delete_row(self, foreign_word):
         """
@@ -81,7 +78,7 @@ class RowDAO:
 
 
 
-    def _multiple_insert_query(self, row):
+    def _multiple_insert_query(self):
         current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         insert_query = ("INSERT INTO " + Database.table_name + " ("
                      + "word_list_name, foreign_word, translated_word, "
@@ -127,12 +124,9 @@ if __name__ == "__main__":
     language = "german"
     word_list_name = "Harry Potter und der Stein"
 
-    row = Row(foreign_word, translated_word, language, word_list_name)
-
-    my_dao.insert_row(row)
-
+    row1 = Row(foreign_word, translated_word, language, word_list_name)
     row2 = Row("foreign", "trans", "lang", "list_name")
     row3 = Row("A", "B", "C", "D")
+    rows = (row1, row2, row3)
 
-    my_dao.insert_row(row2)
-    my_dao.insert_row(row3)
+    my_dao.insert_rows(rows)

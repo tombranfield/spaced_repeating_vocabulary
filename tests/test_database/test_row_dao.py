@@ -76,13 +76,6 @@ def test_delete_rows_of_word_list(row_dao_one_row_db, row_of_data):
     assert num_rows_before == 1 and num_rows_after == 0
 
 
-@pytest.mark.skip(reason="need to write function")
-def test_insert_rows(row_dao, rows_of_data):
-    num_rows_before = row_dao.total_rows()
-    row_dao.insert_rows(rows_of_data)
-    num_rows_after = row_dao.total_rows()
-
-
 def test_format_rows(row_dao, rows_of_data):
     formatted_rows = row_dao._format_rows(rows_of_data)
     print(formatted_rows)
@@ -91,3 +84,9 @@ def test_format_rows(row_dao, rows_of_data):
     assert formatted_rows[0] == ("basic words", "bonjour", "hello", "french")
     assert formatted_rows[1] == ("basic words", "merci", "thank you", "french")
     assert formatted_rows[2] == ("basic words", "au revoir", "goodbye", "french")
+
+
+def test_insert_rows(row_dao, rows_of_data):
+    num_rows_before = row_dao.total_rows()
+    row_dao.insert_rows(rows_of_data)
+    num_rows_after = row_dao.total_rows()
