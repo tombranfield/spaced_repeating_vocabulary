@@ -15,9 +15,11 @@ class FileReader:
         """Initializes a FileReader instance"""
         self.file_path = file_path
 
-    def insert_into_db(self, rows, language, word_list_name):
+    def insert_into_db(self, language, word_list_name):
         """Inserts the words from the file into the database"""
-        pass
+        row_dao = RowDAO()
+        rows = self._export_word_pairs_from_file()
+        row_dao.insert_rows(rows)
 
     def is_input_file_valid(self):
         """
@@ -26,11 +28,12 @@ class FileReader:
         """
         pass
 
-    def _export_word_pairs_from_file(self):
+    def _export_rows_from_file(self):
         """
         Converts the data in the file into a list of tuples containing
         pairs of foreign words with their respective translations.
         """
+        # Get the pairs of words
         word_pairs = []
         with open(self.file_path) as file_obj:
             for line in file_obj:
@@ -38,6 +41,7 @@ class FileReader:
                 line = line.strip().split(" ")
                 word_pairs.append((line[0], line[1])
         return word_pairs
+        # Then convert them to rows
 
 
 if __name__ == "__main__":
