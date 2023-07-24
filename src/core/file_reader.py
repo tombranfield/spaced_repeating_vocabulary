@@ -26,10 +26,18 @@ class FileReader:
         """
         pass
 
-    def _export_rows_from_file(self):
-        """Converts the data in the file into a list of Rows"""
-        pass
-        # return rows
+    def _export_word_pairs_from_file(self):
+        """
+        Converts the data in the file into a list of tuples containing
+        pairs of foreign words with their respective translations.
+        """
+        word_pairs = []
+        with open(self.file_path) as file_obj:
+            for line in file_obj:
+                # Tab-delimited
+                line = line.strip().split(" ")
+                word_pairs.append((line[0], line[1])
+        return word_pairs
 
 
 if __name__ == "__main__":
