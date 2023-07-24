@@ -19,6 +19,11 @@ class FileReader:
     def file_path(self):
         return self._file_path
 
+    @file_path.setter
+    def file_path(self, file_path: str):
+        # Do some validation of this in case bad input?
+        self._file_path = file_path
+
     def insert_into_database(self, language: str, word_list_name: str):
         """Inserts the words from the file into the database"""
         row_dao = RowDAO()
