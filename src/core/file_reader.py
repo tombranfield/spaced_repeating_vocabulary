@@ -5,15 +5,20 @@ file_reader.py
 from src.core.row import Row
 from src.database.row_dao import RowDAO
 
+# Make a constants file for the database location
+from src.database.database import Database
+
 
 class FileReader:
     """
     Responsible for reading and writing data containing vocabulary from a text
     file into the database.
     """
-    def __init__(self, file_path: str):
+    # Change db_path to use constant file
+    def __init__(self, file_path: str, db_path=Database.path):
         """Initializes a FileReader instance"""
         self._file_path = file_path
+        self._db_path = db_path
 
     @property
     def file_path(self):
@@ -26,7 +31,7 @@ class FileReader:
 
     def insert_into_database(self, language: str, word_list_name: str):
         """Inserts the words from the file into the database"""
-        row_dao = RowDAO()
+        row_dao = RowDAO(self._db_path)
         rows = self._export_rows_from_file(language, word_list_name)
         row_dao.insert_rows(rows)
 
@@ -58,7 +63,13 @@ if __name__ == "__main__":
 
     file_reader = FileReader(test_file_path)
 
-    file_reader.insert_into_database("german", "harry potter")
+    new_path = "hooray.txt"
+
+    file_reader.file_path = new_path
+
+    print(file_reader.file_path)
+
+#    file_reader.insert_into_database("german", "harry potter")
 
     print("'file_reader.py' done")
 
