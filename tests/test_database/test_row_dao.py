@@ -88,6 +88,6 @@ def test_format_rows(row_dao, rows_of_data):
     print(formatted_rows)
     assert isinstance(formatted_rows, list)
     assert len(formatted_rows) == 3
-    assert formatted_rows[0] == ("bonjour", "hello", "french", "basic words")
-    assert formatted_rows[1] == ("merci", "thank you", "french", "basic words")
-    assert formatted_rows[2] == ("au revoir", "goodbye", "french", "basic words")
+    assert formatted_rows[0] == ("basic words", "bonjour", "hello", "french")
+    assert formatted_rows[1] == ("basic words", "merci", "thank you", "french")
+    assert formatted_rows[2] == ("basic words", "au revoir", "goodbye", "french")
