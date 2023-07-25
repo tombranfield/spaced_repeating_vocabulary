@@ -9,19 +9,33 @@ class WordList:
     """
     A class that represents a word list.
     """
-    def __init__(self, word_list_name: str, language: str, wordpairs: WordPair = None):
+    def __init__(self, word_list_name: str, language: str, word_pairs: WordPair):
         """Initializes the word list"""
-        self._word_list_name = word_list_name
+        self._name = word_list_name
         self._language = language
-        self._wordpairs = wordpairs
+        self._word_pairs = word_pairs
 
     @property
-    def word_list_name(self):
-        return self._word_list_name
+    def name(self):
+        return self.__name
 
     @property
     def language(self):
         return self._language
+
+    @property
+    def word_pairs(self):
+        return self._word_pairs
+
+    def foreign_words(self):
+        foreign_words = []
+        for word_pair in self._word_pairs:
+            foreign_words.append(word_pair.foreign_word)
+        return foreign_words
+
+    def add_word_pair(self, word_pair: WordPair):
+        """Add a WordPair to the word list"""   
+        self._word_pairs.append(word_pair)
 
     def is_empty(self) -> bool:
         return False if self._wordpairs else True
@@ -32,8 +46,14 @@ class WordList:
 
 if __name__ == "__main__":
 
-    my_list = WordList("harry potter", "german")
+    wordpair_1 = WordPair("bullig", "cheap")
+    wordpair_2 = WordPair("danke", "thank you")
+    wordpairs = (wordpair_1, wordpair_2)
 
-    print(my_list.is_empty())
+    my_list = WordList("harry potter", "german", wordpairs)
+    
+    print(my_list._word_pairs)
+
+    print("Foreign words:", my_list.foreign_words())
 
     print("word_list.py done")

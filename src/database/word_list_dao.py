@@ -21,15 +21,27 @@ class WordListDAO:
 
     def insert_word_list(self, word_list: WordList):
         """Inserts a word list into the database"""     
-        pass
-
-        
+        # Check is a valid word list
+        # Check there are no duplicates in the database
+        # Create rows using the word_pairs of WordList, and the 
+        #   language and name of WordList
+        # Finally: use self._insert_rows(rows) to insert into the db
 
     def delete_word_list(self, word_list_name):
         """Deletes all the rows associated with the supplied word list"""
         query = ("DELETE FROM " + Database.table_name + " where "
                  "word_list_name = \'" + word_list_name + "\'")
         self.db.connect_and_execute(query)
+
+
+    def _create_rows(self, word_list: WordList):
+        """Returns a list of Rows from the supplied WordList instance"""
+        rows = []
+        language = word_list.language
+        word_list_name = word_list.name
+        # For wordpair in word_list.wordpairs:
+            row = Row(wordpair.foreign_word, wordpair.translated_word,
+                      language, word_list_name)
 
 
     def _insert_rows(self, rows: Row):
