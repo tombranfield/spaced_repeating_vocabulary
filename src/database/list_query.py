@@ -1,11 +1,11 @@
 """
-list_dao.py
+list_query.py
 """
 
 from src.database.database import Database
 
 
-class WordListDAO:
+class ListQuery:
     """
     Acts as an interface to the database for getting data about a
     given word list.
