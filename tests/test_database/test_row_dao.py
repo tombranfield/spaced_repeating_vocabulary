@@ -25,7 +25,6 @@ def row_dao_one_row_db(row_dao, row_of_data):
     yield row_dao
 
 
-
 def test_row_dao_creates_db(row_dao):
     num_rows = row_dao.total_rows()
     assert num_rows == 0
@@ -38,18 +37,33 @@ def test_row_dao_inserts_row_successfully(row_dao, row_of_data):
     assert num_rows_before == 0 and num_rows_after == 1
 
 
+def test_row_insert_row_inserts_correct_data(row_dao, row_of_data):
+    row_dao.insert_row(row_of_data)    
+    for_word = row_of_data.foreign_word
+    list_name = row_of_data.word_list_name
+
+    out_foreign_word = row_dao._column_value("foreign_word", for_word, list_name)
+    out_trans_word = row_dao._column_value("translated_word", for_word, list_name)
+    out_language = row_dao._column_value("language", for_word, list_name)
+    out_list_name = row_dao._column_value("word_list_name", for_word, list_name)
+
+    assert out_foreign_word == row_of_data.foreign_word
+    assert out_trans_word == row_of_data.translated_word
+    assert out_language == row_of_data.language
+    assert out_list_name == row_of_data.word_list_name
+
+
 def test_row_dao_correct_default_values_on_insertion(row_dao, row_of_data):
     row_dao.insert_row(row_of_data)
-    level = row_dao._column_value("level", row_of_data.foreign_word, 
-                                  row_of_data.word_list_name)
-    num_correct = row_dao._column_value("num_correct", row_of_data.foreign_word, 
-                                  row_of_data.word_list_name)
-    num_incorrect = row_dao._column_value("num_incorrect", row_of_data.foreign_word, 
-                                  row_of_data.word_list_name)
-    is_known = row_dao._column_value("is_known", row_of_data.foreign_word, 
-                                  row_of_data.word_list_name)
-    is_review = row_dao._column_value("is_review", row_of_data.foreign_word, 
-                                  row_of_data.word_list_name)
+    for_word = row_of_data.foreign_word
+    list_name = row_of_data.word_list_name
+
+    level = row_dao._column_value("level", for_word, list_name)
+    num_correct = row_dao._column_value("num_correct", for_word, list_name)
+    num_incorrect = row_dao._column_value("num_incorrect", for_word, list_name)
+    is_known = row_dao._column_value("is_known", for_word, list_name)
+    is_review = row_dao._column_value("is_review", for_word, list_name)
+ 
     assert (level == num_correct == num_incorrect == is_known
             == is_review == 0)
 

@@ -22,6 +22,3 @@ def empty_db():
 def test_database_is_created(empty_db):
     num_rows_in_db = empty_db.total_rows()
     assert num_rows_in_db == 0
-
-
-# Check existing database is not overwritten on creation
