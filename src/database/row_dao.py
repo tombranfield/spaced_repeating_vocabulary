@@ -7,6 +7,7 @@ from datetime import datetime
 
 from src.database.database import Database
 from src.core.row import Row
+from src.core.word_list import WordList
 
 
 class RowDAO:
@@ -22,8 +23,13 @@ class RowDAO:
         """Inserts an individual row into the database"""
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
+
+    def insert_word_list(self, word_list: WordList):
+        """Inserts a word list into the database"""     
+        pass
+
         
-    def insert_rows(self, rows):
+    def insert_rows(self, rows: Row):
         """Inserts rows into the database"""
         formatted_rows = self._format_rows(rows)
         query = self._multiple_insert_query()

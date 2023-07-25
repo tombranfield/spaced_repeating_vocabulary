@@ -2,7 +2,7 @@
 
 
 from dataclasses import dataclass
-from word_pair import WordPair
+from src.core.word_pair import WordPair
 
 
 class WordList:
