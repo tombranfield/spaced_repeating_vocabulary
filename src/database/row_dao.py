@@ -51,7 +51,7 @@ class RowDAO:
                  "foreign_word = \'" + foreign_word + "\'")
         self.db.connect_and_execute(query)
 
-    def delete_rows_of_word_list(self, word_list_name):
+    def delete_word_list(self, word_list_name):
         """Deletes all the rows associated with the supplied word list"""
         query = ("DELETE FROM " + Database.table_name + " where "
                  "word_list_name = \'" + word_list_name + "\'")
