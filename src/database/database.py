@@ -81,13 +81,15 @@ class Database:
         Returns the total number of words in the entire database
         from all word lists.
         """
-        total_rows_query = "SELECT COUNT(*) FROM " + self.table_name
-        query_result = self.result_from_query(total_rows_query)        
-        return int(query_result[0][0])
+        query = "SELECT COUNT(*) FROM " + self.table_name
+        result = self.result_from_query(query)        
+        return int(result[0][0])
 
-    def read_columns(self, *args):
-        """Reads the data from the supplied columns"""
-        # Basically a generic read method. Use with other dao
+    def read_cell(self, column_name: str, row_id: int):
+        """Reads the data from the cell in the supplied column and row"""
+        query = ("SELECT " + column_name + " FROM " + self.table_name
+                + " WHERE row_id == " + row_id)
+        result = self.result_from_query(query)
 
 
 if __name__ == "__main__":
