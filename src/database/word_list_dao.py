@@ -22,7 +22,11 @@ class WordListDAO:
         return names
 
     def language(word_list_name):
-        pass
+        """Returns the language of the given word list"""
+        query = ("SELECT DISTINCT language FROM " + Database.table_name
+                + " WHERE list_name = \'" + word_list_name + "\'" 
+        result = self.db.result_from_query(query)
+        return result[0][0]
 
     def num_words(word_list_name: str):
         pass

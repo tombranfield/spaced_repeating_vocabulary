@@ -17,7 +17,7 @@ class Database:
     words with their corresponding translations and other related 
     information.
     """
-    _DB_PATH = str(Path("wordlists.db"))
+    _DB_PATH = str(Path("allwords.db"))
     _TABLE_NAME = "MASTER_WORD_LIST"
         
     def __init__(self, db_path=_DB_PATH):
