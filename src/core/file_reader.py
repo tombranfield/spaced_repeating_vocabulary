@@ -3,10 +3,10 @@ file_reader.py
 """
 
 from src.core.row import Row
+from src.database.database import Database
 from src.database.row_dao import RowDAO
 
-# Make a constants file for the database location
-from src.database.database import Database
+from src.database.database import Database.path as db_path
 
 
 class FileReader:
