@@ -87,10 +87,12 @@ class Database:
         result = self.result_from_query(query)        
         return int(result[0][0])
 
-    def read_cell(self, column_name: str, row_id: int):
-        """Reads the data from the cell in the supplied column and row"""
-        query = ("SELECT " + column_name + " FROM " + self.table_name
-                + " WHERE rowid == " + str(row_id))
+    def read_cell(self, column_name, **kwargs):
+        """Gets the desired column of the row given the supplied conditions"""
+        query = "SELECT " + column_name + " FROM " + self.table_name + " WHERE "
+        for column_name, value in kwargs.items():
+            query += column_name + " == \'" + value + "\' AND "
+        query = query[:-5]
         result = self.result_from_query(query)
         return result[0][0]
 
@@ -98,5 +100,6 @@ class Database:
 if __name__ == "__main__":
     db = Database()
 
-    print("Path:", Database.path)
-    print("Table name:", Database.table_name)
+    my_dict = {"foreign_word": "bullig", "translated_word": "cheap"}
+
+    print(db.read_cell("rowid", **my_dict))
