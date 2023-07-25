@@ -59,8 +59,6 @@ class Database:
             record = cursor.fetchall()
         return record
 
-
-    # Takes up too much room - flatten it
     def _create_new_table(self):
         """Creates a new database, if it doesn't already exist."""
         query = "CREATE TABLE IF NOT EXISTS " + self.table_name + """ (
@@ -77,8 +75,6 @@ class Database:
                  is_known INTEGER DEFAULT 0,
                  is_review INTEGER DEFAULT 0);"""
         self.connect_and_execute(query)
-        print("SQLite table", self._db_path, "created.")
-
    
     def total_rows(self):
         """        
@@ -88,6 +84,10 @@ class Database:
         total_rows_query = "SELECT COUNT(*) FROM " + self.table_name
         query_result = self.result_from_query(total_rows_query)        
         return int(query_result[0][0])
+
+    def read_columns(self, *args):
+        """Reads the data from the supplied columns"""
+        # Basically a generic read method. Use with other dao
 
 
 if __name__ == "__main__":
