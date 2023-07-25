@@ -7,7 +7,7 @@ from dataclasses import dataclass
 @dataclass
 class WordPair:
     """
-    A dataclass that represents the pair of a foreign word with its translation
+    A dataclass consisting of a foreign word with its translation
     """
     foreign_word: str
     translated_word: str
