@@ -6,8 +6,6 @@ from src.core.row import Row
 from src.database.database import Database
 from src.database.row_dao import RowDAO
 
-from src.database.database import Database.path as db_path
-
 
 class FileReader:
     """
