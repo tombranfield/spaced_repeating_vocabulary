@@ -2,18 +2,24 @@
 list_dao.py
 """
 
+from src.database.database import Database
+
 
 class WordListDAO:
     """
     Acts as an interface to the database for getting data about a
     given word list.
     """
-    def __init__(self):
-        pass
+    def __init__(self, db_path=Database.path):
+        """Initializes the word list data access object"""
+        self.db = Database(db_path)
 
     def word_list_names(self):
         """Returns the names of all the word lists in the database"""
-        pass
+        query = "SELECT DISTINCT word_list_name FROM " + Database.table_name
+        result = self.db.result_from_query(query)
+        names = [entry[0] for entry in result]
+        return names
 
     def language(word_list_name):
         pass
@@ -26,3 +32,8 @@ class WordListDAO:
 
     def num_unknown_words(word_list_name: str):
         pass
+
+
+if __name__ == "__main__":
+
+    my_list_dao = WordListDAO()
