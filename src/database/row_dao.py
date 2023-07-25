@@ -102,7 +102,13 @@ class RowDAO:
         query_result = self.db.result_from_query(query)
         return query_result[0][0]
 
-
+    def get_id(self, foreign_word, word_list_name):
+        """Gets the rowid from the database for a given word in a list"""
+        query = ("SELECT rowid FROM " + Database.table_name + " WHERE"
+                + " foreign_word == \'" + foreign_word + "\' AND "
+                + " word_list_name == \'" + word_list_name + "\'")
+        query_result = self.db.result_from_query(query)
+        return query_result[0][0]
 
 
 if __name__ == "__main__":
@@ -121,5 +127,5 @@ if __name__ == "__main__":
 
     my_dao.insert_rows(rows)
 
-    print(my_dao.db.read_cell("language", 4))
-    print(my_dao.db.read_cell("level", 3))
+    print(my_dao.get_id("foreign", "list_name"))
+    print(my_dao.get_id(foreign_word, word_list_name))
