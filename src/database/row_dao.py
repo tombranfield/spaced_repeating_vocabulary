@@ -129,5 +129,5 @@ if __name__ == "__main__":
 
     my_dao.insert_row(row1)
     print(my_dao.is_word_already_there(foreign_word, word_list_name))
-    print(my_dao.is_word_already_there("randomwordstring", word_list_name))
+    print(my_dao.is_word_already_there("randomwordstring", "fartbook"))
 
