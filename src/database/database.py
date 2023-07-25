@@ -17,7 +17,8 @@ class Database:
     words with their corresponding translations and other related 
     information.
     """
-    _DB_PATH = str(Path("allwords.db"))
+    # Temporary path in same folder for informal testing
+    _DB_PATH = str(Path("zwordlist.db"))
     _TABLE_NAME = "MASTER_WORD_LIST"
         
     def __init__(self, db_path=_DB_PATH):
@@ -75,6 +76,7 @@ class Database:
                  is_known INTEGER DEFAULT 0,
                  is_review INTEGER DEFAULT 0);"""
         self.connect_and_execute(query)
+        print(f"Wrote {self.path}")
    
     def total_rows(self):
         """        
@@ -88,8 +90,9 @@ class Database:
     def read_cell(self, column_name: str, row_id: int):
         """Reads the data from the cell in the supplied column and row"""
         query = ("SELECT " + column_name + " FROM " + self.table_name
-                + " WHERE row_id == " + row_id)
+                + " WHERE rowid == " + str(row_id))
         result = self.result_from_query(query)
+        return result[0][0]
 
 
 if __name__ == "__main__":

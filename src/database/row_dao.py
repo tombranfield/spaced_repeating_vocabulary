@@ -57,13 +57,7 @@ class RowDAO:
                  "word_list_name = \'" + word_list_name + "\'")
         self.db.connect_and_execute(query)
 
-
-
-
-
-    # TODO Might be nice to supply a word_list_name, so you can get
-    # the total number of words for that list
-    # If not, may as well use the one in the database
+    # This might not be necessary, since have separate list_dao now
     def total_rows(self):
         """
         Returns the total number of rows in the entire database from all word
@@ -72,8 +66,6 @@ class RowDAO:
         total_rows_query = "SELECT COUNT(*) FROM " + Database.table_name
         query_result = self.db.result_from_query(total_rows_query)
         return int(query_result[0][0])
-
-
 
 
     def _multiple_insert_query(self):
@@ -102,7 +94,7 @@ class RowDAO:
         return insert_query
 
 
-    # TODO add word_list_name to this already
+    # Add a list as parameter so can have same word in different lists
     def is_word_already_there(self, foreign_word):
         """Looks in the database to see if the foreign word is already in it"""
         query = ("SELECT(EXISTS(SELECT foreign_word FROM " + Database.table_name
@@ -128,3 +120,6 @@ if __name__ == "__main__":
     rows = (row1, row2, row3)
 
     my_dao.insert_rows(rows)
+
+    print(my_dao.db.read_cell("language", 4))
+    print(my_dao.db.read_cell("level", 3))
