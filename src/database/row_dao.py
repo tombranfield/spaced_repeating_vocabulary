@@ -91,11 +91,11 @@ class RowDAO:
                      + "'" + current_datetime + "\')")
         return insert_query
 
-    # Add a list as parameter so can have same word in different lists
-    def is_word_already_there(self, foreign_word):
+    def is_word_already_there(self, foreign_word, word_list_name):
         """Looks in the database to see if the foreign word is already in it"""
         query = ("SELECT(EXISTS(SELECT foreign_word FROM " + Database.table_name
-              + " where foreign_word = '" + foreign_word + "\'))")
+              + " where foreign_word == \'" + foreign_word + "\' AND"
+              + " word_list_name == \'" + word_list_name + "\'))")
         query_result = self.db.result_from_query(query)
         return query_result[0][0]
 
@@ -119,10 +119,15 @@ if __name__ == "__main__":
     word_list_name = "Harry Potter und der Stein"
 
     row1 = Row(foreign_word, translated_word, language, word_list_name)
+    """
     row2 = Row("foreign", "trans", "lang", "list_name")
     row3 = Row("A", "B", "C", "D")
     rows = (row1, row2, row3)
-
+   
     my_dao.insert_rows(rows)
+    """
 
-    print(my_dao._column_value("translated_word", foreign_word, word_list_name))
+    my_dao.insert_row(row1)
+    print(my_dao.is_word_already_there(foreign_word, word_list_name))
+    print(my_dao.is_word_already_there("randomwordstring", word_list_name))
+
