@@ -67,18 +67,6 @@ class RowDAO:
         query_result = self.db.result_from_query(total_rows_query)
         return int(query_result[0][0])
 
-
-    def _multiple_insert_query(self):
-        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        insert_query = ("INSERT INTO " + Database.table_name + " ("
-                     + "word_list_name, foreign_word, translated_word, "
-                     + "language, last_learnt_datetime, when_review) "
-                     + "VALUES(?, ?, ?, ?,"
-                     + "'" + current_datetime + "\',"
-                     + "'" + current_datetime + "\')")
-        return insert_query
-
-
     def _create_insert_query(self, row):
         current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         insert_query = ("INSERT INTO " + Database.table_name + " ("
@@ -93,6 +81,15 @@ class RowDAO:
                      + "'" + current_datetime + "\')")
         return insert_query
 
+    def _multiple_insert_query(self):
+        current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        insert_query = ("INSERT INTO " + Database.table_name + " ("
+                     + "word_list_name, foreign_word, translated_word, "
+                     + "language, last_learnt_datetime, when_review) "
+                     + "VALUES(?, ?, ?, ?,"
+                     + "'" + current_datetime + "\',"
+                     + "'" + current_datetime + "\')")
+        return insert_query
 
     # Add a list as parameter so can have same word in different lists
     def is_word_already_there(self, foreign_word):
@@ -101,6 +98,15 @@ class RowDAO:
               + " where foreign_word = '" + foreign_word + "\'))")
         query_result = self.db.result_from_query(query)
         return query_result[0][0]
+
+    def _column_value(self, column_name, foreign_word, word_list_name):
+        """
+        Gets the supplied value in the given column for the supplied word 
+        in the word list
+        """
+        conditions = {"foreign_word": foreign_word, "word_list_name": word_list_name}
+        value = self.db.read_cell(column_name, **conditions)
+        return value
 
 
 if __name__ == "__main__":
@@ -119,5 +125,4 @@ if __name__ == "__main__":
 
     my_dao.insert_rows(rows)
 
-    print(my_dao.get_id("foreign", "list_name"))
-    print(my_dao.get_id(foreign_word, word_list_name))
+    print(my_dao._column_value("translated_word", foreign_word, word_list_name))
