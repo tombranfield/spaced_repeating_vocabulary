@@ -22,14 +22,15 @@ def word_list_dao():
 
 @pytest.fixture
 def word_list():
-    words = (WordPair("bullig", "cheap"), WordPair("danke", "thank you")
+    words = (WordPair("bullig", "cheap"), WordPair("danke", "thank you"))
     word_list = WordList("My Word List", "German", words)
     return word_list
 
 
-def test_word_list_creates_db(word_list_dao):
-    num_rows = word_list_dao.total_rows()
+def test_word_list_dao_creates_db(word_list_dao):
+    num_rows = word_list_dao.db.total_rows()
     assert num_rows == 0
+
 
 """
 def test_row_dao_inserts_rows_successfully(row_dao, row_of_data):

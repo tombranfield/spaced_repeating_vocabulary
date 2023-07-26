@@ -37,7 +37,7 @@ class WordListDAO:
         rows = []
         language = word_list.language
         word_list_name = word_list.name
-        For word_pair in word_list.word_pairs:
+        for word_pair in word_list.word_pairs:
             row = Row(word_pair.foreign_word, word_pair.translated_word,
                       language, word_list_name)
             rows.append(row)
