@@ -9,21 +9,22 @@ from tempfile import TemporaryDirectory
 from src.core.file_reader import FileReader
 
 
-# Need a valid file
-# Need an invalid file
-# Need a temporary db_location (add db location to FileReader!)
-# Need a FileReader fixture
+VALID_FILE_PATH = "valid_input.dat"
+INVALID_FILE_PATH = "invalid_input.dat"
+EMPTY_FILE_PATH = "empty_input.dat"
+
 
 @pytest.fixture
 def file_reader():
     with TemporaryDirectory() as tmp_dir:
         db_path = str(Path(tmp_dir)) + "temp_db.db"
-        file_reader = FileReader("input_file.txt", db_path)
+        file_reader = FileReader("", db_path)
         yield file_reader
 
 
-def test_file_data_added_to_database():
-    pass
+def test_file_data_successfully_added_to_database(file_reader):
+    file_reader.file_path = VALID_FILE_PATH
+    file_reader.insert_into_database("Harry Potter und der Stein der Weisen", "German")
 
 
 def test_valid_file_classified_as_valid():
@@ -36,13 +37,19 @@ def test_invalid_file_classified_as_invalid():
     pass
 
 
-def test_file_path_successfully_read(file_reader):
-    assert file_reader.file_path == "input_file.txt"
+def test_file_path_successfully_inserted(file_reader):
+    file_reader.file_path = VALID_FILE_PATH
+    assert file_reader.file_path == "valid_input.dat"
 
 
-def test_file_path_successfully_changed():
+def test_raise_exception_for_missing_file(file_reader):
+    file_path = "nonsense_non-existent_file.txt"
+    pass
+
+def test_raise_exception_if_no_filepath_specified(file_reader):
     pass
 
 
-
+def test_check_empty_file_is_recognized_as_empty(file_reader):
+    pass
 

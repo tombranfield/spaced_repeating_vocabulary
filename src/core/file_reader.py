@@ -13,7 +13,7 @@ class FileReader:
     Responsible for reading and writing data containing vocabulary from a text
     file into the database.
     """
-    def __init__(self, file_path: str, db_path=Database.path):
+    def __init__(self, file_path: str="", db_path=Database.path):
         """Initializes a FileReader instance"""
         self._file_path = file_path
         self._db_path = db_path
