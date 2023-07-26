@@ -53,29 +53,23 @@ def test_delete_word_list_successfully(word_list_dao, word_list):
     assert num_rows == 0
 
 
-"""
-def test_row_dao_inserts_rows_successfully(row_dao, row_of_data):
-    pass
-
-def test_row_insert_row_inserts_correct_data(row_dao, row_of_data):
-    pass
-
-def test_row_dao_correct_default_values_on_insertion(row_dao, row_of_data):
+def test_insert_word_list_inserts_correct_data(word_list_dao, word_list):
     pass
 
 
-def test_inserts_multiple_row_in_succession(row_dao, rows_of_data):
+
+def test_inserting_word_list_has_correct_default_values(word_list_dao, word_list):
     pass
 
-def test_row_dao_one_row_db(row_dao_one_row_db):
+
+def test_inserts_multiple_word_lists_in_succession(word_list_dao, word_list):
     pass
 
-def test_is_word_already_there(row_dao_one_row_db, row_of_data):
+
+def test_is_word_already_there_in_database(word_list_dao, word_list):
     pass
 
-def test_is_word_not_there(row_dao_one_row_db, row_of_data):
-    pass
 
-def test_delete_word_list(row_dao_one_row_db, row_of_data):
+
+def test_word_correctly_identified_as_not_in_db(word_list_dao, row_of_data):
     pass
-"""
