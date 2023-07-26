@@ -24,11 +24,6 @@ class RowDAO:
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
 
-    def insert_word_list(self, word_list: WordList):
-        """Inserts a word list into the database"""     
-        pass
-
-        
     def insert_rows(self, rows: Row):
         """Inserts rows into the database"""
         formatted_rows = self._format_rows(rows)
@@ -55,12 +50,6 @@ class RowDAO:
         """
         query = ("DELETE FROM " + Database.table_name + " where "
                  "foreign_word = \'" + foreign_word + "\'")
-        self.db.connect_and_execute(query)
-
-    def delete_word_list(self, word_list_name):
-        """Deletes all the rows associated with the supplied word list"""
-        query = ("DELETE FROM " + Database.table_name + " where "
-                 "word_list_name = \'" + word_list_name + "\'")
         self.db.connect_and_execute(query)
 
     # This might not be necessary, since have separate list_dao now

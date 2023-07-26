@@ -43,8 +43,8 @@ def test_word_list_dao_creates_db(word_list_dao):
 def test_insert_word_list_successfully(word_list_dao, word_list):
     word_list_dao.insert_word_list(word_list)
     num_rows = word_list_dao.db.total_rows()
-    assert num_rows == 2
-# TODO magic number: get word_list_num
+    assert num_rows == word_list.num_words()
+
 
 def test_delete_word_list_successfully(word_list_dao, word_list):
     word_list_dao.insert_word_list(word_list)
