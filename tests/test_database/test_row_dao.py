@@ -84,19 +84,19 @@ def test_row_dao_one_row_db(row_dao_one_row_db):
 def test_is_word_already_there(row_dao_one_row_db, row_of_data):
     foreign_word = row_of_data.foreign_word
     word_list_name = row_of_data.word_list_name
-    assert row_dao_one_row_db.is_word_already_there(foreign_word, word_list_name) == True
+    assert row_dao_one_row_db._is_word_already_there(foreign_word, word_list_name) == True
 
 
 def test_is_word_not_there(row_dao_one_row_db, row_of_data):
     foreign_word = "random nonsense string"
     word_list_name = "randomstuffandnonsense"
-    assert row_dao_one_row_db.is_word_already_there(foreign_word, word_list_name) == False
+    assert row_dao_one_row_db._is_word_already_there(foreign_word, word_list_name) == False
 
 
 def test_word_is_there_but_in_different_list(row_dao_one_row_db, row_of_data):
     foreign_word = row_of_data.foreign_word
     other_list = "Other List Name Completely Different"
-    assert row_dao_one_row_db.is_word_already_there(foreign_word, other_list) == False
+    assert row_dao_one_row_db._is_word_already_there(foreign_word, other_list) == False
 
 
 # TODO How do you know to use row_of_data on one_row_db
