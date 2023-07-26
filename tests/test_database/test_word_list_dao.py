@@ -83,7 +83,18 @@ def test_insert_word_list_inserts_correct_data(word_list_dao, word_list, word_pa
 
 
 def test_inserting_word_list_has_correct_default_values(word_list_dao, word_list):
-    pass
+    word_list_dao.insert_word_list(word_list)
+    
+    f_word = word_list.foreign_words()[0]
+    list_name = word_list.name
+    level = word_list_dao._column_value("level", f_word, list_name)
+    num_correct = word_list_dao._column_value("num_correct", f_word, list_name)
+    num_incorrect = word_list_dao._column_value("num_incorrect", f_word, list_name)
+    is_known = word_list_dao._column_value("is_known", f_word, list_name)
+    is_review = word_list_dao._column_value("is_review", f_word, list_name)
+    
+    assert (level == num_correct == num_incorrect == is_known
+            == is_review == 0)
 
 
 def test_inserts_multiple_word_lists_in_succession(word_list_dao, word_list):
@@ -95,6 +106,10 @@ def test_know_that_word_already_in_db(word_list_dao, word_list):
 
 
 def test_word_correctly_identified_as_not_in_db(word_list_dao, row_of_data):
+    pass
+
+
+def test_inserting_word_already_in_db_fails(word_list_dao, row_of_data):
     pass
 
 
