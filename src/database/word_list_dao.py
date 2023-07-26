@@ -6,6 +6,7 @@ or deletion.
 from datetime import datetime
 
 from src.database.database import Database
+from src.database.exception import EmptyWordListException
 from src.core.row import Row
 from src.core.word_list import WordList
 
@@ -21,7 +22,8 @@ class WordListDAO:
 
     def insert_word_list(self, word_list: WordList):
         """Inserts a word list into the database"""     
-        # Check is a valid word list
+        if word_list.is_empty():
+            raise EmptyWordListException
         # Check there are no duplicates in the database
         rows = self._create_rows(word_list)
         self._insert_rows(rows)

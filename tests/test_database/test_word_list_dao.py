@@ -75,6 +75,6 @@ def test_word_correctly_identified_as_not_in_db(word_list_dao, row_of_data):
 
 
 def test_inserting_an_empty_word_list_fails(word_list_dao):
-    empty_word_list = ("My Empty List", "German")
+    empty_word_list = WordList("My Empty List", "German")
     with pytest.raises(EmptyWordListException):
         word_list_dao.insert_word_list(empty_word_list)        
