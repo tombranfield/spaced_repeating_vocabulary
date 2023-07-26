@@ -44,12 +44,13 @@ class RowDAO:
             row_list_for_executemany.append(row_data_tuple)
         return row_list_for_executemany
 
-    def delete_row(self, foreign_word):
+    def delete_row(self, foreign_word, word_list_name):
         """
         Deletes the row containing the supplied foreign word from the database.
         """
         query = ("DELETE FROM " + Database.table_name + " where "
-                 "foreign_word = \'" + foreign_word + "\'")
+                 + "foreign_word = \'" + foreign_word + "\' AND "
+                 + "word_list_name = \'" + word_list_name + "\'")
         self.db.connect_and_execute(query)
 
     # This might not be necessary, since have separate list_dao now
@@ -123,6 +124,4 @@ if __name__ == "__main__":
     """
 
     my_dao.insert_row(row1)
-    print(my_dao.is_word_already_there(foreign_word, word_list_name))
-    print(my_dao.is_word_already_there("randomwordstring", "fartbook"))
-
+    print(my_dao.total_rows())
