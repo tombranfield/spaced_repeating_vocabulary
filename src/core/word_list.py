@@ -9,7 +9,7 @@ class WordList:
     """
     A class that represents a word list.
     """
-    def __init__(self, word_list_name: str, language: str, word_pairs: WordPair):
+    def __init__(self, word_list_name: str, language: str, word_pairs: WordPair =()):
         """Initializes the word list"""
         self._name = word_list_name
         self._language = language
@@ -17,7 +17,7 @@ class WordList:
 
     @property
     def name(self):
-        return self.__name
+        return self._name
 
     @property
     def language(self):
@@ -38,7 +38,7 @@ class WordList:
         self._word_pairs.append(word_pair)
 
     def is_empty(self) -> bool:
-        return False if self._wordpairs else True
+        return False if self._word_pairs else True
         
     
 
