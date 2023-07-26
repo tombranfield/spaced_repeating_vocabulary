@@ -47,3 +47,13 @@ def test_is_empty_returns_false_for_word_list_with_entries(word_list):
 
 def test_export_word_pairs_of_empty_list_gives_empty_tuple(empty_word_list):
     assert empty_word_list.word_pairs == ()
+
+
+def test_foreign_words_are_successfully_exported(word_list):
+    print(word_list.foreign_words())
+    assert word_list.foreign_words() == ("bullig", "danke", "hallo")
+
+def test_can_add_word_pair(empty_word_list):
+    word_pair = WordPair("danke", "thank you")
+    empty_word_list.add_word_pair(word_pair)
+    assert empty_word_list.word_pairs == (word_pair,)

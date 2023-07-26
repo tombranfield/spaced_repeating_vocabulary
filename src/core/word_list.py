@@ -28,14 +28,14 @@ class WordList:
         return self._word_pairs
 
     def foreign_words(self):
-        foreign_words = []
+        foreign_words = ()
         for word_pair in self._word_pairs:
-            foreign_words.append(word_pair.foreign_word)
+            foreign_words += (word_pair.foreign_word,)
         return foreign_words
 
     def add_word_pair(self, word_pair: WordPair):
         """Add a WordPair to the word list"""   
-        self._word_pairs.append(word_pair)
+        self._word_pairs += (word_pair,)
 
     def is_empty(self) -> bool:
         return False if self._word_pairs else True
