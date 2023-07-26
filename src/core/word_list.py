@@ -14,6 +14,7 @@ class WordList:
         self._name = word_list_name
         self._language = language
         self._word_pairs = word_pairs
+        self._verify_name_and_language()
 
     @property
     def name(self):
@@ -43,8 +44,10 @@ class WordList:
     def is_empty(self) -> bool:
         return False if self._word_pairs else True
         
-    
-
+    def _verify_name_and_language(self) -> bool:
+        """Returns whether a word list has a name and language"""    
+        if not self._name or not self._language:
+            raise ValueError("Need to supply a name and language for the word list")
 
 
 if __name__ == "__main__":
@@ -57,6 +60,7 @@ if __name__ == "__main__":
     
     print(my_list._word_pairs)
 
-    print("Foreign words:", my_list.foreign_words())
+    broken_list = WordList("", 'german', wordpairs)
+
 
     print("word_list.py done")
