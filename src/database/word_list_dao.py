@@ -43,14 +43,12 @@ class WordListDAO:
             rows.append(row)
         return rows
 
-
     def _insert_rows(self, rows: Row):
         """Inserts rows into the database"""
         formatted_rows = self._format_rows(rows)
         query = self._multiple_insert_query()
         with self.db.db_cursor() as cursor:
             cursor.executemany(query, formatted_rows)
-
 
     def _format_rows(self, rows):
         """
@@ -65,7 +63,6 @@ class WordListDAO:
             row_list_for_executemany.append(row_data_tuple)
         return row_list_for_executemany
 
-
     def _multiple_insert_query(self):
         current_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         insert_query = ("INSERT INTO " + Database.table_name + " ("
@@ -76,7 +73,7 @@ class WordListDAO:
                      + "'" + current_datetime + "\')")
         return insert_query
 
-    def is_word_already_there(self, foreign_word, word_list_name):
+    def _is_word_already_there(self, foreign_word, word_list_name):
         """Looks in the database to see if the foreign word is already in it"""
         query = ("SELECT(EXISTS(SELECT foreign_word FROM " + Database.table_name
               + " where foreign_word == \'" + foreign_word + "\' AND"

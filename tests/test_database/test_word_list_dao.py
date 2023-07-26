@@ -53,6 +53,9 @@ def test_delete_word_list_successfully(word_list_dao, word_list):
     assert num_rows == 0
 
 
+# test is word already there
+
+
 """
 def test_row_dao_inserts_rows_successfully(row_dao, row_of_data):
     pass
