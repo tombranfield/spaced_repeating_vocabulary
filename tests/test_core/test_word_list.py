@@ -33,7 +33,7 @@ def test_get_language_of_list(word_list):
     assert word_list.language == "German"
 
 
-def test_export_word_pairs_successfulyy(word_list, word_pairs):
+def test_export_word_pairs_successfully(word_list, word_pairs):
     assert word_list.word_pairs == word_pairs
 
 
@@ -41,7 +41,7 @@ def test_is_empty_returns_true_for_empty_list(empty_word_list):
     assert empty_word_list.is_empty() == True
 
 
-def test_is_empty_returns_false_for_word_list_with_entries(word_list):
+def test_is_empty_returns_false_for_non_empty_word_list(word_list):
     assert word_list.is_empty() == False
 
 
@@ -60,7 +60,7 @@ def test_can_add_word_pair(empty_word_list):
     assert empty_word_list.word_pairs == (word_pair,)
 
 
-def test_0_is_number_of_word_in_empty_list(empty_word_list):
+def test_number_of_words_in_empty_list_is_zero(empty_word_list):
     assert empty_word_list.num_words() == 0
 
 
@@ -76,3 +76,5 @@ def test_cannot_make_word_list_with_no_name():
 def test_cannot_make_word_list_with_no_language():
     with pytest.raises(ValueError):
         no_lang_list = WordList("My Word List", "")
+
+
