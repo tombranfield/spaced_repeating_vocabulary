@@ -8,6 +8,7 @@ from tempfile import TemporaryDirectory
 
 from src.core.word_list import WordList
 from src.core.word_pair import WordPair
+from src.database.exception import DuplicateEntryException
 from src.database.exception import EmptyWordListException
 from src.database.word_list_dao import WordListDAO
 
@@ -112,8 +113,11 @@ def test_word_correctly_identified_as_not_in_db(word_list_dao, word_list):
     assert is_word_there == False
 
 
-def test_inserting_word_already_in_db_fails(word_list_dao, row_of_data):
-    pass
+def test_inserting_word_already_in_db_fails(word_list_dao, word_list):
+    word_list_dao.insert_word_list(word_list)
+    with pytest.raises(DuplicateEntryException):
+        word_list_dao.insert_word_list(word_list)
+
 
 
 def test_inserting_an_empty_word_list_fails(word_list_dao, empty_word_list):

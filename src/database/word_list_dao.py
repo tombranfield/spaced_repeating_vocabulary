@@ -6,6 +6,7 @@ or deletion.
 from datetime import datetime
 
 from src.database.database import Database
+from src.database.exception import DuplicateEntryException
 from src.database.exception import EmptyWordListException
 from src.core.row import Row
 from src.core.word_list import WordList
@@ -25,6 +26,11 @@ class WordListDAO:
         if word_list.is_empty():
             raise EmptyWordListException
         # Check there are no duplicates in the database
+        # Cycle through the word_list before doing any insertion
+        for word_pair in word_list.word_pairs:
+            foreign_word = word_pair.foreign_word
+            if self._is_word_already_there(foreign_word, word_list.name):
+                raise DuplicateEntryException
         rows = self._create_rows(word_list)
         self._insert_rows(rows)
 
