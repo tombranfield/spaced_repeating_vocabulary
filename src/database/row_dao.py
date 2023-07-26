@@ -6,6 +6,7 @@ or deletion.
 from datetime import datetime
 
 from src.database.database import Database
+from src.database.exception import DuplicateEntryException
 from src.core.row import Row
 from src.core.word_list import WordList
 
