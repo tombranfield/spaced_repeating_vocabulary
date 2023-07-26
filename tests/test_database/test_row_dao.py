@@ -93,12 +93,33 @@ def test_is_word_not_there(row_dao_one_row_db, row_of_data):
     assert row_dao_one_row_db.is_word_already_there(foreign_word, word_list_name) == False
 
 
+def test_word_is_there_but_in_different_list(row_dao_one_row_db, row_of_data):
+    foreign_word = row_of_data.foreign_word
+    other_list = "Other List Name Completely Different"
+    assert row_dao_one_row_db.is_word_already_there(foreign_word, other_list) == False
+
+
+# TODO How do you know to use row_of_data on one_row_db
 def test_delete_row(row_dao_one_row_db, row_of_data):
     num_rows_before = row_dao_one_row_db.total_rows()
     row_dao_one_row_db.delete_row(row_of_data.foreign_word,
                                   row_of_data.word_list_name)
     num_rows_after = row_dao_one_row_db.total_rows()
     assert num_rows_before == 1 and num_rows_after == 0
+
+
+def test_delete_row_when_list_doesnt_exist(row_dao_one_row_db, row_of_data):
+    row_dao_one_row_db.delete_row(row_of_data.foreign_word,
+                                     "non-existent list") 
+    assert row_dao_one_row_db.total_rows() == 1
+
+
+def test_delete_row_when_word_doesnt_exist(row_dao_one_row_db, row_of_data):
+    row_dao_one_row_db.delete_row("non-existent word", 
+                                   row_of_data.word_list_name) 
+    assert row_dao_one_row_db.total_rows() == 1
+
+
 
 
 def test_format_rows(row_dao, rows_of_data):
