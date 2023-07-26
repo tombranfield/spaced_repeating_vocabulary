@@ -33,6 +33,9 @@ class WordList:
             foreign_words += (word_pair.foreign_word,)
         return foreign_words
 
+    def num_words(self) -> int:
+        return len(self._word_pairs)
+
     def add_word_pair(self, word_pair: WordPair):
         """Add a WordPair to the word list"""   
         self._word_pairs += (word_pair,)

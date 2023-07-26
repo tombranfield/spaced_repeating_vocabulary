@@ -57,3 +57,9 @@ def test_can_add_word_pair(empty_word_list):
     word_pair = WordPair("danke", "thank you")
     empty_word_list.add_word_pair(word_pair)
     assert empty_word_list.word_pairs == (word_pair,)
+
+def test_0_is_number_of_word_in_empty_list(empty_word_list):
+    assert empty_word_list.num_words() == 0
+
+def test_correct_number_of_held_words_is_returned(word_list):
+    assert word_list.num_words() == 3

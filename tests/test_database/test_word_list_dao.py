@@ -21,13 +21,34 @@ def word_list_dao():
 
 
 @pytest.fixture
-def word_list():
-    words = (WordPair("bullig", "cheap"), WordPair("danke", "thank you"))
-    word_list = WordList("My Word List", "German", words)
+def word_pairs():
+    word_pairs = (
+        WordPair("bullig", "cheap"),
+        WordPair("danke", "thank you")
+    )
+    return word_pairs
+
+
+@pytest.fixture
+def word_list(word_pairs):
+    word_list = WordList("My Word List", "German", word_pairs)
     return word_list
 
 
 def test_word_list_dao_creates_db(word_list_dao):
+    num_rows = word_list_dao.db.total_rows()
+    assert num_rows == 0
+
+
+def test_insert_word_list_successfully(word_list_dao, word_list):
+    word_list_dao.insert_word_list(word_list)
+    num_rows = word_list_dao.db.total_rows()
+    assert num_rows == 2
+# TODO magic number: get word_list_num
+
+def test_delete_word_list_successfully(word_list_dao, word_list):
+    word_list_dao.insert_word_list(word_list)
+    word_list_dao.delete_word_list(word_list.name)
     num_rows = word_list_dao.db.total_rows()
     assert num_rows == 0
 
