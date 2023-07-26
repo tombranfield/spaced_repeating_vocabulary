@@ -97,16 +97,19 @@ def test_inserting_word_list_has_correct_default_values(word_list_dao, word_list
             == is_review == 0)
 
 
-def test_inserts_multiple_word_lists_in_succession(word_list_dao, word_list):
-    pass
-
-
 def test_know_that_word_already_in_db(word_list_dao, word_list):
     pass
+    word_list_dao.insert_word_list(word_list)
+    search_word = word_list.foreign_words()[0]
+    is_word_there = word_list_dao._is_word_already_there(search_word, word_list.name)
+    assert is_word_there == True
 
 
-def test_word_correctly_identified_as_not_in_db(word_list_dao, row_of_data):
-    pass
+def test_word_correctly_identified_as_not_in_db(word_list_dao, word_list):
+    word_list_dao.insert_word_list(word_list)
+    search_word = "Random Nonsense String"
+    is_word_there = word_list_dao._is_word_already_there(search_word, word_list.name)
+    assert is_word_there == False
 
 
 def test_inserting_word_already_in_db_fails(word_list_dao, row_of_data):
