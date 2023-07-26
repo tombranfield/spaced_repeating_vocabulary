@@ -44,7 +44,7 @@ class WordList:
     def is_empty(self) -> bool:
         return False if self._word_pairs else True
         
-    def _verify_has_name_and_language(self) -> bool:
+    def _verify_has_name_and_language(self):
         """Returns whether a word list has a name and language"""    
         if not self._name or not self._language:
             raise ValueError("Need to supply a name and language for the word list")
