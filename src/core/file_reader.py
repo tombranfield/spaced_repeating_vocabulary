@@ -37,9 +37,12 @@ class FileReader:
         row_dao.insert_rows(rows)
     """
 
-    def insert_into_database(self, word_list: WordList):
+    def insert_into_database(self, word_list_name, language):
         """Inserts the word from the file into the database"""
         word_pairs = self._export_word_pairs_from_file()
+        word_list = WordList(word_list_name, language, word_pairs)
+        word_list_dao = WordListDAO(self._db_path)
+        word_list_dao.insert_word_list(word_list)
 
 
     def _export_word_pairs_from_file(self):
