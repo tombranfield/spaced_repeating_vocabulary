@@ -7,6 +7,7 @@ import pytest
 from tempfile import TemporaryDirectory
 
 from src.core.row import Row
+from src.database.exception import DuplicateEntryException
 from src.database.row_dao import RowDAO
 
 
@@ -138,5 +139,7 @@ def test_insert_rows(row_dao, rows_of_data):
     num_rows_after = row_dao.total_rows()
 
 
-def test_cannot_insert_duplicate_data(row_dao, row_of_data):
+def test_exception_called_when_inserting_duplicate_data(row_dao, row_of_data):
     row_dao.insert_row(row_of_data)
+    with pytest.raises(DuplicateEntryException):
+        row_dao.insert_row(row_of_data)
