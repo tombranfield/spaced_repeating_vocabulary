@@ -7,6 +7,7 @@ import pytest
 from tempfile import TemporaryDirectory
 
 from src.core.file_reader import FileReader
+from src.database.exception import EmptyWordListException
 
 
 THIS_DIR = Path(__file__).parent
@@ -56,6 +57,6 @@ def test_raise_exception_if_no_filepath_specified(file_reader):
 def test_check_empty_file_is_recognized_as_empty(file_reader):
     empty_file_path = EMPTY_FILE_PATH
     file_reader.file_path = empty_file_path
-    with pytest.raises(Exception):
+    with pytest.raises(EmptyWordListException):
         file_reader.insert_into_database("My Word List", "German")    
 
