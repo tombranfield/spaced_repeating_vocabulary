@@ -44,8 +44,15 @@ class FileReader:
         else:
             for line in file_obj:
                 line = line.strip().split("\t")
-                word_pair = WordPair(line[0].strip(), line[1])
-                word_pairs += (word_pair,)
+                try:
+                    word_pair = WordPair(str(line[0].strip()), str(line[1]))
+                except IndexError:
+                    raise IndexError("Two tab-delimited columns required")
+                else:
+                    if len(line) > 2:
+                        raise ValueError("Incorrect file format")
+                    else:
+                        word_pairs += (word_pair,)
             return word_pairs
 
 

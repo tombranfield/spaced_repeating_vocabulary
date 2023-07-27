@@ -29,13 +29,13 @@ def test_file_data_successfully_added_to_database(file_reader):
     file_reader.insert_into_database("Harry Potter und der Stein der Weisen", "German")
 
 
-def test_valid_file_classified_as_valid():
-    # return True
-    pass
+def test_invalid_file_with_missing_value_raises_an_exception(file_reader):
+    file_reader.file_path = INVALID_FILE_PATH
+    with pytest.raises(IndexError):
+        file_reader.insert_into_database("My Word List", "German")
 
 
-def test_invalid_file_classified_as_invalid():
-    # return True
+def test_invalid_file_with_third_column_raises_exception(file_reader):
     pass
 
 
@@ -51,7 +51,8 @@ def test_raise_exception_for_missing_file(file_reader):
 
 
 def test_raise_exception_if_no_filepath_specified(file_reader):
-    pass
+    with pytest.raises(FileNotFoundError):
+        file_reader.insert_into_database("My Word List", "German")
 
 
 def test_check_empty_file_is_recognized_as_empty(file_reader):
