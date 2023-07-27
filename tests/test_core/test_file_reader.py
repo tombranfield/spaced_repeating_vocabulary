@@ -12,7 +12,8 @@ from src.database.exception import EmptyWordListException
 
 THIS_DIR = Path(__file__).parent
 VALID_FILE_PATH = THIS_DIR / "valid_input.dat"
-INVALID_FILE_PATH = THIS_DIR / "invalid_input.dat"
+INVALID_MISSING_COLUMN_PATH = THIS_DIR / "invalid_missing_column.dat"
+INVALID_EXTRA_COLUMN_PATH = THIS_DIR / "invalid_extra_column.dat"
 EMPTY_FILE_PATH = THIS_DIR / "empty_input.dat"
 
 
@@ -30,13 +31,15 @@ def test_file_data_successfully_added_to_database(file_reader):
 
 
 def test_invalid_file_with_missing_value_raises_an_exception(file_reader):
-    file_reader.file_path = INVALID_FILE_PATH
+    file_reader.file_path = INVALID_MISSING_COLUMN_PATH
     with pytest.raises(IndexError):
         file_reader.insert_into_database("My Word List", "German")
 
 
 def test_invalid_file_with_third_column_raises_exception(file_reader):
-    pass
+    file_reader.file_path = INVALID_EXTRA_COLUMN_PATH
+    with pytest.raises(ValueError):
+        file_reader.insert_into_database("My Word List", "German")
 
 
 def test_file_path_successfully_inserted(file_reader):

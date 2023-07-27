@@ -43,7 +43,7 @@ class FileReader:
             raise FileNotFoundError
         else:
             for line in file_obj:
-                line = line.strip().split("\t")
+                line = line.strip().split("|")
                 try:
                     word_pair = WordPair(str(line[0].strip()), str(line[1]))
                 except IndexError:
