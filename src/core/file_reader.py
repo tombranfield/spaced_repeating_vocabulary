@@ -28,7 +28,7 @@ class FileReader:
         self._file_path = file_path
 
     def insert_into_database(self, word_list_name, language):
-        """Inserts the word from the file into the database"""
+        """Inserts the word from the file into the database"""        
         word_pairs = self._export_word_pairs_from_file()
         word_list = WordList(word_list_name, language, word_pairs)
         word_list_dao = WordListDAO(self._db_path)
@@ -37,12 +37,17 @@ class FileReader:
     def _export_word_pairs_from_file(self):
         """Extracts the pairs of foreign words and their translations"""
         word_pairs = ()
-        with open(self.file_path, "r", encoding="utf-8") as file_obj:
+        try:
+            file_obj = open(self._file_path, "r", encoding="utf-8")
+        except FileNotFoundError:
+            raise FileNotFoundError
+        else:
             for line in file_obj:
                 line = line.strip().split("\t")
                 word_pair = WordPair(line[0].strip(), line[1])
                 word_pairs += (word_pair,)
-        return word_pairs
+            return word_pairs
+
 
     def is_input_file_valid(self):
         """
@@ -57,7 +62,6 @@ if __name__ == "__main__":
     test_file_path = "../../TODO/short.txt"
 
     file_reader = FileReader(test_file_path)
-
 
     file_reader.insert_into_database("harry potterzzz", "german")
 

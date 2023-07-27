@@ -11,8 +11,8 @@ from src.core.file_reader import FileReader
 
 THIS_DIR = Path(__file__).parent
 VALID_FILE_PATH = THIS_DIR / "valid_input.dat"
-INVALID_FILE_PATH = "invalid_input.dat"
-EMPTY_FILE_PATH = "empty_input.dat"
+INVALID_FILE_PATH = THIS_DIR / "invalid_input.dat"
+EMPTY_FILE_PATH = THIS_DIR / "empty_input.dat"
 
 
 @pytest.fixture
@@ -43,13 +43,19 @@ def test_file_path_successfully_inserted(file_reader):
 
 
 def test_raise_exception_for_missing_file(file_reader):
-    file_path = "nonsense_non-existent_file.txt"
-    pass
+    input_file_path = "nonsense_non-existent_file.txt"
+    file_reader.file_path = input_file_path
+    with pytest.raises(FileNotFoundError):
+        file_reader.insert_into_database("My Word List", "German")
+
 
 def test_raise_exception_if_no_filepath_specified(file_reader):
     pass
 
 
 def test_check_empty_file_is_recognized_as_empty(file_reader):
-    pass
+    empty_file_path = EMPTY_FILE_PATH
+    file_reader.file_path = empty_file_path
+    with pytest.raises(Exception):
+        file_reader.insert_into_database("My Word List", "German")    
 
