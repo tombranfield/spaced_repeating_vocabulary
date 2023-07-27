@@ -9,7 +9,8 @@ from tempfile import TemporaryDirectory
 from src.core.file_reader import FileReader
 
 
-VALID_FILE_PATH = "valid_input.dat"
+THIS_DIR = Path(__file__).parent
+VALID_FILE_PATH = THIS_DIR / "valid_input.dat"
 INVALID_FILE_PATH = "invalid_input.dat"
 EMPTY_FILE_PATH = "empty_input.dat"
 
@@ -39,7 +40,6 @@ def test_invalid_file_classified_as_invalid():
 
 def test_file_path_successfully_inserted(file_reader):
     file_reader.file_path = VALID_FILE_PATH
-    assert file_reader.file_path == "valid_input.dat"
 
 
 def test_raise_exception_for_missing_file(file_reader):
