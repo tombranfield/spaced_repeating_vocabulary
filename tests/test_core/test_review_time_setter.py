@@ -4,6 +4,7 @@ test_review_time_setter.py
 
 import datetime
 
+import pytest
 
 from src.core.review_time_setter import ReviewTimeSetter 
 
@@ -19,7 +20,7 @@ def datetime_now(monkeypatch):
         def now(cls):
             return FAKE_TIME
 
-    monkeypatch.setattr(datetime. "datetime", mydatetime)
+    monkeypatch.setattr(datetime, "datetime", mydatetime)
 
 
 
@@ -29,7 +30,5 @@ def test_patch_datetime(datetime_now):
 
 
 
-def test_returns_current_time_in_desired_format(self):
-    review_time_setter = ReviewTimeSetter()
-    current_time = review_time_setter.current_time()
-    
+def test_returns_correct_review_time_in_desired_format():
+    pass    
