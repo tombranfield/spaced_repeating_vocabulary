@@ -25,8 +25,6 @@ class WordListDAO:
         """Inserts a word list into the database"""     
         if word_list.is_empty():
             raise EmptyWordListException
-        # Check there are no duplicates in the database
-        # Cycle through the word_list before doing any insertion
         for word_pair in word_list.word_pairs:
             foreign_word = word_pair.foreign_word
             if self._is_word_already_there(foreign_word, word_list.name):

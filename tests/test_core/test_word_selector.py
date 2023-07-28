@@ -36,7 +36,9 @@ def db_with_words(database, new_word_list):
 
 @pytest.fixture
 def word_selector(db_with_words):
-    word_selector = WordSelector(db_with_words._db_path)
+    print(db_with_words.total_rows())
+    word_selector = WordSelector("My List", db_with_words._db_path)
+    print(word_selector.db.total_rows())
     return word_selector
 
 
@@ -44,13 +46,10 @@ def test_can_initialize_word_selector_successfully(word_selector):
     pass
 
 
-@pytest.mark.curtest
-def test_get_correct_words_to_learn(word_selector):
+def test_get_correct_words_to_learn(word_selector, new_word_list):
     out_word_list = word_selector.words_to_learn()
     words_to_learn = out_word_list.foreign_words()
-    print("START")
-    print(words_to_learn)
-    print("END")
+    assert words_to_learn == new_word_list.foreign_words()
 
 
 def test_get_correct_words_to_review():
