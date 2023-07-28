@@ -50,5 +50,8 @@ class ReviewTimeSetter:
 
     def _verify_valid_level(self, level):
         """Verifies whether the supplied level is valid"""
-        if level < 1 or not isinstance(level, int):
-            raise ValueError("Entered level must be a positive integer")
+        error_message = "Entered level must be a positive integer"
+        if not isinstance(level, int):
+            raise ValueError(error_message)
+        if level < 1:
+            raise ValueError(error_message)

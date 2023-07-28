@@ -49,4 +49,10 @@ def test_returns_correct_review_time_level_13(datetime_mock):
 
 
 def test_negative_input_level_classed_as_error():
-    pass
+    with pytest.raises(ValueError):
+        review_time_setter = ReviewTimeSetter(-10)
+
+
+def test_non_integer_input_level_classed_as_error():
+    with pytest.raises(ValueError):
+        review_time_setter = ReviewTimeSetter("hi!")
