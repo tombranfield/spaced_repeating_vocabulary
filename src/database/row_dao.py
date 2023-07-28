@@ -112,8 +112,8 @@ if __name__ == "__main__":
 
     my_dao = RowDAO()
 
-    foreign_word = "bullig"
-    translated_word = "cheap"
+    foreign_word = "danke"
+    translated_word = "thank you"
     language = "german"
     word_list_name = "Harry Potter und der Stein"
 

@@ -76,7 +76,6 @@ class Database:
                  is_known INTEGER DEFAULT 0,
                  is_review INTEGER DEFAULT 0);"""
         self.connect_and_execute(query)
-        print(f"Wrote {self.path}")
    
     def total_rows(self):
         """        
