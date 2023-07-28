@@ -39,7 +39,7 @@ class ReviewTimeSetter:
     def _number_hours_until_review(self):
         """Returns how many hours in the future a word should be reviewed"""
         if self._level < 9:
-            return self.level_hours_dict[self.new_level]
+            return self.level_hours_dict[self._level]
         else:
             # Time between reviews should be no longer than 180 days
             return self.level_hours_dict[8]
