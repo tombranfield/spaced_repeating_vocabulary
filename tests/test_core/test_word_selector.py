@@ -42,17 +42,11 @@ def word_selector_new_words(db_with_new_words):
     return word_selector
 
 
-# Edit the entries in db_with_new_words so change review time for some words
 @pytest.fixture
 def db_some_new_some_review(db_with_new_words):
-    # Edit the entries for is_known and datetime
-    pass
-    # How to edit columns? Need SQL on database
-    # Can I use use connect_and_execute with a query?
-    # Use SQL update statement
     query = ("UPDATE " + db_with_new_words.table_name + " "
-             + "SET is_known = 1, last_le*** "
-             + "WHERE foreign_word = 'hallo'")
+             + "SET is_known = 1, when_review = '26/12/2022 09:30:00'"
+             + "WHERE foreign_word = 'hallo' or foreign_word = 'danke'")
     db_with_new_words.connect_and_execute(query)
     return db_with_new_words
 
@@ -68,18 +62,15 @@ def test_can_initialize_word_selector_successfully(word_selector_new_words):
 
 
 def test_get_correct_words_to_learn_with_new_words(word_selector_new_words, new_word_list):
-    out_word_list = word_selector_new_words.words_to_learn()
-    words_to_learn = out_word_list.foreign_words()
+    out_learn_list = word_selector_new_words.words_to_learn()
+    words_to_learn = out_learn_list.foreign_words()
     assert words_to_learn == new_word_list.foreign_words()
 
 
-def test_get_correct_words_to_review(word_selector_new_words):
-    """
-    out_word_list = word_selector.words_to_review()
-    words_to_review = out_word_list.foreigh_words()
-    assert words_to_review == review_word_list.foreign_words()
-    """
-    pass
+def test_get_correct_words_to_review(word_selector_new_and_review_words):
+    out_review_list = word_selector_new_and_review_words.words_to_review()
+    words_to_review = out_review_list.foreign_words()
+    assert words_to_review == ("hallo", "danke")
 
 
 def test_get_empty_list_of_words_to_learn():

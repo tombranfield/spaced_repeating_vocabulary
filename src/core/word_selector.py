@@ -1,5 +1,6 @@
 """word_selector.py"""
 
+from datetime import datetime
 
 from src.core.word_list import WordList
 from src.core.word_pair import WordPair
@@ -33,11 +34,13 @@ class WordSelector:
                  + Database.table_name + " WHERE is_known = 1 AND "
                  + "word_list_name = \'" + self.word_list_name + "\'") 
         result = self.db.result_from_query(query)
+        # TODO
         print(result)
-        for element in result:
-            when_review = datetime.strptime(entry[3], "%d/%m/%Y %H:%M:%S")
-            if now > when_review_obj:
-                pass
+        for entry in result:
+            when_review = datetime.strptime(entry[2], "%d/%m/%Y %H:%M:%S")
+            if datetime.now() > when_review:
+                word_pair = WordPair(entry[0], entry[1])
+                words_to_review.add_word_pair(word_pair)
         return words_to_review
 
     def _language_of_list(self):
