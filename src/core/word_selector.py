@@ -34,8 +34,6 @@ class WordSelector:
                  + Database.table_name + " WHERE is_known = 1 AND "
                  + "word_list_name = \'" + self.word_list_name + "\'") 
         result = self.db.result_from_query(query)
-        # TODO
-        print(result)
         for entry in result:
             when_review = datetime.strptime(entry[2], "%d/%m/%Y %H:%M:%S")
             if datetime.now() > when_review:

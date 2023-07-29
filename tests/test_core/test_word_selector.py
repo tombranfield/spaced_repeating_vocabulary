@@ -73,15 +73,15 @@ def test_get_correct_words_to_review(word_selector_new_and_review_words):
     assert words_to_review == ("hallo", "danke")
 
 
-def test_get_empty_list_of_words_to_learn():
-    pass
-
-
-
-def test_get_empty_list_of_words_to_review():
-    pass
-
+def test_get_empty_list_of_words_to_review(word_selector_new_words):
+    out_review_list = word_selector_new_words.words_to_review()
+    words_to_review = out_review_list.foreign_words()
+    assert words_to_review == ()
 
 
 def test_use_a_word_list_that_does_not_exist_in_database():
-    pass
+    word_selector = WordSelector("Non-existant list")
+    words_to_learn = word_selector.words_to_learn()
+    words_to_review = word_selector.words_to_review()
+    assert words_to_learn.foreign_words() == ()
+    assert words_to_review.foreign_words() == ()
