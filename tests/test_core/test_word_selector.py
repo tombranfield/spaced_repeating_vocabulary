@@ -79,8 +79,8 @@ def test_get_empty_list_of_words_to_review(word_selector_new_words):
     assert words_to_review == ()
 
 
-def test_use_a_word_list_that_does_not_exist_in_database():
-    word_selector = WordSelector("Non-existant list")
+def test_use_a_word_list_that_does_not_exist_in_database(database):
+    word_selector = WordSelector("Non-existant list", database._db_path)
     words_to_learn = word_selector.words_to_learn()
     words_to_review = word_selector.words_to_review()
     assert words_to_learn.foreign_words() == ()
