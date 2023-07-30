@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>240</y>
       <width>781</width>
-      <height>331</height>
+      <height>311</height>
      </rect>
     </property>
     <property name="widgetResizable">
@@ -32,7 +32,7 @@
        <x>0</x>
        <y>0</y>
        <width>779</width>
-       <height>329</height>
+       <height>309</height>
       </rect>
      </property>
     </widget>
@@ -40,7 +40,7 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>510</x>
       <y>10</y>
       <width>282</width>
       <height>27</height>
@@ -61,6 +61,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="about_button">
+       <property name="text">
+        <string>About</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="">
@@ -69,7 +76,7 @@
       <x>100</x>
       <y>70</y>
       <width>588</width>
-      <height>122</height>
+      <height>152</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -78,17 +85,26 @@
        <property name="minimumSize">
         <size>
          <width>150</width>
-         <height>120</height>
+         <height>150</height>
         </size>
        </property>
        <property name="baseSize">
         <size>
-         <width>40</width>
-         <height>40</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>22</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 50;
+border: 2px solid black</string>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Review</string>
        </property>
       </widget>
      </item>
