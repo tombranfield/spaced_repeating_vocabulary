@@ -15,9 +15,6 @@ class SettingsWindow(QDialog):
         uic.loadUi(os.path.join(base_dir, "settings_window.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
 
-        self.ok_button.clicked.connect(self.close_window)
-        
-    
-    def close_window(self):
-        self.close()
 
+    def set_defaults(self):
+        pass

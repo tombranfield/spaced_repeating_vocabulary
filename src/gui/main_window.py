@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QDialog
 
 from about_window import AboutWindow
-
+from settings_window import SettingsWindow
 
 
 base_dir = os.path.dirname(__file__)
@@ -18,10 +18,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
 
         self.about_button.clicked.connect(self.open_about_window)
-
+        self.settings_button.clicked.connect(self.open_settings_window)
 
     def open_about_window(self):
         dialog = AboutWindow(self)
+        dialog.exec_()
+
+    def open_settings_window(self):
+        dialog = SettingsWindow(self)
         dialog.exec_()
 
 
