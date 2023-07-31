@@ -84,11 +84,14 @@ class Settings:
                     elif line[1] == "False":
                         self.is_case_sensitive = False
                 if line[0] == "is_automatic_return":
-                    self._is_automatic_return = line[1]            
+                    if line[1] == "True":
+                        self.is_automatic_return = True
+                    elif line[1] == "False":
+                        self.is_automatic_return = False
                 if line[0] == "max_learn_words":
-                    self._max_learn_words = line[1]
+                    self._max_learn_words = int(line[1])
                 if line[0] == "max_review_words":
-                    self._max_review_words = line[1]
+                    self._max_review_words = int(line[1])
         except:
             return
 
