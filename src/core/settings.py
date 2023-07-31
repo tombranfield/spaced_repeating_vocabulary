@@ -88,21 +88,8 @@ class Settings:
                     self._max_review_words = line[1]
         except:
             return
-
-    def _print(self):
-        print(self._is_case_sensitive)
-        print(self._is_automatic_return)
-        print(self._max_learn_words)
-        print(self._max_review_words)
-
-
+    
 
 
 if __name__ == "__main__":
-    settings = Settings("here_settings.txt")
-    settings._print()
-    settings.max_review_words = 50
-    settings.is_automatic_return = False
-    settings._print()
-    settings.set_defaults()
-    settings._print()
+    pass
