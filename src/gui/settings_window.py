@@ -37,14 +37,15 @@ class SettingsWindow(QDialog):
         self.is_automatic_return_cbox.stateChanged.connect(
                                             self.automatic_return_changed)
 
-        self.max_learn_words_box.setCurrentText(
+        # TODO max_learn_words and max_review_words when opening application
+        self.max_learn_words_cbox.setCurrentText(
                                         str(self.settings.max_learn_words))
-        self.max_learn_words.currentIndexChanged[str].connect(
+        self.max_learn_words_cbox.currentIndexChanged[str].connect(
                                             self.max_learn_words_changed)
 
-        self.max_review_words_box.setCurrentText(
+        self.max_review_words_cbox.setCurrentText(
                                         str(self.settings.max_review_words))
-        self.max_review_words.currentIndexChanged[str].connect(
+        self.max_review_words_cbox.currentIndexChanged[str].connect(
                                             self.max_review_words_changed)
 
 
