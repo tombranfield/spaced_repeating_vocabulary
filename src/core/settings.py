@@ -21,6 +21,7 @@ class Settings:
         self._is_automatic_return = Settings.DEFAULTS["is_automatic_return"]
         self._max_learn_words = Settings.DEFAULTS["max_learn_words"]
         self._max_review_words = Settings.DEFAULTS["max_review_words"]
+        self._open_from_file()
 
     @property
     def is_case_sensitive(self):
@@ -72,11 +73,34 @@ class Settings:
             w_obj.write("max_learn_words=" + str(self.max_learn_words) + "\n")
             w_obj.write("max_review_words=" + str(self.max_review_words) + "\n")
 
+    def _open_from_file(self):
+        try:
+            file_obj = open(self._path, "r")
+            for line in file_obj:
+                line = line.rstrip().split("=")
+                if line[0] == "is_case_sensitive":
+                    self._is_case_sensitive = line[1]
+                if line[0] == "is_automatic_return":
+                    self._is_automatic_return = line[1]            
+                if line[0] == "max_learn_words":
+                    self._max_learn_words = line[1]
+                if line[0] == "max_review_words":
+                    self._max_review_words = line[1]
+        except:
+            return
+
+    def _print(self):
+        print(self._is_case_sensitive)
+        print(self._is_automatic_return)
+        print(self._max_learn_words)
+        print(self._max_review_words)
+
 
 
 
 if __name__ == "__main__":
     settings = Settings("here_settings.txt")
-    settings.is_case_sensitive = False
-    settings.max_learn_words = 10
-    settings.set_defaults()
+    settings._print()
+    settings.max_review_words = 25
+    settings.is_automatic_return = False
+    settings._print()
