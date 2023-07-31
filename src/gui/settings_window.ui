@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="set_defaults_button">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -26,7 +26,7 @@
     <string>Use Defaults</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="is_case_sensitive_cbox">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -39,7 +39,7 @@
     <string>Use strict typing?</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_2">
+  <widget class="QCheckBox" name="is_automatic_return_cbox">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -52,7 +52,7 @@
     <string>Automatic return?</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="max_learn_words_cbox">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -78,7 +78,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="max_review_words_cbox">
    <property name="geometry">
     <rect>
      <x>40</x>
