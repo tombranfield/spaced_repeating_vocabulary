@@ -24,8 +24,8 @@ class Settings:
         self._open_from_file()
 
     @property
-    def is_case_sensitive(self):
-        return self._is_case_sensitive
+    def is_case_sensitive(self) -> bool:
+        return True if self._is_case_sensitive == True else False
 
     @is_case_sensitive.setter
     def is_case_sensitive(self, answer: bool):
@@ -34,7 +34,7 @@ class Settings:
 
     @property
     def is_automatic_return(self):
-        return self._is_automatic_return
+        return True if self._is_automatic_return == True else False
 
     @is_automatic_return.setter
     def is_automatic_return(self, answer: bool):
@@ -42,8 +42,8 @@ class Settings:
         self._write_to_file()
 
     @property
-    def max_learn_words(self):
-        return self._max_learn_words
+    def max_learn_words(self) -> int:
+        return int(self._max_learn_words)
 
     @max_learn_words.setter
     def max_learn_words(self, number: int):
@@ -51,8 +51,8 @@ class Settings:
         self._write_to_file()
 
     @property
-    def max_review_words(self):
-        return self._max_review_words
+    def max_review_words(self) -> int:
+        return int(self._max_review_words)
 
     @max_review_words.setter
     def max_review_words(self, number: int):
@@ -101,6 +101,8 @@ class Settings:
 if __name__ == "__main__":
     settings = Settings("here_settings.txt")
     settings._print()
-    settings.max_review_words = 25
+    settings.max_review_words = 50
     settings.is_automatic_return = False
+    settings._print()
+    settings.set_defaults()
     settings._print()
