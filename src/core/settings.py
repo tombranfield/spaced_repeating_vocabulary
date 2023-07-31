@@ -6,7 +6,7 @@ from pathlib import Path
 
 class Settings:
     """Responsible for the settings of the program"""
-    _PATH = str(Path("settings.ini"))
+    _PATH = str(Path(__file__).parents[2] / "data" / "settings.ini")
 
     _DEFAULTS = {
         "is_case_sensitive": True,
