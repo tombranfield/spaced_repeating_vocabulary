@@ -19,25 +19,34 @@ class SettingsWindow(QDialog):
         self.setStyleSheet(open("stylesheet.css").read())
         self.settings = Settings()
 
-        # Connect the buttons to the functions
 
         self.set_defaults_button.clicked.connect(self.set_defaults)
 
+        # TODO rename the buttons in QtDesigner so below fits on one line        
         if self.settings.is_case_sensitive == True:
-            print("it's true")
             self.is_case_sensitive_cbox.setCheckState(Qt.Checked)
         else:
-            print("it's false")
             self.is_case_sensitive_cbox.setCheckState(Qt.Unchecked)
-        self.is_case_sensitive_cbox.stateChanged.connect(self.case_sensitivity_changed)                
+        self.is_case_sensitive_cbox.stateChanged.connect(
+                                            self.case_sensitivity_changed)
 
-        # Set the initial values of the boxes etc to those in
-        # settings
+        if self.settings.is_automatic_return == True:
+            self.is_automatic_return_cbox.setCheckState(Qt.Checked)
+        else:
+            self.is_automatic_return_cbox.setCheckState(Qt.Unchecked)
+        self.is_automatic_return_cbox.stateChanged.connect(
+                                            self.automatic_return_changed)
 
-        #self.is_automatic_return_cbox
+        self.max_learn_words_box.setCurrentText(
+                                        str(self.settings.max_learn_words))
+        self.max_learn_words.currentIndexChanged[str].connect(
+                                            self.max_learn_words_changed)
 
-        #self.max_learn_words_box
-        #self.max_review_words_box
+        self.max_review_words_box.setCurrentText(
+                                        str(self.settings.max_review_words))
+        self.max_review_words.currentIndexChanged[str].connect(
+                                            self.max_review_words_changed)
+
 
 
     def set_defaults(self):
@@ -57,10 +66,10 @@ class SettingsWindow(QDialog):
         else:
             self.settings.is_automatic_return = False
 
-    def num_learn_words_changed(self, s):
+    def max_learn_words_changed(self, s):
         self.settings.max_learn_words = int(s)
 
-    def num_review_words_changed(self, s):
+    def max_review_words_changed(self, s):
         self.settings.max_review_words = int(s)
 
 
