@@ -29,7 +29,7 @@ class Settings:
 
     @is_case_sensitive.setter
     def is_case_sensitive(self, answer: bool):
-        self._is_case_sensitive = str(answer)
+        self._is_case_sensitive = answer
         self._write_to_file()
 
     @property
@@ -38,7 +38,7 @@ class Settings:
 
     @is_automatic_return.setter
     def is_automatic_return(self, answer: bool):
-        self._is_automatic_return = str(answer)
+        self._is_automatic_return = answer
         self._write_to_file()
 
     @property
@@ -47,7 +47,7 @@ class Settings:
 
     @max_learn_words.setter
     def max_learn_words(self, number: int):
-        self._max_learn_words = str(number)
+        self._max_learn_words = number
         self._write_to_file()
 
     @property
@@ -56,7 +56,7 @@ class Settings:
 
     @max_review_words.setter
     def max_review_words(self, number: int):
-        self._max_review_words = str(number)
+        self._max_review_words = number
         self._write_to_file()
 
     def set_defaults(self):
@@ -79,7 +79,10 @@ class Settings:
             for line in file_obj:
                 line = line.rstrip().split("=")
                 if line[0] == "is_case_sensitive":
-                    self._is_case_sensitive = line[1]
+                    if line[1] == "True":
+                        self.is_case_sensitive = True
+                    elif line[1] == "False":
+                        self.is_case_sensitive = False
                 if line[0] == "is_automatic_return":
                     self._is_automatic_return = line[1]            
                 if line[0] == "max_learn_words":
@@ -88,7 +91,6 @@ class Settings:
                     self._max_review_words = line[1]
         except:
             return
-    
 
 
 if __name__ == "__main__":
