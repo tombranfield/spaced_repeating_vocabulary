@@ -39,4 +39,4 @@ def test_change_and_retrieve_int_values_successfully(settings):
     settings.max_learn_words = 10
     settings.max_review_words = 50
     assert settings.max_learn_words == 10
-    assert settings.max_review_words == 10
+    assert settings.max_review_words == 50
