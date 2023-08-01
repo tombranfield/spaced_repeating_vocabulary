@@ -28,6 +28,8 @@ class TotalStats:
         # For each word list, find out how many words are due for review
         
 
+        
+
     def total_words(self) -> int:
         """Returns the total number of words in the database"""
         query = "SELECT COUNT(*) FROM " + self.table_name
@@ -36,6 +38,11 @@ class TotalStats:
 
     def _get_word_lists(self):
         """Returns a list of all the word list names in the database"""
+#        query = "SELECT DISTINCT word_list_name FROM " + Database.table_name
+        query = "SELECT DISTINCT list_name FROM " + self.table_name
+        result = self.db.result_from_query(query)
+        word_lists = [element[0] for element in result]
+        return word_lists
 
 
 if __name__ == "__main__":
