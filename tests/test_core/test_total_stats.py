@@ -50,6 +50,15 @@ def db_with_new_words(database, word_list_1, word_list_2):
     yield database
 
 
+@pytest.fixture
+def db_with_learnt_words(db_with_new_words):
+    query = ("UPDATE " + db_with_new_words.table_name + " "
+             + "SET is_known = 1, when_review = '26/12/2022 09:30:00'"
+             + "WHERE foreign_word = 'danke' or foreign_word = 'merci'")
+    db_with_new_words.connect_and_execute(query)
+    return db_with_new_words
+
+
 def test_can_initialize_total_stats_successfully(db_with_new_words):
     total_stats = TotalStats(db_with_new_words._db_path)
 
@@ -58,3 +67,12 @@ def test_returns_correct_number_of_total_words(db_with_new_words):
     total_stats = TotalStats(db_with_new_words._db_path)
     assert total_stats.total_words() == 8
 
+
+def test_returns_correct_number_of_words_learnt_new_words(db_with_learnt_words):
+    total_stats = TotalStats(db_with_learnt_words._db_path)
+    assert total_stats.total_words_learnt() == 2
+
+
+def test_returns_correct_number_of_words_to_review(db_with_learnt_words):
+    total_stats = TotalStats(db_with_learnt_words._db_path)
+    assert total_stats.total_words_to_review() == 2 

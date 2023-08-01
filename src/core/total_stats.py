@@ -25,7 +25,7 @@ class TotalStats:
         word_count = 0
         for word_list_name in word_lists:
             query = ("SELECT rowid, when_review FROM " + Database.table_name 
-                     + "WHERE is_known = 1 AND word_list_name = \'" 
+                     + " WHERE is_known = 1 AND word_list_name = \'" 
                      + word_list_name + "\'")
             result = self.db.result_from_query(query)
             for entry in result:
