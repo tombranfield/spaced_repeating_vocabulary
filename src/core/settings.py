@@ -89,9 +89,9 @@ class Settings:
                     elif line[1] == "False":
                         self.is_automatic_return = False
                 if line[0] == "max_learn_words":
-                    self._max_learn_words = int(line[1])
+                    self.max_learn_words = int(line[1])
                 if line[0] == "max_review_words":
-                    self._max_review_words = int(line[1])
+                    self.max_review_words = int(line[1])
         except:
             return
 

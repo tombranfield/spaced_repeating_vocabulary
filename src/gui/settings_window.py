@@ -22,31 +22,24 @@ class SettingsWindow(QDialog):
 
         self.set_defaults_button.clicked.connect(self.set_defaults)
 
-        # TODO rename the buttons in QtDesigner so below fits on one line        
         if self.settings.is_case_sensitive == True:
             self.is_case_sensitive_cbox.setCheckState(Qt.Checked)
         else:
             self.is_case_sensitive_cbox.setCheckState(Qt.Unchecked)
-        self.is_case_sensitive_cbox.stateChanged.connect(
-                                            self.case_sensitivity_changed)
+        self.is_case_sensitive_cbox.stateChanged.connect(self.case_sensitivity_changed)
 
         if self.settings.is_automatic_return == True:
             self.is_automatic_return_cbox.setCheckState(Qt.Checked)
         else:
             self.is_automatic_return_cbox.setCheckState(Qt.Unchecked)
-        self.is_automatic_return_cbox.stateChanged.connect(
-                                            self.automatic_return_changed)
+        self.is_automatic_return_cbox.stateChanged.connect(self.automatic_return_changed)
 
         # TODO max_learn_words and max_review_words when opening application
-        self.max_learn_words_cbox.setCurrentText(
-                                        str(self.settings.max_learn_words))
-        self.max_learn_words_cbox.currentIndexChanged[str].connect(
-                                            self.max_learn_words_changed)
+        self.max_learn_words_cbox.setCurrentText(str(self.settings.max_learn_words))
+        self.max_learn_words_cbox.currentIndexChanged[str].connect(self.max_learn_words_changed)
 
-        self.max_review_words_cbox.setCurrentText(
-                                        str(self.settings.max_review_words))
-        self.max_review_words_cbox.currentIndexChanged[str].connect(
-                                            self.max_review_words_changed)
+        self.max_review_words_cbox.setCurrentText(str(self.settings.max_review_words))
+        self.max_review_words_cbox.currentIndexChanged[str].connect(self.max_review_words_changed)
 
 
 
