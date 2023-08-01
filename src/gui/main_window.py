@@ -25,11 +25,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.about_button.clicked.connect(self.open_about_window)
         self.settings_button.clicked.connect(self.open_settings_window)
-        #self.review_all_button.clicked.connect()
-
-
-#    total_learn_label
-#    total_review_label
 
 
     def open_about_window(self):
@@ -40,22 +35,6 @@ class MainWindow(QtWidgets.QMainWindow):
         dialog = SettingsWindow(self)
         dialog.exec_()
 
-    def setup_stats_update(self):
-        self.timer = QTimer()
-        self.timer.setInterval(1000)
-        self.timer.timeout.connect(self.update_stats_display)
-        self.timer.start()
-
-    def update_stats_display(self):
-        self.remove_labels()
-        self.get_new_stats()
-        self.get_new_labels()
-        self.add_labels_to_layout()
-
-    def remove_labels(self):
-        self.remove_widget(self.total_learnt_label)
-        self.remove_widget(self.total_review_label)
-    
 
 
 

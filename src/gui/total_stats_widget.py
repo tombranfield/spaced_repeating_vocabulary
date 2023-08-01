@@ -23,22 +23,10 @@ class TotalStats(QWidget):
 
         self.setup_stats_update()
 
-        self.about_button.clicked.connect(self.open_about_window)
-        self.settings_button.clicked.connect(self.open_settings_window)
-        #self.review_all_button.clicked.connect()
-
 
 #    total_learn_label
 #    total_review_label
 
-
-    def open_about_window(self):
-        dialog = AboutWindow(self)
-        dialog.exec_()
-
-    def open_settings_window(self):
-        dialog = SettingsWindow(self)
-        dialog.exec_()
 
     def setup_stats_update(self):
         self.timer = QTimer()
