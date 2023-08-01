@@ -21,12 +21,8 @@ class TotalStats(QWidget):
         uic.loadUi(os.path.join(base_dir, "total_stats_widget.ui"), self)
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
 
+        self.total_stats = TotalStats()
         self.setup_stats_update()
-
-
-#    total_learn_label
-#    total_review_label
-
 
     def setup_stats_update(self):
         self.timer = QTimer()
@@ -44,7 +40,13 @@ class TotalStats(QWidget):
         self.remove_widget(self.total_learnt_label)
         self.remove_widget(self.total_review_label)
     
+    def get_new_stats(self):
+        self.total_stats.total_words_learnt()
+        self.total_stats.total_words_to_review()
+        self.total_stats.total_words()
 
+    def add_labels_to_layout(self):
+        pass
 
 
 
