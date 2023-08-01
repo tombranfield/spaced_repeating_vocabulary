@@ -46,6 +46,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.update_stats_display)
         self.timer.start()
 
+    def update_stats_display(self):
+        self.remove_labels()
+        self.get_new_stats()
+        self.get_new_labels()
+        self.add_labels_to_layout()
+
+    def remove_labels(self):
+        self.remove_widget(self.total_learnt_label)
+        self.remove_widget(self.total_review_label)
+    
+
 
 
 
