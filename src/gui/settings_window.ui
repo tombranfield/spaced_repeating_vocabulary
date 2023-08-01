@@ -16,9 +16,9 @@
   <widget class="QPushButton" name="set_defaults_button">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>40</x>
      <y>30</y>
-     <width>211</width>
+     <width>91</width>
      <height>25</height>
     </rect>
    </property>
@@ -135,6 +135,19 @@
    </property>
    <property name="text">
     <string>Max number of words to review per test</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ok_button">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>390</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OK</string>
    </property>
   </widget>
  </widget>

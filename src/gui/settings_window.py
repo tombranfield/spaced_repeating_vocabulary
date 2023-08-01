@@ -24,6 +24,7 @@ class SettingsWindow(QDialog):
         self.setup_is_automatic_return_box()
         self.setup_max_learn_words_box()
         self.setup_max_review_words_box()
+        self.setup_ok_button()
 
     def setup_defaults_button(self):
         self.set_defaults_button.clicked.connect(self.set_defaults)
@@ -70,3 +71,6 @@ class SettingsWindow(QDialog):
 
     def max_review_words_changed(self, s):
         self.settings.max_review_words = int(s)
+
+    def setup_ok_button(self):
+        self.ok_button.clicked.connect(self.close)
