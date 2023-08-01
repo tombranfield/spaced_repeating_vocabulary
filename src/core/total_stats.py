@@ -1,6 +1,8 @@
 """total_stats.py"""
 
 
+from datetime import datetime
+
 from src.database.database import Database
 
 
@@ -24,11 +26,16 @@ class TotalStats:
     def total_words_to_review(self) -> int:
         # Get a list of word_lists using SQL DISTINCT
         word_lists = self._get_word_lists()
-
-        # For each word list, find out how many words are due for review
-        
-
-        
+        word_count = 0
+        for word_list_name in word_lists:
+            query = ("SELECT rowid, when_review WHERE is_known = 1 AND "
+                    + "list_name = \'" + word_list_name + "\'")
+            result = self.db.result_from_query(query)
+            for entry in result:
+                when_review = datetime.strptime(entry[2], "%d/%m/%Y %H:%M:%$
+                if datetime.now() > when_review:
+                    word_count += 1
+        return word_count        
 
     def total_words(self) -> int:
         """Returns the total number of words in the database"""
