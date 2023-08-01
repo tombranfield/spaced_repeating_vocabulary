@@ -36,7 +36,7 @@ class TotalStats:
 
     def total_words(self) -> int:
         """Returns the total number of words in the database"""
-        query = "SELECT COUNT(*) FROM " + Database.table_name
+        query = "SELECT COUNT(rowid) FROM " + Database.table_name
         result = self.db.result_from_query(query)
         return result[0][0]
 
