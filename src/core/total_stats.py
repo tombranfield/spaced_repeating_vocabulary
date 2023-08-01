@@ -1,38 +1,48 @@
-"""global_stats.py"""
+"""total_stats.py"""
 
 
 from src.database.database import Database
 
 
-class GlobalStats:
+class TotalStats:
     """
     Responsible for retrieving global statistics from the database
     """
     def __init__(self, db_path=Database.path):
         self.db = Database(db_path)
+#        self.table_name = Database.table_name
+        self.table_name = "master_wordlist"
 
     def total_words_learnt(self) -> int:
         """Returns the total number of words learnt from all word lists"""
 #        query = ("SELECT COUNT(*) FROM " + Database.table_name 
-        query = ("SELECT COUNT(*) FROM " + "master_wordlist"
+        query = ("SELECT COUNT(*) FROM " + self.table_name
                 + " WHERE is_known = 1")
         result = self.db.result_from_query(query)
         return result[0][0]
 
     def total_words_to_review(self) -> int:
-        pass
+        # Get a list of word_lists using SQL DISTINCT
+        word_lists = self._get_word_lists()
+
+        # For each word list, find out how many words are due for review
+        
 
     def total_words(self) -> int:
         """Returns the total number of words in the database"""
-        query = "SELECT COUNT(*) FROM " + "master_wordlist"
+        query = "SELECT COUNT(*) FROM " + self.table_name
         result = self.db.result_from_query(query)
         return result[0][0]
+
+    def _get_word_lists(self):
+        """Returns a list of all the word list names in the database"""
 
 
 if __name__ == "__main__":
     
-    global_stats = GlobalStats("harry_potter.db")
+    total_stats = TotalStats("harry_potter.db")
 
-    print("Total words:", global_stats.total_words())
-    print("Total words learned:", global_stats.total_words_learnt())
+    print("Total words:", total_stats.total_words())
+    print("Total words learned:", total_stats.total_words_learnt())
+    print("Word lists:", total_stats._get_word_lists())
     print("Total words to review:")
