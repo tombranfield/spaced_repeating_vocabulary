@@ -20,6 +20,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
         self.setMinimumSize(750, 500)
 
+        self.setWindowTitle("Let's Learn Some Vocabulary!")
+
         self.layout = QVBoxLayout()
 
         self.header_widget = Header()
