@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QDialog, QWidget
 
 from about_window import AboutWindow
+from new_course_window import NewCourseWindow
 from settings_window import SettingsWindow
 
 
@@ -22,6 +23,7 @@ class Header(QWidget):
 
         # self.new_course_button.clicked.connect(self.new_course_window)
         self.about_button.clicked.connect(self.open_about_window)
+        self.new_course_button.clicked.connect(self.open_new_course_window)
         self.settings_button.clicked.connect(self.open_settings_window)
 
 
@@ -29,15 +31,13 @@ class Header(QWidget):
         dialog = AboutWindow(self)
         dialog.exec_()
 
+    def open_new_course_window(self):
+        dialog = NewCourseWindow(self)
+        dialog.exec_()
+
     def open_settings_window(self):
         dialog = SettingsWindow(self)
         dialog.exec_()
-
-    """
-    def new_about_window(self):
-        dialog = NewCourseWindow(self)
-        dialog.exec_()
-    """
 
 
 
