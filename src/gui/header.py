@@ -20,6 +20,7 @@ class Header(QWidget):
         uic.loadUi(os.path.join(base_dir, "header.ui"), self)
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
 
+        # self.new_course_button.clicked.connect(self.new_course_window)
         self.about_button.clicked.connect(self.open_about_window)
         self.settings_button.clicked.connect(self.open_settings_window)
 
@@ -32,7 +33,11 @@ class Header(QWidget):
         dialog = SettingsWindow(self)
         dialog.exec_()
 
-
+    """
+    def new_about_window(self):
+        dialog = NewCourseWindow(self)
+        dialog.exec_()
+    """
 
 
 
