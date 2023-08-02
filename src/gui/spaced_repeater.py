@@ -18,6 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
+        self.setMinimumSize(750, 500)
 
         self.layout = QVBoxLayout()
 
@@ -30,6 +31,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.course_chooser = CourseChooserWidget()
         self.layout.addWidget(self.course_chooser)
+
+        self.layout.setSpacing(10)
 
         widget = QWidget()
         widget.setLayout(self.layout)

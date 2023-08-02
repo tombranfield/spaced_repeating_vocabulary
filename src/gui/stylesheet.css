@@ -18,7 +18,7 @@ QDialog {
 
 QPushButton {
 /*    background-color: orchid; */
-    background-color: deepskyblue;
+    background-color: cornsilk;
     border-width: 3px;
     border-radius: 8px;
     border-color: black;
@@ -38,6 +38,13 @@ QLabel {
     font-family: Ubuntu;
     font-size: 16px;
     color: white
+}
+
+QLabel#title_label {
+    font-family: FreeSand;
+    font-size: 32px;
+    color: black;
+    font-weight: bold;
 }
 
 QLineEdit {
