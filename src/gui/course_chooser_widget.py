@@ -14,10 +14,10 @@ from settings_window import SettingsWindow
 base_dir = os.path.dirname(__file__)
 
 
-class CourseChooser(QWidget):
+class CourseChooserWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi(os.path.join(base_dir, "course_chooser.ui"), self)
+        uic.loadUi(os.path.join(base_dir, "course_chooser_widget.ui"), self)
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
 
         

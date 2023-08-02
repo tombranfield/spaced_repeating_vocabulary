@@ -1,5 +1,6 @@
 .QWidget {
-    background-color: indigo;
+/*    background-color: indigo; */
+    background-color: lightblue;
     border-width: 3px;
     border-radius: 8px;
 /*    border-color: "black"; */
@@ -16,7 +17,8 @@ QDialog {
 }
 
 QPushButton {
-    background-color: orchid;
+/*    background-color: orchid; */
+    background-color: deepskyblue;
     border-width: 3px;
     border-radius: 8px;
     border-color: black;

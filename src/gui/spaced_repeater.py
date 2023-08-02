@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QDialog, QWidget, QVBoxLayout
 from header import Header
 from total_stats_widget import TotalStatsWidget
 from src.core.total_stats import TotalStats
-
+from course_chooser_widget import CourseChooserWidget
 
 base_dir = os.path.dirname(__file__)
 
@@ -27,6 +27,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.total_stats_widget = TotalStatsWidget()
         self.layout.addWidget(self.total_stats_widget)
         self.layout.setSpacing(10)
+
+        self.course_chooser = CourseChooserWidget()
+        self.layout.addWidget(self.course_chooser)
 
         widget = QWidget()
         widget.setLayout(self.layout)
