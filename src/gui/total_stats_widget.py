@@ -5,7 +5,7 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
+from PyQt5.QtWidgets import QDialog, QLabel, QMainWindow, QWidget
 
 from about_window import AboutWindow
 from settings_window import SettingsWindow
@@ -22,30 +22,32 @@ class TotalStatsWidget(QMainWindow):
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
 
         self.total_stats = TotalStats()
-#        self.setup_stats_update()
+
+        self.setup_stats_update()
 
     def setup_stats_update(self):
         self.timer = QTimer()
         self.timer.setInterval(1000)
-        self.timer.timeout.connect(self.update_stats_display)
+        self.timer.timeout.connect(self.add_new_labels)
         self.timer.start()
 
-    def update_stats_display(self):
-        self.remove_labels()
-        self.get_new_stats()
-        self.get_new_labels()
-        self.add_labels_to_layout()
+    def add_new_labels(self):
+        new_learnt_text = self.get_total_learnt_text()
+        self.total_learnt_label.setText(new_learnt_text)
+        
+        new_review_text = self.get_total_review_text()
+        
+    def get_total_learnt_text(self):
+        learnt_msg = ("<b><font color='lime'>" 
+                      + str(self.total_stats.total_words_learnt())
+                      + "</font></b>")
+        if self.total_stats.total_words_learnt() == 1:
+            learnt_msg += " word learnt."
+        else:
+            learnt_msg += " words learnt."
+        return learnt_msg
 
-    def remove_labels(self):
-        self.remove_widget(self.total_learnt_label)
-        self.remove_widget(self.total_review_label)
-    
-    def get_new_stats(self):
-        self.total_stats.total_words_learnt()
-        self.total_stats.total_words_to_review()
-        self.total_stats.total_words()
-
-    def add_labels_to_layout(self):
+    def get_total_review_text(self):
         pass
 
 
