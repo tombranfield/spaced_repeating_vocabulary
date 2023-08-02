@@ -31,7 +31,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: "violet";
+    background-color: orange;
 }
 
 QLabel {
@@ -45,6 +45,16 @@ QLabel#title_label {
     font-size: 32px;
     color: black;
     font-weight: bold;
+}
+
+QLabel#total_learnt_label,
+QLabel#total_review_label,
+QLabel#known_words_label,
+QLabel#review_words_label {
+    font-family: FreeSans;
+    font-size: 18px;
+    color: black;
+    
 }
 
 QLineEdit {

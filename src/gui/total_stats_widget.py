@@ -38,25 +38,29 @@ class TotalStatsWidget(QMainWindow):
         self.total_review_label.setText(new_review_text)
         
     def get_total_learnt_text(self):
-        learnt_msg = ("<b><font color='darkgreen'>" 
+        learnt_msg = ("<b><font color='forestgreen'>" 
                       + str(self.total_stats.total_words_learnt())
+                      + "/" + str(self.total_stats.total_words())
                       + "</font></b>")
         if self.total_stats.total_words_learnt() == 1:
-            learnt_msg += " word learnt."
+            learnt_msg += " word learnt"
         else:
-            learnt_msg += " words learnt."
+            learnt_msg += " words learnt"
         return learnt_msg
 
     def get_total_review_text(self):
-        review_msg = ("<b><font color='darkred'>"
-                      + str(self.total_stats.total_words_to_review())
-                      + "</font></b>")
-        if self.total_stats.total_words_to_review() == 1:
-            review_msg += " word to review."
+        total_review_words = self.total_stats.total_words_to_review()
+        review_msg = "<b><font color=\'"
+        if total_review_words == 0:
+            review_msg += "forestgreen\'>"
+        else: 
+            review_msg += "darkred\'>"
+        review_msg += (str(total_review_words)) + "</font></b>"
+        if total_review_words == 1:
+            review_msg += " word to review"
         else:
-            review_msg += " words to review."
+            review_msg += " words to review"
         return review_msg
-
 
 
 if __name__ == "__main__":
