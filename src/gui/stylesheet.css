@@ -1,9 +1,7 @@
 .QWidget {
-/*    background-color: indigo; */
     background-color: lightblue;
     border-width: 3px;
     border-radius: 8px;
-/*    border-color: "black"; */
     border-style: solid;
 }
 
@@ -13,18 +11,17 @@ QWidget#centralwidget {
 
 
 QDialog {
-    background-color: indigo;
+    background-color: lightblue;
 }
 
 QPushButton {
-/*    background-color: orchid; */
     background-color: cornsilk;
     border-width: 3px;
     border-radius: 8px;
     border-color: black;
     border-style: solid;
     font-family: Ubuntu;
-    font-size: 16px;
+    font-size: 18px;
     color: black;
     padding: 3px;
     font-weight: bold;
@@ -35,9 +32,9 @@ QPushButton:hover {
 }
 
 QLabel {
-    font-family: Ubuntu;
-    font-size: 16px;
-    color: white
+    font-family: FreeSans;
+    font-size: 18px;
+    color: black
 }
 
 QLabel#title_label {
@@ -65,9 +62,9 @@ QLineEdit {
 }
 
 QCheckBox {
-    color: white;
-    font-family:  Ubuntu;
-    font-size: 16px;
+    color: black;
+    font-family:  FreeSans;
+    font-size: 18px;
 }
 
 QTabWidget {
@@ -76,12 +73,4 @@ QTabWidget {
 
 QProgressBar {
     background-color: black
-}
-
-QVBoxLayout {
-    border-color: indigo;
-}
-
-QHBoxLayout {
-    border-color: indigo;
 }
