@@ -32,6 +32,16 @@ class SettingsWindow(QDialog):
     def set_defaults(self):
         self.settings.set_defaults()
 
+        is_case_sensitive = self.settings.is_case_sensitive
+        is_auto_return = self.settings.is_automatic_return
+        self.is_case_sensitive_cbox.setCheckState(is_case_sensitive)
+        self.is_automatic_return_cbox.setCheckState(is_auto_return)
+
+        max_learn_str = str(self.settings.max_learn_words)
+        max_review_str = str(self.settings.max_review_words)
+        self.max_learn_words_cbox.setCurrentText(max_learn_str)
+        self.max_review_words.cbox.setCurrentText(max_review_str)
+
     def setup_is_case_sensitive_box(self):
         if self.settings.is_case_sensitive == True:
             self.is_case_sensitive_cbox.setCheckState(Qt.Checked)
