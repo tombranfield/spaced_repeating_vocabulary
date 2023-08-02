@@ -2,9 +2,10 @@
     background-color: indigo;
     border-width: 3px;
     border-radius: 8px;
-/*    border-color: "orange"; */
+    border-color: "black";
     border-style: solid;
 }
+
 
 QDialog {
     background-color: indigo;

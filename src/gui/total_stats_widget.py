@@ -15,14 +15,14 @@ from src.core.total_stats import TotalStats
 base_dir = os.path.dirname(__file__)
 
 
-class TotalStatsWidget(QWidget):
+class TotalStatsWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(os.path.join(base_dir, "total_stats_widget.ui"), self)
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
 
         self.total_stats = TotalStats()
-        self.setup_stats_update()
+#        self.setup_stats_update()
 
     def setup_stats_update(self):
         self.timer = QTimer()
@@ -49,10 +49,9 @@ class TotalStatsWidget(QWidget):
         pass
 
 
-"""
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    window = TotalStats()
+    window = TotalStatsWidget()
     window.show()
     app.exec_()
-"""

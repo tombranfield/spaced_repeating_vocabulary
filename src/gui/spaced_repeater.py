@@ -26,6 +26,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.total_stats_widget = TotalStatsWidget()
         self.layout.addWidget(self.total_stats_widget)
+        self.layout.setSpacing(10)
 
         widget = QWidget()
         widget.setLayout(self.layout)
