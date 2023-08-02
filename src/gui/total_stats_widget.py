@@ -5,7 +5,7 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 
 from about_window import AboutWindow
 from settings_window import SettingsWindow
@@ -15,7 +15,7 @@ from src.core.total_stats import TotalStats
 base_dir = os.path.dirname(__file__)
 
 
-class TotalStats(QWidget):
+class TotalStatsWidget(QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi(os.path.join(base_dir, "total_stats_widget.ui"), self)
@@ -49,9 +49,10 @@ class TotalStats(QWidget):
         pass
 
 
-
-
-app = QtWidgets.QApplication(sys.argv)
-window = MainWindow()
-window.show()
-app.exec_()
+"""
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    window = TotalStats()
+    window.show()
+    app.exec_()
+"""
