@@ -31,7 +31,7 @@ class CourseChooserWidget(QMainWindow):
     def refresh_widgets(self):
         self.timer = QTimer()
         self.timer.setInterval(100)
-        self.timer.timeout.connect(self.update_delete_course_button)
+        self.timer.timeout.connect(self.refresh_buttons)
         # self.timer.timeout.connect(self.update_learn_button)
         # self.timer.timeout.connect(self.update_review_button)
         self.timer.start()
@@ -54,16 +54,27 @@ class CourseChooserWidget(QMainWindow):
 
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
+        # TODO delete this
+        print(self.course_name)
+
         # get new stats
         # set the new labels
     
-    def update_delete_course_button(self):
+    def refresh_buttons(self):
         if self.course_name == "":
             self.delete_course_button.setEnabled(False)
+            self.browse_words_button.setEnabled(False)
+            self.insert_from_file_button.setEnabled(False)
             self.delete_course_button.setStyleSheet("color: gray")
+            self.browse_words_button.setStyleSheet("color: gray")
+            self.insert_from_file_button.setStyleSheet("color: gray")
         else:
             self.delete_course_button.setEnabled(True)
+            self.browse_words_button.setEnabled(True)
+            self.insert_from_file_button.setEnabled(True)
             self.delete_course_button.setStyleSheet("color: black")
+            self.browse_words_button.setStyleSheet("color: black")
+            self.insert_from_file_button.setStyleSheet("color: black")
     
 
 if __name__ == "__main__":
