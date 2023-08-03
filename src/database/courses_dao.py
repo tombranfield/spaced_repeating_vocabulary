@@ -3,6 +3,8 @@
 
 from pathlib import Path
 
+from exception import DuplicateEntryException
+
 
 class CourseDAO:
     """
@@ -16,9 +18,12 @@ class CourseDAO:
 
     def add_new_course(self, course_name, course_language):
         """Creates a new course"""
-        with open(self.courses_path, "a") as file_obj:
-            line = course_name + "|" + course_language
-            file_obj.write(line)
+        if self.does_course_already_exist(course_name):
+            raise DuplicateEntryException
+        else:
+            with open(self.courses_path, "a") as file_obj:
+                line = course_name + "|" + course_language + "\n"
+                file_obj.write(line)
 
     def courses_list(self):
         """Returns a list of courses"""
