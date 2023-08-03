@@ -1,12 +1,12 @@
-"""course_dao.py"""
+"""courses_dao.py"""
 
 
 from pathlib import Path
 
-from exception import DuplicateEntryException
+from src.database.exception import DuplicateEntryException
 
 
-class CourseDAO:
+class CoursesDAO:
     """
     Responsible for storing and retrieving the list of courses
     """
@@ -53,10 +53,10 @@ if __name__ == "__main__":
     course_name = "Harry Potter und der Stein der Weisen"
     language = "German"
 
-    course_dao = CourseDAO()
+    courses_dao = CourseDAO()
 
-    course_dao.add_new_course(course_name, language)
+    courses_dao.add_new_course(course_name, language)
 
-    course_dao.add_new_course("My New List", "French")
+    courses_dao.add_new_course("My New List", "French")
 
     print(course_dao.courses_list())

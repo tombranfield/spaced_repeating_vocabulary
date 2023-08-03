@@ -54,6 +54,12 @@ QLabel#review_words_label {
     
 }
 
+QLabel#new_course_message_label {
+    font-family: FreeSans;
+    color: red;
+}
+
+
 QLineEdit {
     background-color: white;
     color: black;

@@ -4,8 +4,11 @@
 from pathlib import Path
 import sys
 
-from PyQt5 import uic
+from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QDialog
+
+from src.database.exception import DuplicateEntryException
+from src.database.courses_dao import CoursesDAO
 
 
 class NewCourseWindow(QDialog):
@@ -14,6 +17,7 @@ class NewCourseWindow(QDialog):
         super().__init__(parent)
         uic.loadUi(str(Path(__file__).parents[0] / "new_course_window.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
+        self.courses_dao = CoursesDAO()
         self.connect_widgets()
         self.course_name = ""
         self.course_language = ""
@@ -24,26 +28,34 @@ class NewCourseWindow(QDialog):
         self.clear_fields_button.clicked.connect(self.clear_fields)
         self.name_entry.textChanged.connect(self.course_name_changed)
         self.language_entry.textChanged.connect(self.course_language_changed)
-        self.ok_button.clicked.connect(self.submit_inputs)
+        self.ok_button.clicked.connect(self.add_new_course)
         self.cancel_button.clicked.connect(self.close_window)
 
     def clear_fields(self):
         """Clears the lineEdit fields of the course name and language"""
         self.name_entry.setText("")
         self.language_entry.setText("")
+        print("clear fields activated")
     
     def close_window(self):
         """Closes the window"""
         self.close()
 
-    def submit_inputs(self):
+    def add_new_course(self):
         """Submits and stores the course information"""
-        pass
+        try:
+            self.courses_dao.add_new_course(self.course_name, 
+                                            self.course_language)
+            self.close()
+        except DuplicateEntryException:
+            msg = "That course already exists."
+            self.new_course_message_label.setText(msg)
 
     def course_name_changed(self, lineEdit_field_string):
         """Sets the course name attribute to the contents of the lineEdit"""
         self.course_name = lineEdit_field_string
         self.update_ok_button()
+        self.new_course_message_label.setText("")
 
     def course_language_changed(self, lineEdit_field_string):
         """Sets the course name attribute to the contents of the lineEdit"""
