@@ -1,5 +1,6 @@
 """course_dao.py"""
 
+
 from pathlib import Path
 
 
@@ -21,7 +22,18 @@ class CourseDAO:
 
     def courses_list(self):
         """Returns a list of courses"""
-        pass
+        courses = ()
+        try:
+            with open(self.courses_path, "r") as file_obj:
+                for line in file_obj:
+                    line = line.strip().split("|")
+                    try:
+                        courses += (line[0],)
+                    except:
+                        pass
+        except:
+            pass
+        return courses
 
     def does_course_already_exist(self, course_name) -> bool:
         """Returns whether the course already exists"""
@@ -36,3 +48,5 @@ if __name__ == "__main__":
     course_dao = CourseDAO()
 
     course_dao.add_new_course(course_name, language)
+
+    print(course_dao.courses_list())
