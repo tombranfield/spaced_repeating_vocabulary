@@ -1,20 +1,17 @@
 """new_course_window.py"""
 
-import os
+from pathlib import Path
 import sys
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog
 
 
-base_dir = os.path.dirname(__file__)
-
-
 class NewCourseWindow(QDialog):
     """A window that allows the user to create a new course"""
     def __init__(self, parent=None):
         super().__init__(parent)
-        uic.loadUi(os.path.join(base_dir, "new_course_window.ui"), self)
+        uic.loadUi(str(Path(__file__).parents[0] / "new_course_window.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
 
         self.clear_fields_button.clicked.connect(self.clear_fields)
@@ -23,7 +20,6 @@ class NewCourseWindow(QDialog):
 
         self.ok_button.clicked.connect(self.submit_inputs)
         self.cancel_button.clicked.connect(self.close_window)
-
 
     def clear_fields(self):
         """Clears the lineEdit fields of the course name and language"""
