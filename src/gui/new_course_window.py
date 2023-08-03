@@ -26,9 +26,11 @@ class NewCourseWindow(QDialog):
     def connect_widgets(self):
         """Connects widget signals and slots"""
         self.clear_fields_button.clicked.connect(self.clear_fields)
+        self.clear_fields_button.setDefault(False)
         self.name_entry.textChanged.connect(self.course_name_changed)
         self.language_entry.textChanged.connect(self.course_language_changed)
         self.ok_button.clicked.connect(self.add_new_course)
+        self.ok_button.setDefault(True)
         self.cancel_button.clicked.connect(self.close_window)
 
     def clear_fields(self):
