@@ -1,7 +1,6 @@
 """total_stats_widget.py"""
 
-import os
-import sys
+from pathlib import Path
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
@@ -12,14 +11,11 @@ from settings_window import SettingsWindow
 from src.core.total_stats import TotalStats
 
 
-base_dir = os.path.dirname(__file__)
-
-
 class TotalStatsWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi(os.path.join(base_dir, "total_stats_widget.ui"), self)
-        self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
+        uic.loadUi(str(Path(__file__).parents[0] / "total_stats_widget.ui"), self)
+        self.setStyleSheet(open("stylesheet.css").read())
 
         self.total_stats = TotalStats()
 
