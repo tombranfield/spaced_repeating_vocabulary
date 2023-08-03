@@ -47,10 +47,12 @@ class CourseChooserWidget(QMainWindow):
     def open_new_course_window(self):
         dialog = NewCourseWindow(self)
         dialog.exec_()
+        self.setup_course_names_box()
 
     def delete_course_window(self):
         dialog = DeleteCourseWindow(self.course_name, parent=self)
         dialog.exec_()
+        self.setup_course_names_box()
 
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
