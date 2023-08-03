@@ -59,7 +59,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="name_entry"/>
+    <widget class="QLineEdit" name="name_entry">
+     <property name="maxLength">
+      <number>40</number>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QLabel" name="instruction_label_2">
@@ -75,7 +79,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="language_entry"/>
+    <widget class="QLineEdit" name="language_entry">
+     <property name="maxLength">
+      <number>40</number>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer_2">

@@ -1,5 +1,6 @@
 """new_course_window.py"""
 
+
 from pathlib import Path
 import sys
 
@@ -16,6 +17,7 @@ class NewCourseWindow(QDialog):
         self.connect_widgets()
         self.course_name = ""
         self.course_language = ""
+        self.update_ok_button()
 
     def connect_widgets(self):
         """Connects widget signals and slots"""
@@ -38,14 +40,20 @@ class NewCourseWindow(QDialog):
         """Submits and stores the course information"""
         pass
 
-    def check_valid_inputs(self) -> bool:
-        """Checks that the course name and language are valid and new"""
-        # Check there is text in both fields
-        # Check that the supplied name does not already exist
-        # Submit a bool
+    def course_name_changed(self, lineEdit_field_string):
+        """Sets the course name attribute to the contents of the lineEdit"""
+        self.course_name = lineEdit_field_string
+        self.update_ok_button()
 
-    def course_name_changed(self, field_string):
-        self.course_name = field_string
+    def course_language_changed(self, lineEdit_field_string):
+        """Sets the course name attribute to the contents of the lineEdit"""
+        self.course_language = lineEdit_field_string
+        self.update_ok_button()
 
-    def course_language_changed(self):
-        pass
+    def update_ok_button(self):
+        if self.course_name and self.course_language:
+            self.ok_button.setEnabled(True)
+            self.ok_button.setStyleSheet("background: lime")
+        else:
+            self.ok_button.setEnabled(False)
+            self.ok_button.setStyleSheet("background: gray")
