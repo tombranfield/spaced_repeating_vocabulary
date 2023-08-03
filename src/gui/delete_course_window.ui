@@ -123,14 +123,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="ok_button">
+      <widget class="QPushButton" name="delete_button">
        <property name="text">
         <string>Delete Course</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="cancel_button">
        <property name="text">
         <string>Cancel</string>
        </property>

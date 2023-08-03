@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 
 from src.database.courses_dao import CoursesDAO
 from new_course_window import NewCourseWindow
-#from delete_course_window import DeleteCourseWindow
+from delete_course_window import DeleteCourseWindow
 
 
 class CourseChooserWidget(QMainWindow):
@@ -23,7 +23,7 @@ class CourseChooserWidget(QMainWindow):
     def setup_widgets(self):
         self.course_names_box.highlighted.connect(self.setup_course_names_box)
         self.new_course_button.clicked.connect(self.open_new_course_window)
-#       self.delete_course_button.clicked.connect(self.delete_course_window)
+        self.delete_course_button.clicked.connect(self.delete_course_window)
         self.setup_course_names_box()
         self.refresh_widgets()
 
@@ -44,10 +44,9 @@ class CourseChooserWidget(QMainWindow):
         dialog = NewCourseWindow(self)
         dialog.exec_()
 
- 
-#   def delete_course(self):
-#        dialog = DeleteCourseWindow(self)
-#        dialog.exec_()
+    def delete_course_window(self):
+        dialog = DeleteCourseWindow(self)
+        dialog.exec_()
 
 
 

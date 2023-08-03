@@ -1,4 +1,4 @@
-"""new_course_window.py"""
+"""delete_course_window.py"""
 
 
 from pathlib import Path
@@ -11,15 +11,15 @@ from src.database.exception import DuplicateEntryException
 from src.database.courses_dao import CoursesDAO
 
 
-class NewCourseWindow(QDialog):
-    """A window that allows the user to create a new course"""
+class DeleteCourseWindow(QDialog):
+    """A window for the user to delete the course"""
     def __init__(self, parent=None):
         super().__init__(parent)
-        uic.loadUi(str(Path(__file__).parents[0] / "new_course_window.ui"), self)
+        uic.loadUi(str(Path(__file__).parents[0] / "delete_course_window.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
         self.courses_dao = CoursesDAO()
-        self.course_name = course_name
-        print(self.course_name)
+#        self.course_name = course_name
+#        print(self.course_name)
         self.connect_widgets()
 
     def connect_widgets(self):
