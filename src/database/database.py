@@ -17,8 +17,9 @@ class Database:
     words with their corresponding translations and other related 
     information.
     """
-    # Temporary path in same folder for informal testing
-    _DB_PATH = str(Path("InformalWordList.db"))
+#    _DB_PATH = str(Path("InformalWordList.db"))
+    _DB_PATH = str(Path(__file__).parents[2] / "data" / "words.db")
+
     _TABLE_NAME = "MASTER_WORD_LIST"
         
     def __init__(self, db_path=_DB_PATH):
