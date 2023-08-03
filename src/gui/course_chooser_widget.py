@@ -8,6 +8,8 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 
 from src.database.courses_dao import CoursesDAO
+from new_course_window import NewCourseWindow
+#from delete_course_window import DeleteCourseWindow
 
 
 class CourseChooserWidget(QMainWindow):
@@ -16,9 +18,12 @@ class CourseChooserWidget(QMainWindow):
         uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
         self.setup_widgets()
+        self.course_name = ""
 
     def setup_widgets(self):
         self.course_names_box.highlighted.connect(self.setup_course_names_box)
+        self.new_course_button.clicked.connect(self.open_new_course_window)
+#       self.delete_course_button.clicked.connect(self.delete_course_window)
         self.setup_course_names_box()
         self.refresh_widgets()
 
@@ -34,6 +39,16 @@ class CourseChooserWidget(QMainWindow):
         course_names = courses_dao.courses_list()
         self.course_names_box.clear()
         self.course_names_box.addItems(course_names)        
+
+    def open_new_course_window(self):
+        dialog = NewCourseWindow(self)
+        dialog.exec_()
+
+ 
+#   def delete_course(self):
+#        dialog = DeleteCourseWindow(self)
+#        dialog.exec_()
+
 
 
 if __name__ == "__main__":
