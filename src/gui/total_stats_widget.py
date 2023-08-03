@@ -19,12 +19,13 @@ class TotalStatsWidget(QMainWindow):
 
         self.total_stats = TotalStats()
 
-        self.setup_stats_update()
+        self.setup_update_widgets()
 
-    def setup_stats_update(self):
+    def setup_update_widgets(self):
         self.timer = QTimer()
         self.timer.setInterval(100) # Every 0.1 seconds
         self.timer.timeout.connect(self.add_new_labels)
+        self.timer.timeout.connect(self.update_review_button)
         self.timer.start()
 
     def add_new_labels(self):
@@ -34,7 +35,7 @@ class TotalStatsWidget(QMainWindow):
         self.total_review_label.setText(new_review_text)
         
     def get_total_learnt_text(self):
-        learnt_msg = ("<b><font color='forestgreen'>" 
+        learnt_msg = ("<b><font color='green'>" 
                       + str(self.total_stats.total_words_learnt())
                       + "/" + str(self.total_stats.total_words())
                       + "</font></b>")
@@ -48,7 +49,7 @@ class TotalStatsWidget(QMainWindow):
         total_review_words = self.total_stats.total_words_to_review()
         review_msg = "<b><font color=\'"
         if total_review_words == 0:
-            review_msg += "forestgreen\'>"
+            review_msg += "green\'>"
         else: 
             review_msg += "darkred\'>"
         review_msg += (str(total_review_words)) + "</font></b>"
@@ -57,6 +58,14 @@ class TotalStatsWidget(QMainWindow):
         else:
             review_msg += " words to review"
         return review_msg
+
+    def update_review_button(self):
+        if self.total_stats.total_words_to_review() == 0:
+            self.review_button.setEnabled(False)
+            self.review_button.setStyleSheet("background: lightgray")
+        else:
+            self.review_button.setEnabled(True)
+            self.review_button.setStyleSheet("background: lime")
 
 
 if __name__ == "__main__":
