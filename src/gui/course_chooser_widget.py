@@ -18,7 +18,10 @@ class CourseChooserWidget(QMainWindow):
         uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
         self.setup_widgets()
-        self.course_name = ""
+
+        # Set it to the first course in the list
+        # If no course, disable the delete course button
+        self.course_name = "my course name"
 
     def setup_widgets(self):
         self.course_names_box.highlighted.connect(self.setup_course_names_box)
@@ -45,9 +48,8 @@ class CourseChooserWidget(QMainWindow):
         dialog.exec_()
 
     def delete_course_window(self):
-        dialog = DeleteCourseWindow(self)
+        dialog = DeleteCourseWindow(self.course_name, parent=self)
         dialog.exec_()
-
 
 
 if __name__ == "__main__":

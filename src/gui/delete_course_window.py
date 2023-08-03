@@ -13,18 +13,18 @@ from src.database.courses_dao import CoursesDAO
 
 class DeleteCourseWindow(QDialog):
     """A window for the user to delete the course"""
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, course_name, parent=None):
+        super(DeleteCourseWindow, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "delete_course_window.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
         self.courses_dao = CoursesDAO()
-#        self.course_name = course_name
-#        print(self.course_name)
+        self.course_name = course_name
         self.connect_widgets()
 
     def connect_widgets(self):
         """Connects widget signals and slots"""
-# Write msg incl course name        self.label = 
+        msg = "Are sure you want to delete " + self.course_name + "?"
+        self.description_label.setText(msg)
         self.delete_button.clicked.connect(self.delete_course)
         self.cancel_button.clicked.connect(self.close_window)
 
