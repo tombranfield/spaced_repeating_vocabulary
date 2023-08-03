@@ -19,12 +19,22 @@ class CourseChooserWidget(QMainWindow):
 
     def setup_widgets(self):
         self.setup_course_names_box()
+        self.course_names_box.highlighted.connect(self.setup_course_names_box)
+        self.refresh_widgets()
+
+    def refresh_widgets(self):
+        self.timer = QTimer()
+        self.timer.setInterval(100)
+        # self.timer.timeout.connect(self.setup_course_names_box)
+        # self.timer.timeout.connect(self.update_learn_button)
+        # self.timer.timeout.connect(self.update_review_button)
+        self.timer.start()
 
     def setup_course_names_box(self):
         courses_dao = CoursesDAO()
         course_names = courses_dao.courses_list()
-        self.course_names_box.addItems(course_names)
-
+        self.course_names_box.clear()
+        self.course_names_box.addItems(course_names)        
 
 
 if __name__ == "__main__":

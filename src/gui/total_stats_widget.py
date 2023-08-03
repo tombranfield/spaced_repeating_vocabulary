@@ -18,10 +18,9 @@ class TotalStatsWidget(QMainWindow):
         self.setStyleSheet(open("stylesheet.css").read())
 
         self.total_stats = TotalStats()
+        self.refresh_widgets()
 
-        self.setup_update_widgets()
-
-    def setup_update_widgets(self):
+    def refresh_widgets(self):
         self.timer = QTimer()
         self.timer.setInterval(100) # Every 0.1 seconds
         self.timer.timeout.connect(self.add_new_labels)
