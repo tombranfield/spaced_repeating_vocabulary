@@ -7,19 +7,32 @@ class CourseDAO:
     """
     Responsible for storing and retrieving the list of courses
     """
-    _COURSES_PATH = str(Path(__file__).parents[2] / "data" / "courses.dat")
+    COURSES_PATH = str(Path(__file__).parents[2] / "data" / "courses.dat")
 
-    def __init__(self, courses_path=_COURSES_PATH):
+    def __init__(self, courses_path=COURSES_PATH):
         """Initializes the database."""
-        self._courses_path = courses_path
+        self.courses_path = courses_path
 
-    @classmethod
-    @property
-    def path(cls):
-        return cls._COURSES_PATH
+    def add_new_course(self, course_name, course_language):
+        """Creates a new course"""
+        with open(self.courses_path, "w") as file_obj:
+            line = course_name + "|" + course_language
+            file_obj.write(line)
 
+    def courses_list(self):
+        """Returns a list of courses"""
+        pass
+
+    def does_course_already_exist(self, course_name) -> bool:
+        """Returns whether the course already exists"""
+        pass
 
 
 
 if __name__ == "__main__":
-    pass
+    course_name = "Harry Potter und der Stein der Weisen"
+    language = "German"
+
+    course_dao = CourseDAO()
+
+    course_dao.add_new_course(course_name, language)
