@@ -18,13 +18,13 @@ class CourseChooserWidget(QMainWindow):
         uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
         self.setup_widgets()
-
-        # Set it to the first course in the list
-        # If no course, disable the delete course button
-        self.course_name = "my course name"
+        self.course_name = self.course_names_box.currentText()
 
     def setup_widgets(self):
         self.course_names_box.highlighted.connect(self.setup_course_names_box)
+        #TODO
+        self.course_names_box.currentIndexChanged[str].connect(
+            self.existing_course_name_changed)
         self.new_course_button.clicked.connect(self.open_new_course_window)
         self.delete_course_button.clicked.connect(self.delete_course_window)
         self.setup_course_names_box()
@@ -33,6 +33,7 @@ class CourseChooserWidget(QMainWindow):
     def refresh_widgets(self):
         self.timer = QTimer()
         self.timer.setInterval(100)
+        self.timer.timeout.connect(self.update_delete_course_button)
         # self.timer.timeout.connect(self.update_learn_button)
         # self.timer.timeout.connect(self.update_review_button)
         self.timer.start()
@@ -51,6 +52,19 @@ class CourseChooserWidget(QMainWindow):
         dialog = DeleteCourseWindow(self.course_name, parent=self)
         dialog.exec_()
 
+    def existing_course_name_changed(self, course_name):
+        self.course_name = course_name
+        # get new stats
+        # set the new labels
+    
+    def update_delete_course_button(self):
+        if self.course_name == "":
+            self.delete_course_button.setEnabled(False)
+            self.delete_course_button.setStyleSheet("color: gray")
+        else:
+            self.delete_course_button.setEnabled(True)
+            self.delete_course_button.setStyleSheet("color: black")
+    
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

@@ -23,13 +23,14 @@ class DeleteCourseWindow(QDialog):
 
     def connect_widgets(self):
         """Connects widget signals and slots"""
-        msg = "Are sure you want to delete " + self.course_name + "?"
+        msg = "Are sure you want to delete \'" + self.course_name + "\'?"
         self.description_label.setText(msg)
         self.delete_button.clicked.connect(self.delete_course)
         self.cancel_button.clicked.connect(self.close_window)
 
     def delete_course(self):
-        print("deleting")
+        self.courses_dao.delete_course(self.course_name)
+        self.close()
 
     def close_window(self):
         """Closes the window"""
