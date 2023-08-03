@@ -16,7 +16,7 @@ class CourseDAO:
 
     def add_new_course(self, course_name, course_language):
         """Creates a new course"""
-        with open(self.courses_path, "w") as file_obj:
+        with open(self.courses_path, "a") as file_obj:
             line = course_name + "|" + course_language
             file_obj.write(line)
 
@@ -29,15 +29,18 @@ class CourseDAO:
                     line = line.strip().split("|")
                     try:
                         courses += (line[0],)
-                    except:
+                    except ValueError:
                         pass
-        except:
+        except FileNotFoundError:
             pass
         return courses
 
-    def does_course_already_exist(self, course_name) -> bool:
+    def does_course_already_exist(self, new_course_name) -> bool:
         """Returns whether the course already exists"""
-        pass
+        existing_courses = self.courses_list()
+        if new_course_name in existing_courses:
+                return True
+        return False
 
 
 
@@ -48,5 +51,7 @@ if __name__ == "__main__":
     course_dao = CourseDAO()
 
     course_dao.add_new_course(course_name, language)
+
+    course_dao.add_new_course("My New List", "French")
 
     print(course_dao.courses_list())
