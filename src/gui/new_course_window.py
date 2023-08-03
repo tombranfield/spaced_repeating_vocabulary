@@ -13,11 +13,15 @@ class NewCourseWindow(QDialog):
         super().__init__(parent)
         uic.loadUi(str(Path(__file__).parents[0] / "new_course_window.ui"), self)
         self.setStyleSheet(open("stylesheet.css").read())
+        self.connect_widgets()
+        self.course_name = ""
+        self.course_language = ""
 
+    def connect_widgets(self):
+        """Connects widget signals and slots"""
         self.clear_fields_button.clicked.connect(self.clear_fields)
-        self.language_entry.textChanged.connect(self.course_name_changed)
-        self.name_entry.textChanged.connect(self.course_language_changed)
-
+        self.name_entry.textChanged.connect(self.course_name_changed)
+        self.language_entry.textChanged.connect(self.course_language_changed)
         self.ok_button.clicked.connect(self.submit_inputs)
         self.cancel_button.clicked.connect(self.close_window)
 
@@ -40,8 +44,8 @@ class NewCourseWindow(QDialog):
         # Check that the supplied name does not already exist
         # Submit a bool
 
-    def course_name_changed(self):
-        pass
+    def course_name_changed(self, field_string):
+        self.course_name = field_string
 
     def course_language_changed(self):
         pass
