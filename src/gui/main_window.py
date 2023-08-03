@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
-        self.setMinimumSize(750, 500)
+        self.setFixedSize(700, 600)
 
         self.setWindowTitle("Let's Learn Some Vocabulary!")
 
