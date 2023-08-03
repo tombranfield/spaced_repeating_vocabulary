@@ -31,17 +31,17 @@ class CoursesDAO:
         """Deletes a course and all of its words"""
         try:
             with open(self.courses_path, "r") as in_file:
-                with open("temp.txt", "w" as out_file:
+                with open("temp.txt", "w") as out_file:
                     for line in in_file:
                         line = line.strip().split("|")
                         if line[0] != course_name:
-                            output.write(line)
+                            line = "|".join(line) + "\n"
+                            out_file.write(line)
             os.replace("temp.txt", self.courses_path)
         except FileNotFoundError:
             pass
         word_list_dao = WordListDAO()
         word_list_dao.delete_word_list(course_name)
-        print("done deleting")
 
     def courses_list(self):
         """Returns a list of courses"""
@@ -71,10 +71,12 @@ if __name__ == "__main__":
     course_name = "Harry Potter und der Stein der Weisen"
     language = "German"
 
-    courses_dao = CourseDAO()
+    courses_dao = CoursesDAO()
 
-    courses_dao.add_new_course(course_name, language)
+    print(courses_dao.courses_list())
 
-    courses_dao.add_new_course("My New List", "French")
+    courses_dao.delete_course("Harry Potter")
+    courses_dao.delete_course("a")
 
-    print(course_dao.courses_list())
+    print(courses_dao.courses_list())
+
