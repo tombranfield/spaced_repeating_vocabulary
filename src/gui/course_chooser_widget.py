@@ -1,26 +1,18 @@
 """course_chooser.py"""
 
-import os
-import sys
+from pathlib import Path
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 
-from about_window import AboutWindow
-from settings_window import SettingsWindow
-
-
-base_dir = os.path.dirname(__file__)
-
 
 class CourseChooserWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi(os.path.join(base_dir, "course_chooser_widget.ui"), self)
-        self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
-
-        
+#        uic.loadUi(os.path.join(base_dir, "course_chooser_widget.ui"), self)
+        uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
+        self.setStyleSheet(open("stylesheet.css").read())
 
 
 if __name__ == "__main__":
