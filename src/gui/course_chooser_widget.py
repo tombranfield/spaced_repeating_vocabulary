@@ -21,9 +21,7 @@ class CourseChooserWidget(QMainWindow):
         self.course_name = self.course_names_box.currentText()
 
     def setup_widgets(self):
-        self.course_names_box.highlighted.connect(self.setup_course_names_box)
-        #TODO
-        self.course_names_box.currentIndexChanged[str].connect(
+        self.course_names_box.currentTextChanged.connect(
             self.existing_course_name_changed)
         self.new_course_button.clicked.connect(self.open_new_course_window)
         self.delete_course_button.clicked.connect(self.delete_course_window)

@@ -35,4 +35,3 @@ class DeleteCourseWindow(QDialog):
     def close_window(self):
         """Closes the window"""
         self.close()
-
