@@ -17,11 +17,17 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
      <item>
-      <widget class="QPushButton" name="new_course_button">
-       <property name="text">
-        <string>New Course</string>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </widget>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <widget class="QPushButton" name="about_button">

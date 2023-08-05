@@ -7,7 +7,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QDialog, QWidget
 
 from about_window import AboutWindow
-from new_course_window import NewCourseWindow
 from settings_window import SettingsWindow
 
 
@@ -18,18 +17,11 @@ class Header(QWidget):
         uic.loadUi(str(Path(__file__).parents[0] / "header.ui"), self)
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
 
-        # self.new_course_button.clicked.connect(self.new_course_window)
         self.about_button.clicked.connect(self.open_about_window)
-        self.new_course_button.clicked.connect(self.open_new_course_window)
         self.settings_button.clicked.connect(self.open_settings_window)
-
 
     def open_about_window(self):
         dialog = AboutWindow(self)
-        dialog.exec_()
-
-    def open_new_course_window(self):
-        dialog = NewCourseWindow(self)
         dialog.exec_()
 
     def open_settings_window(self):
