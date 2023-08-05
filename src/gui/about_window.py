@@ -11,7 +11,7 @@ class AboutWindow(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         uic.loadUi(str(Path(__file__).parents[0] / "about_window.ui"), self)
-        self.setStyleSheet(open("stylesheet.css").read())
+        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
 
         self.ok_button.clicked.connect(self.close_window)       
     

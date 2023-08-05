@@ -54,9 +54,6 @@ class CourseChooserWidget(QMainWindow):
 
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
-        # TODO delete this
-        print(self.course_name)
-
         # get new stats
         # set the new labels
     
