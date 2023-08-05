@@ -20,6 +20,7 @@ class CourseChooserWidget(QMainWindow):
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         self.setup_widgets()
         self.course_name = self.course_names_box.currentText()
+        total_stats = TotalStats()
 
     def setup_widgets(self):
         self.course_names_box.currentTextChanged.connect(
@@ -33,8 +34,7 @@ class CourseChooserWidget(QMainWindow):
         self.timer = QTimer()
         self.timer.setInterval(100)
         self.timer.timeout.connect(self.refresh_buttons)
-        # self.timer.timeout.connect(self.update_learn_button)
-        # self.timer.timeout.connect(self.update_review_button)
+        self.refresh_labels()
         self.timer.start()
 
     def setup_course_names_box(self):
@@ -57,16 +57,15 @@ class CourseChooserWidget(QMainWindow):
         self.course_name = course_name
         self.update_course_statistics_in_labels()
 
-    def update_course_statistics_in_labels(self):
+    def refresh_labels(self):
         new_learnt_text = self.get_total_learnt_text()
         new_review_text = self.get_total_review_text()
         self.known_words_label.setText(new_learnt_text)
         self.review_words_label.setText(new_review_text)
 
-    def get_total_learnt_text(self, course_name):
-        total_stats = TotalStats()
-        total_words = total_stats.total_words(course_name)
-        num_words_learnt = total_stats.total_words_learnt(course_name)
+    def get_total_learnt_text(self):
+        total_words = total_stats.total_words(self.course_name)
+        num_words_learnt = total_stats.total_words_learnt(self.course_name)
         learnt_msg = ("<b><font color='green'>"
                       + str(num_words_learnt)
                       + "/" + str(total_words)
@@ -78,21 +77,19 @@ class CourseChooserWidget(QMainWindow):
         return learnt_msg
 
     def get_total_review_text(self):
-        num_words_to_review = total_stats.total_words_to_review(course_name)
+        num_review_words = total_stats.total_words_to_review(self.course_name)
         review_msg = "<b><font color=\'"
-        if nums_words_to_review == 0:
+        if nums_review_words == 0:
             review_msg += "green\'>"
         else:
             review_msg += "darkred\'>"
-        review_msg += (str(num_words_to_review)) + "</font></b>"
-        if num_words_to_review == 1:
+        review_msg += (str(num_review_words)) + "</font></b>"
+        if num_review_words == 1:
             review_msg += " word to review"
         else:
             review_msg += " words to review"
         return review_msg
 
-
-    
     def refresh_buttons(self):
         if self.course_name == "":
             self.delete_course_button.setEnabled(False)
