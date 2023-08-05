@@ -23,8 +23,11 @@ class TotalStats:
         result = self.db.result_from_query(query)
         return result[0][0]
 
-    def total_words_to_review(self) -> int:
-        word_lists = self._get_word_lists()
+    def total_words_to_review(self, word_list_name="") -> int:
+        if word_list_name:
+            word_lists = [word_list_name]
+        else:
+            word_lists = self._get_word_lists()
         word_count = 0
         for word_list_name in word_lists:
             query = ("SELECT rowid, when_review FROM " + Database.table_name 
