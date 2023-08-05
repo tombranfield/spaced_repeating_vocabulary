@@ -76,3 +76,13 @@ def test_returns_correct_number_of_words_learnt_new_words(db_with_learnt_words):
 def test_returns_correct_number_of_words_to_review(db_with_learnt_words):
     total_stats = TotalStats(db_with_learnt_words._db_path)
     assert total_stats.total_words_to_review() == 2 
+
+
+def test_returns_correct_num_of_words_to_review_of_list(db_with_learnt_words):
+    total_stats = TotalStats(db_with_learnt_words._db_path)
+    assert total_stats.total_words_learnt("My List") == 1
+    
+
+def test_returns_correct_total_words_of_list(db_with_learnt_words):
+    total_stats = TotalStats(db_with_learnt_words._db_path)
+    assert total_stats.total_words("My List") == 5

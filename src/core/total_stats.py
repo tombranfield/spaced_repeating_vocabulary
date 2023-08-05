@@ -13,10 +13,13 @@ class TotalStats:
     def __init__(self, db_path=Database.path):
         self.db = Database(db_path)
 
-    def total_words_learnt(self) -> int:
+    def total_words_learnt(self, word_list_name="") -> int:
         """Returns the total number of words learnt from all word lists"""
         query = ("SELECT COUNT(*) FROM " + Database.table_name 
                 + " WHERE is_known = 1")
+        if word_list_name:
+            query += " AND word_list_name = \'" + word_list_name + "\'"
+            print(query)
         result = self.db.result_from_query(query)
         return result[0][0]
 
@@ -34,9 +37,11 @@ class TotalStats:
                     word_count += 1
         return word_count        
 
-    def total_words(self) -> int:
+    def total_words(self, word_list_name="") -> int:
         """Returns the total number of words in the database"""
         query = "SELECT COUNT(rowid) FROM " + Database.table_name
+        if word_list_name:
+            query += " WHERE word_list_name = \'" + word_list_name + "\'"
         result = self.db.result_from_query(query)
         return result[0][0]
 
