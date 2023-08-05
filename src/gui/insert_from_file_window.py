@@ -24,10 +24,9 @@ class InsertFromFileWindow(QDialog):
         """Connects widget signals and slots"""
         self.clear_fields_button.clicked.connect(self.clear_fields)
         self.clear_fields_button.setDefault(False)
-        self.exit_button.clicked.connect(self.close_window)
-#        self.name_entry.textChanged.connect(self.course_name_changed)
-#        self.language_entry.textChanged.connect(self.course_language_changed)
-
+        self.cancel_button.clicked.connect(self.close_window)
+        self.name_entry.textChanged.connect(self.course_name_changed)
+        self.language_entry.textChanged.connect(self.course_language_changed)
 
     def clear_fields(self):
         """Clears the lineEdit fields of the course name and language"""
@@ -41,7 +40,6 @@ class InsertFromFileWindow(QDialog):
     def course_name_changed(self, lineEdit_field_string):
         """Sets the course name attribute to the contents of the lineEdit"""
         self.course_name = lineEdit_field_string
-        self.new_course_message_label.setText("")
 
     def course_language_changed(self, lineEdit_field_string):
         """Sets the course name attribute to the contents of the lineEdit"""
