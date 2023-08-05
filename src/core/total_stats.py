@@ -24,7 +24,7 @@ class TotalStats:
 
     def total_words_to_learn(self, word_list_name="") -> int:
         total_words_to_learn = (self.total_words(word_list_name) 
-                                - self.total_words_learnt(word_list_name)
+                                - self.total_words_learnt(word_list_name))
         return total_words_to_learn
 
     def total_words_to_review(self, word_list_name="") -> int:
