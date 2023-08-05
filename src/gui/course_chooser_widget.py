@@ -58,17 +58,39 @@ class CourseChooserWidget(QMainWindow):
         self.update_course_statistics_in_labels()
 
     def update_course_statistics_in_labels(self):
-        # look in total stats widget for advice
-        total_stats = TotalStats()
-        total_words = total_stats.total_words(course_name)
-        num_words_learnt = total_stats.total_words_learnt(course_name)
-        num_words_to_review = total_stats.total_words_to_review(course_name)
-
-        # TODO wrote these functions. See Total Stats
         new_learnt_text = self.get_total_learnt_text()
         new_review_text = self.get_total_review_text()
         self.known_words_label.setText(new_learnt_text)
         self.review_words_label.setText(new_review_text)
+
+    def get_total_learnt_text(self, course_name):
+        total_stats = TotalStats()
+        total_words = total_stats.total_words(course_name)
+        num_words_learnt = total_stats.total_words_learnt(course_name)
+        learnt_msg = ("<b><font color='green'>"
+                      + str(num_words_learnt)
+                      + "/" + str(total_words)
+                      + "</font></b>")
+        if num_words_learnt == 1:
+            learnt_msg += " word learnt"
+        else:
+            learnt_msg += " words learnt"
+        return learnt_msg
+
+    def get_total_review_text(self):
+        num_words_to_review = total_stats.total_words_to_review(course_name)
+        review_msg = "<b><font color=\'"
+        if nums_words_to_review == 0:
+            review_msg += "green\'>"
+        else:
+            review_msg += "darkred\'>"
+        review_msg += (str(num_words_to_review)) + "</font></b>"
+        if num_words_to_review == 1:
+            review_msg += " word to review"
+        else:
+            review_msg += " words to review"
+        return review_msg
+
 
     
     def refresh_buttons(self):
