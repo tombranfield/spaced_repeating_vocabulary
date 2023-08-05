@@ -16,7 +16,7 @@ class CourseChooserWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
-        self.setStyleSheet(open("stylesheet.css").read())
+        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         self.setup_widgets()
         self.course_name = self.course_names_box.currentText()
 

@@ -1,7 +1,7 @@
 """header.py"""
 
-import os
-import sys
+
+from pathlib import Path
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QDialog, QWidget
@@ -11,15 +11,12 @@ from new_course_window import NewCourseWindow
 from settings_window import SettingsWindow
 
 
-base_dir = os.path.dirname(__file__)
-
-
 class Header(QWidget):
     def __init__(self):
         """Header class which holds the about and settings buttons"""
         super().__init__()
-        uic.loadUi(os.path.join(base_dir, "header.ui"), self)
-        self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
+        uic.loadUi(str(Path(__file__).parents[0] / "header.ui"), self)
+        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
 
         # self.new_course_button.clicked.connect(self.new_course_window)
         self.about_button.clicked.connect(self.open_about_window)
