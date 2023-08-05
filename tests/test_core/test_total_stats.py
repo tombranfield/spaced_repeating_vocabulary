@@ -91,3 +91,10 @@ def test_returns_correct_total_words_of_list(db_with_learnt_words):
 def test_returns_correct_num_of_words_to_review_of_list(db_with_learnt_words):
     total_stats = TotalStats(db_with_learnt_words._db_path)
     assert total_stats.total_words_to_review("My List") == 1
+
+
+def test_returns_zero_for_word_list_that_does_not_exist(db_with_learnt_words):
+    total_stats = TotalStats(db_with_learnt_words._db_path)
+    assert total_stats.total_words_learnt("Non-existent List") == 0
+    assert total_stats.total_words_to_review("Non-existent List") == 0
+    assert total_stats.total_words("Non-existent List") == 0
