@@ -18,9 +18,9 @@ class CourseChooserWidget(QMainWindow):
         super().__init__()
         uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
-        self.setup_widgets()
         self.course_name = self.course_names_box.currentText()
-        total_stats = TotalStats()
+        self.total_stats = TotalStats()
+        self.setup_widgets()
 
     def setup_widgets(self):
         self.course_names_box.currentTextChanged.connect(
@@ -29,12 +29,13 @@ class CourseChooserWidget(QMainWindow):
         self.delete_course_button.clicked.connect(self.delete_course_window)
         self.setup_course_names_box()
         self.refresh_widgets()
+        self.refresh_labels()
 
     def refresh_widgets(self):
         self.timer = QTimer()
         self.timer.setInterval(100)
         self.timer.timeout.connect(self.refresh_buttons)
-        self.refresh_labels()
+#        self.refresh_labels()
         self.timer.start()
 
     def setup_course_names_box(self):
@@ -55,7 +56,7 @@ class CourseChooserWidget(QMainWindow):
 
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
-        self.update_course_statistics_in_labels()
+        self.refresh_labels()
 
     def refresh_labels(self):
         new_learnt_text = self.get_total_learnt_text()
@@ -64,8 +65,8 @@ class CourseChooserWidget(QMainWindow):
         self.review_words_label.setText(new_review_text)
 
     def get_total_learnt_text(self):
-        total_words = total_stats.total_words(self.course_name)
-        num_words_learnt = total_stats.total_words_learnt(self.course_name)
+        total_words = self.total_stats.total_words(self.course_name)
+        num_words_learnt = self.total_stats.total_words_learnt(self.course_name)
         learnt_msg = ("<b><font color='green'>"
                       + str(num_words_learnt)
                       + "/" + str(total_words)
@@ -77,9 +78,9 @@ class CourseChooserWidget(QMainWindow):
         return learnt_msg
 
     def get_total_review_text(self):
-        num_review_words = total_stats.total_words_to_review(self.course_name)
+        num_review_words = self.total_stats.total_words_to_review(self.course_name)
         review_msg = "<b><font color=\'"
-        if nums_review_words == 0:
+        if num_review_words == 0:
             review_msg += "green\'>"
         else:
             review_msg += "darkred\'>"
