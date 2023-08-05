@@ -19,7 +19,6 @@ class TotalStats:
                 + " WHERE is_known = 1")
         if word_list_name:
             query += " AND word_list_name = \'" + word_list_name + "\'"
-            print(query)
         result = self.db.result_from_query(query)
         return result[0][0]
 
