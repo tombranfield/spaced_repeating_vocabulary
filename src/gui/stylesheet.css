@@ -9,7 +9,6 @@ QWidget#centralwidget {
     border-color: "black";
 }
 
-
 QDialog {
     background-color: lightblue;
 }
