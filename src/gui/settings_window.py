@@ -1,5 +1,6 @@
 """settings_window.py"""
 
+
 from pathlib import Path
 
 from PyQt5 import uic

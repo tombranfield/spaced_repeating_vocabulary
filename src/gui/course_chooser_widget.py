@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 
 from src.core.total_stats import TotalStats
 from src.database.courses_dao import CoursesDAO
+from insert_from_file_window import InsertFromFileWindow
 from new_course_window import NewCourseWindow
 from delete_course_window import DeleteCourseWindow
 
@@ -27,6 +28,7 @@ class CourseChooserWidget(QMainWindow):
             self.existing_course_name_changed)
         self.new_course_button.clicked.connect(self.open_new_course_window)
         self.delete_course_button.clicked.connect(self.delete_course_window)
+        self.insert_from_file_button.clicked.connect(self.insert_from_file_window)
         self.setup_course_names_box()
         self.refresh_widgets()
         self.refresh_labels()
@@ -55,6 +57,10 @@ class CourseChooserWidget(QMainWindow):
         dialog = DeleteCourseWindow(self.course_name, parent=self)
         dialog.exec_()
         self.setup_course_names_box()
+
+    def insert_from_file_window(self):
+        dialog = InsertFromFileWindow(self)
+        dialog.exec_()
 
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
