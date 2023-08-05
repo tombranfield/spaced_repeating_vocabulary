@@ -34,8 +34,10 @@ class CourseChooserWidget(QMainWindow):
     def refresh_widgets(self):
         self.timer = QTimer()
         self.timer.setInterval(100)
-        self.timer.timeout.connect(self.refresh_buttons)
-#        self.refresh_labels()
+        self.timer.timeout.connect(self.refresh_menu_buttons)
+        self.timer.timeout.connect(self.refresh_learn_button)
+        self.timer.timeout.connect(self.refresh_review_button)
+        self.refresh_labels()
         self.timer.start()
 
     def setup_course_names_box(self):
@@ -57,12 +59,32 @@ class CourseChooserWidget(QMainWindow):
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
         self.refresh_labels()
+        self.refresh_learn_button()
+        self.refresh_review_button()
 
     def refresh_labels(self):
         new_learnt_text = self.get_total_learnt_text()
         new_review_text = self.get_total_review_text()
         self.known_words_label.setText(new_learnt_text)
         self.review_words_label.setText(new_review_text)
+
+    def refresh_learn_button(self):
+        total_words_to_learn = (self.total_stats.total_words(self.course_name)
+                         - self.total_stats.total_words_learnt(self.course_name))
+        if total_words_to_learn == 0:
+            self.learn_button.setEnabled(False)
+            self.learn_button.setStyleSheet("background: lightgray")
+        else:
+            self.learn_button.setEnabled(True)
+            self.learn_button.setStyleSheet("background: lime")
+
+    def refresh_review_button(self):
+        if self.total_stats.total_words_to_review(self.course_name) == 0:
+            self.review_button.setEnabled(False)
+            self.review_button.setStyleSheet("background: lightgray")
+        else:
+            self.review_button.setEnabled(True)
+            self.review_button.setStyleSheet("background: lime")
 
     def get_total_learnt_text(self):
         total_words = self.total_stats.total_words(self.course_name)
@@ -91,7 +113,7 @@ class CourseChooserWidget(QMainWindow):
             review_msg += " words to review"
         return review_msg
 
-    def refresh_buttons(self):
+    def refresh_menu_buttons(self):
         if self.course_name == "":
             self.delete_course_button.setEnabled(False)
             self.browse_words_button.setEnabled(False)
