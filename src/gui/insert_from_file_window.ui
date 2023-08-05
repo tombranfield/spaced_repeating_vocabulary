@@ -45,7 +45,7 @@
     <string>Enter the list name of the input file:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="name_entry">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -71,7 +71,7 @@
     <string>Enter the foreign language of the input file:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="language_entry">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -120,7 +120,7 @@
     <string>Is input file valid:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="browse_button">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -133,7 +133,7 @@
     <string>Browse</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="insert_button">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -157,9 +157,9 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="clear_fields_button">
       <property name="text">
-       <string>PushButton</string>
+       <string>Clear Fields</string>
       </property>
      </widget>
     </item>
@@ -177,9 +177,9 @@
      </spacer>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="exit_button">
       <property name="text">
-       <string>PushButton</string>
+       <string>Exit</string>
       </property>
      </widget>
     </item>
