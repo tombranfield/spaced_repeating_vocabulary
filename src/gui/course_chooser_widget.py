@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 
+from src.core.total_stats import TotalStats
 from src.database.courses_dao import CoursesDAO
 from new_course_window import NewCourseWindow
 from delete_course_window import DeleteCourseWindow
@@ -54,8 +55,21 @@ class CourseChooserWidget(QMainWindow):
 
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
-        # get new stats
-        # set the new labels
+        self.update_course_statistics_in_labels()
+
+    def update_course_statistics_in_labels(self):
+        # look in total stats widget for advice
+        total_stats = TotalStats()
+        total_words = total_stats.total_words(course_name)
+        num_words_learnt = total_stats.total_words_learnt(course_name)
+        num_words_to_review = total_stats.total_words_to_review(course_name)
+
+        # TODO wrote these functions. See Total Stats
+        new_learnt_text = self.get_total_learnt_text()
+        new_review_text = self.get_total_review_text()
+        self.known_words_label.setText(new_learnt_text)
+        self.review_words_label.setText(new_review_text)
+
     
     def refresh_buttons(self):
         if self.course_name == "":
