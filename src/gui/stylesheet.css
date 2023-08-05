@@ -39,7 +39,7 @@ QLabel {
 
 QLabel#title_label {
     font-family: FreeSans;
-    font-size: 32px;
+    font-size: 36px;
     color: black;
     font-weight: bold;
 }

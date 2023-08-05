@@ -22,7 +22,7 @@
      <number>25</number>
     </property>
     <property name="topMargin">
-     <number>20</number>
+     <number>30</number>
     </property>
     <property name="rightMargin">
      <number>30</number>
@@ -30,7 +30,7 @@
     <property name="bottomMargin">
      <number>20</number>
     </property>
-    <item>
+    <item alignment="Qt::AlignLeft">
      <widget class="QLabel" name="title_label">
       <property name="minimumSize">
        <size>

@@ -21,6 +21,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>15</number>
+    </property>
     <property name="leftMargin">
      <number>25</number>
     </property>
@@ -33,7 +36,7 @@
     <property name="bottomMargin">
      <number>30</number>
     </property>
-    <item>
+    <item alignment="Qt::AlignLeft">
      <widget class="QLabel" name="title_label">
       <property name="minimumSize">
        <size>
@@ -64,6 +67,9 @@
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>

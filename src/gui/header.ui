@@ -21,18 +21,11 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
      <item>
-      <widget class="QPushButton" name="about_button">
+      <widget class="QLabel" name="header_label">
        <property name="text">
-        <string>About</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="settings_button">
-       <property name="text">
-        <string>Settings</string>
+        <string>Spaced Repeating Vocabulary</string>
        </property>
       </widget>
      </item>
@@ -48,6 +41,20 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="about_button">
+       <property name="text">
+        <string>About</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="settings_button">
+       <property name="text">
+        <string>Settings</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
