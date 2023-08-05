@@ -22,6 +22,11 @@ class TotalStats:
         result = self.db.result_from_query(query)
         return result[0][0]
 
+    def total_words_to_learn(self, word_list_name="") -> int:
+        total_words_to_learn = (self.total_words(word_list_name) 
+                                - self.total_words_learnt(word_list_name)
+        return total_words_to_learn
+
     def total_words_to_review(self, word_list_name="") -> int:
         if word_list_name:
             word_lists = [word_list_name]

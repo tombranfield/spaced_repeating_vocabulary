@@ -69,9 +69,7 @@ class CourseChooserWidget(QMainWindow):
         self.review_words_label.setText(new_review_text)
 
     def refresh_learn_button(self):
-        total_words_to_learn = (self.total_stats.total_words(self.course_name)
-                         - self.total_stats.total_words_learnt(self.course_name))
-        if total_words_to_learn == 0:
+        if self.total_stats.total_words_to_learn(self.course_name) == 0:
             self.learn_button.setEnabled(False)
             self.learn_button.setStyleSheet("background: lightgray")
         else:
