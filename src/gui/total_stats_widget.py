@@ -15,7 +15,7 @@ class TotalStatsWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(str(Path(__file__).parents[0] / "total_stats_widget.ui"), self)
-        self.setStyleSheet(open("stylesheet.css").read())
+        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
 
         self.total_stats = TotalStats()
         self.refresh_widgets()

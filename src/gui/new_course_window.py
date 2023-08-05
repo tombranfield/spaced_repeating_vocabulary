@@ -16,7 +16,7 @@ class NewCourseWindow(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         uic.loadUi(str(Path(__file__).parents[0] / "new_course_window.ui"), self)
-        self.setStyleSheet(open("stylesheet.css").read())
+        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         self.courses_dao = CoursesDAO()
         self.connect_widgets()
         self.course_name = ""
