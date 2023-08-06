@@ -47,11 +47,11 @@ class InsertFromFileWindow(QDialog):
 
     def browse_and_choose_file(self):
         initial_dir = str(Path.home())
-        print(initial_dir)
         filter = "Text files (*.txt)"
-        filename, filter = QFileDialog.getOpenFileName(
+        filename = QFileDialog.getOpenFileName(
             self,
             directory=initial_dir,
-            filter=filter)
-        print("Result:", filename)
-            
+            filter=filter)[0]
+        filtered_filename_index = max(
+            filename.rfind("/"), filename.rfind("\\")) + 1
+        print(filename[filtered_filename_index:])
