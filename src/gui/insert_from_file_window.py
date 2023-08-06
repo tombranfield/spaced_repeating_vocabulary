@@ -6,6 +6,8 @@ import sys
 
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QDialog, QFileDialog
+
+from src.core.file_reader import FileReader
 from src.database.exception import DuplicateEntryException
 
 
@@ -36,10 +38,19 @@ class InsertFromFileWindow(QDialog):
         self.refresh_widgets()
     
     def refresh_widgets(self):
-        # Refreshes is_valid_label, filename_label, and insert_button
         self.update_filename_label()
+        self.update_is_file_valid_label()
         self.update_insert_button()
+
+    def update_filename_label(self):
+        filtered_filename_index = max(
+            self.filename.rfind("/"), self.filename.rfind("\\")) + 1
+        filtered_filename = self.filename[filtered_filename_index:]
+        self.selected_filename_label.setText(filtered_filename)
     
+    def update_is_file_valid_label(self):
+        pass
+
     def update_insert_button(self):
         can_insert = self.filename and self.is_valid_file()
         if can_insert:
@@ -51,6 +62,7 @@ class InsertFromFileWindow(QDialog):
 
     def is_valid_file(self):
         # file_dao = 
+        file_reader = FileReader(self.filename)
         return True
 
     def close_window(self):
@@ -66,12 +78,6 @@ class InsertFromFileWindow(QDialog):
             directory=initial_dir,
             filter=filter)[0]
         self.refresh_widgets()
-
-    def update_filename_label(self):
-        filtered_filename_index = max(
-            self.filename.rfind("/"), self.filename.rfind("\\")) + 1
-        filtered_filename = self.filename[filtered_filename_index:]
-        self.selected_filename_label.setText(filtered_filename)
 
     def insert_file(self):
         # file_dao = FileDao()

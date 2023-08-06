@@ -24,7 +24,6 @@ class FileReader:
 
     @file_path.setter
     def file_path(self, file_path: str):
-        # Do some validation of this in case bad input?
         self._file_path = file_path
 
     def insert_into_database(self, word_list_name, language):
