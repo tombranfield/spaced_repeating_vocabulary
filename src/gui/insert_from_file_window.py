@@ -17,6 +17,7 @@ class InsertFromFileWindow(QDialog):
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         self.course_name = ""
         self.course_language = ""
+        self.filename = ""
         self.connect_widgets()
 
     def connect_widgets(self):
@@ -32,6 +33,8 @@ class InsertFromFileWindow(QDialog):
         """Clears the lineEdit fields of the course name and language"""
         self.name_entry.setText("")
         self.language_entry.setText("")
+        self.filename = ""
+        self.set_filename_label()
     
     def close_window(self):
         """Closes the window"""
@@ -46,12 +49,21 @@ class InsertFromFileWindow(QDialog):
         self.course_language = lineEdit_field_string
 
     def browse_and_choose_file(self):
+        """Opens a window so the user can choose the file to load"""
         initial_dir = str(Path.home())
         filter = "Text files (*.txt)"
-        filename = QFileDialog.getOpenFileName(
+        self.filename = QFileDialog.getOpenFileName(
             self,
             directory=initial_dir,
             filter=filter)[0]
+        self.set_filename_label()
+
+    def set_filename_label(self):
         filtered_filename_index = max(
-            filename.rfind("/"), filename.rfind("\\")) + 1
-        print(filename[filtered_filename_index:])
+            self.filename.rfind("/"), self.filename.rfind("\\")) + 1
+        filtered_filename = self.filename[filtered_filename_index:]
+        self.selected_filename_label.setText(filtered_filename)
+        
+
+        # We use filtered filename for the display
+        # We use the raw filename for opening the file
