@@ -5,8 +5,7 @@ from pathlib import Path
 import sys
 
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QDialog
-
+from PyQt5.QtWidgets import QDialog, QFileDialog
 from src.database.exception import DuplicateEntryException
 
 
@@ -27,6 +26,7 @@ class InsertFromFileWindow(QDialog):
         self.cancel_button.clicked.connect(self.close_window)
         self.name_entry.textChanged.connect(self.course_name_changed)
         self.language_entry.textChanged.connect(self.course_language_changed)
+        self.browse_button.clicked.connect(self.browse_and_choose_file)
 
     def clear_fields(self):
         """Clears the lineEdit fields of the course name and language"""
@@ -44,3 +44,8 @@ class InsertFromFileWindow(QDialog):
     def course_language_changed(self, lineEdit_field_string):
         """Sets the course name attribute to the contents of the lineEdit"""
         self.course_language = lineEdit_field_string
+
+    def browse_and_choose_file(self):
+        filename, filter = QFileDialog.getOpenFileName(self)
+        print("Result:", filename, filter)
+            
