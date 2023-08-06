@@ -57,22 +57,20 @@ class CourseChooserWidget(QMainWindow):
         self.setup_course_names_box()
 
     def delete_course_window(self):
-        dialog = DeleteCourseWindow(self.course.name, parent=self)
+        dialog = DeleteCourseWindow(self.course, parent=self)
         dialog.exec_()
         self.setup_course_names_box()
 
     def insert_from_file_window(self):
-        dialog = InsertFromFileWindow(self.course.name, self.course.language, parent=self)
+        dialog = InsertFromFileWindow(self.course, parent=self)
         dialog.exec_()
 
     def update_course_language(self):
         courses_dao = CoursesDAO()
-        print(self.course.name)
         if not self.course.name:
             self.course.language = ""
         else:
             self.course.language = courses_dao.courses_dict()[self.course.name]
-        print(self.course.language)
 
     def existing_course_name_changed(self, course_name):
         self.course.name = course_name

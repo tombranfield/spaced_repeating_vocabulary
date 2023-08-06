@@ -7,18 +7,19 @@ import sys
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QDialog
 
+from src.core.course import Course
 from src.database.exception import DuplicateEntryException
 from src.database.courses_dao import CoursesDAO
 
 
 class DeleteCourseWindow(QDialog):
     """A window for the user to delete the course"""
-    def __init__(self, course_name, parent=None):
+    def __init__(self, course, parent=None):
         super(DeleteCourseWindow, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "delete_course_window.ui"), self)
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         self.courses_dao = CoursesDAO()
-        self.course_name = course_name
+        self.course_name = course.name
         self.connect_widgets()
 
     def connect_widgets(self):
