@@ -46,6 +46,12 @@ class InsertFromFileWindow(QDialog):
         self.course_language = lineEdit_field_string
 
     def browse_and_choose_file(self):
-        filename, filter = QFileDialog.getOpenFileName(self)
-        print("Result:", filename, filter)
+        initial_dir = str(Path.home())
+        print(initial_dir)
+        filter = "Text files (*.txt)"
+        filename, filter = QFileDialog.getOpenFileName(
+            self,
+            directory=initial_dir,
+            filter=filter)
+        print("Result:", filename)
             
