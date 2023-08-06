@@ -41,12 +41,17 @@ class InsertFromFileWindow(QDialog):
         self.update_insert_button()
     
     def update_insert_button(self):
-        # If valid and has filename, then can insert
         can_insert = self.filename and self.is_valid_file()
+        if can_insert:
+            self.insert_button.setStyleSheet("background: lime")
+            self.insert_button.setEnabled(True)
+        else:
+            self.insert_button.setStyleSheet("background: gray")
+            self.insert_button.setEnabled(False)
 
     def is_valid_file(self):
         # file_dao = 
-        pass
+        return True
 
     def close_window(self):
         """Closes the window"""
