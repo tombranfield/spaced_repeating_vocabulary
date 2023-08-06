@@ -59,7 +59,7 @@ class CourseChooserWidget(QMainWindow):
         self.setup_course_names_box()
 
     def insert_from_file_window(self):
-        dialog = InsertFromFileWindow(self)
+        dialog = InsertFromFileWindow(self.course_name, parent=self)
         dialog.exec_()
 
     def existing_course_name_changed(self, course_name):
