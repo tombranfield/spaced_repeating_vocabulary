@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QDialog, QFileDialog
+from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox
 
 from src.core.file_reader import FileReader
 from src.database.exception import DuplicateEntryException
@@ -42,11 +42,14 @@ class InsertFromFileWindow(QDialog):
         self.update_is_file_valid_label()
         self.update_insert_button()
 
-    def update_filename_label(self):
+    def filtered_filename(self):
         filtered_filename_index = max(
             self.filename.rfind("/"), self.filename.rfind("\\")) + 1
         filtered_filename = self.filename[filtered_filename_index:]
-        self.selected_filename_label.setText(filtered_filename)
+        return filtered_filename
+
+    def update_filename_label(self):
+        self.selected_filename_label.setText(self.filtered_filename())
     
     def update_is_file_valid_label(self):
         if not self.filename:
@@ -92,9 +95,24 @@ class InsertFromFileWindow(QDialog):
             try:
                 file_reader.insert_data(self.course)
             except DuplicateEntryException:
-                pass
-                # messagebox saying already exists
-                print("it already exists")
+                self.unsuccessful_message_box()
             else:
-                # message saying it works
-                print("inserted. yay")
+                self.successful_message_box()
+    
+    def message_box(self, title: str, message: str):
+        dlg = QMessageBox(self)
+        dlg.setWindowTitle(title)
+        dlg.setText(message)
+        button = dlg.exec_()
+
+    def successful_message_box(self):
+        title = "Success!"
+        filtered_filename = self.filtered_filename()
+        message = ("Words from \'" + filtered_filename + " successfully "
+                   + "inserted.")
+        self.message_box(title, message)
+
+    def unsuccessful_message_box(self):
+        title =  "Duplicate Entry"
+        message = "Those words have already been inserted."
+        self.message_box(title, message)
