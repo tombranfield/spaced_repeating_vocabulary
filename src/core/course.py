@@ -9,5 +9,5 @@ class Course:
     """
     A dataclass that represents a course
     """
-    name: str
-    language: str
+    name: str = ""
+    language: str = ""

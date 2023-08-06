@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 
+from src.core.course import Course
 from src.core.total_stats import TotalStats
 from src.database.courses_dao import CoursesDAO
 from insert_from_file_window import InsertFromFileWindow
@@ -19,7 +20,8 @@ class CourseChooserWidget(QMainWindow):
         super().__init__()
         uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
-        self.course_name = self.course_names_box.currentText()
+        self.course = Course()
+        self.course.name = self.course_names_box.currentText()
         self.update_course_language()
         self.total_stats = TotalStats()
         self.setup_widgets()
@@ -55,25 +57,25 @@ class CourseChooserWidget(QMainWindow):
         self.setup_course_names_box()
 
     def delete_course_window(self):
-        dialog = DeleteCourseWindow(self.course_name, parent=self)
+        dialog = DeleteCourseWindow(self.course.name, parent=self)
         dialog.exec_()
         self.setup_course_names_box()
 
     def insert_from_file_window(self):
-        dialog = InsertFromFileWindow(self.course_name, self.course_language, parent=self)
+        dialog = InsertFromFileWindow(self.course.name, self.course.language, parent=self)
         dialog.exec_()
 
     def update_course_language(self):
         courses_dao = CoursesDAO()
-        print(self.course_name)
-        if not self.course_name:
-            self.course_language = ""
+        print(self.course.name)
+        if not self.course.name:
+            self.course.language = ""
         else:
-            self.course_language = courses_dao.courses_dict()[self.course_name]
-        print(self.course_language)
+            self.course.language = courses_dao.courses_dict()[self.course.name]
+        print(self.course.language)
 
     def existing_course_name_changed(self, course_name):
-        self.course_name = course_name
+        self.course.name = course_name
         self.update_course_language()
         self.refresh_labels()
         self.refresh_learn_button()
@@ -86,7 +88,7 @@ class CourseChooserWidget(QMainWindow):
         self.review_words_label.setText(new_review_text)
 
     def refresh_learn_button(self):
-        if self.total_stats.total_words_to_learn(self.course_name) == 0:
+        if self.total_stats.total_words_to_learn(self.course.name) == 0:
             self.learn_button.setEnabled(False)
             self.learn_button.setStyleSheet("background: lightgray")
         else:
@@ -94,7 +96,7 @@ class CourseChooserWidget(QMainWindow):
             self.learn_button.setStyleSheet("background: lime")
 
     def refresh_review_button(self):
-        if self.total_stats.total_words_to_review(self.course_name) == 0:
+        if self.total_stats.total_words_to_review(self.course.name) == 0:
             self.review_button.setEnabled(False)
             self.review_button.setStyleSheet("background: lightgray")
         else:
@@ -102,8 +104,8 @@ class CourseChooserWidget(QMainWindow):
             self.review_button.setStyleSheet("background: lime")
 
     def get_total_learnt_text(self):
-        total_words = self.total_stats.total_words(self.course_name)
-        num_words_learnt = self.total_stats.total_words_learnt(self.course_name)
+        total_words = self.total_stats.total_words(self.course.name)
+        num_words_learnt = self.total_stats.total_words_learnt(self.course.name)
         learnt_msg = ("<b><font color='green'>"
                       + str(num_words_learnt)
                       + "/" + str(total_words)
@@ -115,7 +117,7 @@ class CourseChooserWidget(QMainWindow):
         return learnt_msg
 
     def get_total_review_text(self):
-        num_review_words = self.total_stats.total_words_to_review(self.course_name)
+        num_review_words = self.total_stats.total_words_to_review(self.course.name)
         review_msg = "<b><font color=\'"
         if num_review_words == 0:
             review_msg += "green\'>"
@@ -129,7 +131,7 @@ class CourseChooserWidget(QMainWindow):
         return review_msg
 
     def refresh_menu_buttons(self):
-        if self.course_name == "":
+        if self.course.name == "":
             self.delete_course_button.setEnabled(False)
             self.browse_words_button.setEnabled(False)
             self.insert_from_file_button.setEnabled(False)
