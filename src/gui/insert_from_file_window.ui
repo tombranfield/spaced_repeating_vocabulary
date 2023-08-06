@@ -100,7 +100,7 @@
    <item>
     <widget class="QLineEdit" name="name_entry">
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>

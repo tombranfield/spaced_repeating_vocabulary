@@ -37,7 +37,6 @@ class NewCourseWindow(QDialog):
         """Clears the lineEdit fields of the course name and language"""
         self.name_entry.setText("")
         self.language_entry.setText("")
-        print("clear fields activated")
     
     def close_window(self):
         """Closes the window"""
