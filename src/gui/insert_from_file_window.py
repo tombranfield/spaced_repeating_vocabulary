@@ -25,28 +25,16 @@ class InsertFromFileWindow(QDialog):
         self.clear_fields_button.clicked.connect(self.clear_fields)
         self.clear_fields_button.setDefault(False)
         self.cancel_button.clicked.connect(self.close_window)
-        self.name_entry.textChanged.connect(self.course_name_changed)
-        self.language_entry.textChanged.connect(self.course_language_changed)
         self.browse_button.clicked.connect(self.browse_and_choose_file)
 
     def clear_fields(self):
         """Clears the lineEdit fields of the course name and language"""
-        self.name_entry.setText("")
-        self.language_entry.setText("")
         self.filename = ""
         self.set_filename_label()
     
     def close_window(self):
         """Closes the window"""
         self.close()
-
-    def course_name_changed(self, lineEdit_field_string):
-        """Sets the course name attribute to the contents of the lineEdit"""
-        self.course_name = lineEdit_field_string
-
-    def course_language_changed(self, lineEdit_field_string):
-        """Sets the course name attribute to the contents of the lineEdit"""
-        self.course_language = lineEdit_field_string
 
     def browse_and_choose_file(self):
         """Opens a window so the user can choose the file to load"""

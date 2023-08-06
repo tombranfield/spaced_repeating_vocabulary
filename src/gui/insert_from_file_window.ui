@@ -93,26 +93,9 @@
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Enter the list name of the input file:</string>
+      <string>Inserting words into course 'course_name' here</string>
      </property>
     </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="name_entry">
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Enter the foreign language of the input file:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLineEdit" name="language_entry"/>
    </item>
    <item>
     <spacer name="verticalSpacer_3">
