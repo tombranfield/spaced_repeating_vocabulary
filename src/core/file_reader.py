@@ -60,7 +60,13 @@ class FileReader:
         Checks whether the input file consists of two columns separated by a
         tab and that it is non-empty.
         """
-        pass
+        try:
+            word_pair_list = self._export_word_pairs_from_file()
+        except:
+            return False
+        else:
+            return True
+
 
 
 if __name__ == "__main__":
@@ -68,6 +74,8 @@ if __name__ == "__main__":
     test_file_path = "../../TODO/short.txt"
 
     file_reader = FileReader(test_file_path)
+
+    print(file_reader.file_path)    
 
     file_reader.insert_into_database("harry potterzzz", "german")
 
