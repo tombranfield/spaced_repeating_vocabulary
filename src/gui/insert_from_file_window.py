@@ -13,14 +13,16 @@ from src.database.exception import DuplicateEntryException
 
 class InsertFromFileWindow(QDialog):
     """A window that allows the user to create a new course"""
-    def __init__(self, course_name, parent=None):
+    def __init__(self, course_name, course_language, parent=None):
         super(InsertFromFileWindow, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "insert_from_file_window.ui"), self)
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         self.course_name = course_name
+        self.course_language = course_language
         self.filename = ""
         self.connect_widgets()
         self.refresh_widgets()
+        print(self.course_name, self.course_language)
 
     def connect_widgets(self):
         """Connects widget signals and slots"""
@@ -87,10 +89,7 @@ class InsertFromFileWindow(QDialog):
         self.refresh_widgets()
 
     def insert_file(self):
-        # file_dao = FileDao()
-        # is_valid = file_dao.is_valid(self.filename)
-        # if not is_valid: messagebox
-        # else:
-        #       file_dao.insert_file(self.filename)
-
-        pass            
+        # Check course is there etc
+        file_reader = FileReader()
+        file_reader.insert_into_database(self.course_name, self.course_language)
+            

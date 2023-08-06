@@ -20,6 +20,7 @@ class CourseChooserWidget(QMainWindow):
         uic.loadUi(str(Path(__file__).parents[0] / "course_chooser_widget.ui"), self)
         self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         self.course_name = self.course_names_box.currentText()
+        self.update_course_language()
         self.total_stats = TotalStats()
         self.setup_widgets()
 
@@ -59,11 +60,21 @@ class CourseChooserWidget(QMainWindow):
         self.setup_course_names_box()
 
     def insert_from_file_window(self):
-        dialog = InsertFromFileWindow(self.course_name, parent=self)
+        dialog = InsertFromFileWindow(self.course_name, self.course_language, parent=self)
         dialog.exec_()
+
+    def update_course_language(self):
+        courses_dao = CoursesDAO()
+        print(self.course_name)
+        if not self.course_name:
+            self.course_language = ""
+        else:
+            self.course_language = courses_dao.courses_dict()[self.course_name]
+        print(self.course_language)
 
     def existing_course_name_changed(self, course_name):
         self.course_name = course_name
+        self.update_course_language()
         self.refresh_labels()
         self.refresh_learn_button()
         self.refresh_review_button()

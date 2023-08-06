@@ -17,6 +17,7 @@ class CoursesDAO:
     def __init__(self, courses_path=COURSES_PATH):
         """Initializes the database."""
         self.courses_path = courses_path
+        self.courses = {}
 
     def add_new_course(self, course_name, course_language):
         """Creates a new course"""
@@ -43,19 +44,26 @@ class CoursesDAO:
         word_list_dao = WordListDAO()
         word_list_dao.delete_word_list(course_name)
 
-    def courses_list(self):
+    def courses_dict(self):
         """Returns a list of courses"""
-        courses = ()
+        courses = {}
         try:
             with open(self.courses_path, "r") as file_obj:
                 for line in file_obj:
                     line = line.strip().split("|")
                     try:
-                        courses += (line[0],)
+                        courses[line[0]] = line[1]
                     except ValueError:
                         pass
         except FileNotFoundError:
             pass
+        return courses
+
+    def courses_list(self):
+        """Returns a list of courses"""
+        courses = ()
+        for course in self.courses_dict():
+            courses += (course,)
         return courses
 
     def _does_course_already_exist(self, new_course_name) -> bool:
