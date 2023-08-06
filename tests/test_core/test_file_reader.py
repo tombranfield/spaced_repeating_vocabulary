@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 from tempfile import TemporaryDirectory
 
+from src.core.course import Course
 from src.core.file_reader import FileReader
 from src.database.exception import EmptyWordListException
 
@@ -24,43 +25,48 @@ def file_reader():
         file_reader = FileReader("", db_path)
         yield file_reader
 
+@pytest.fixture
+def course():
+    a_course = Course("My List", "German")
+    return a_course
 
-def test_file_data_successfully_added_to_database(file_reader):
+
+def test_file_data_successfully_added_to_database(file_reader, course):
     file_reader.file_path = VALID_FILE_PATH
-    file_reader.insert_into_database("Harry Potter und der Stein der Weisen", "German")
+    file_reader.insert_data(course)
 
 
-def test_invalid_file_with_missing_value_raises_an_exception(file_reader):
+def test_invalid_file_with_missing_value_raises_an_exception(file_reader, course):
     file_reader.file_path = INVALID_MISSING_COLUMN_PATH
     with pytest.raises(IndexError):
-        file_reader.insert_into_database("My Word List", "German")
+        file_reader.insert_data(course)
 
 
-def test_invalid_file_with_third_column_raises_exception(file_reader):
+def test_invalid_file_with_third_column_raises_exception(file_reader, course):
     file_reader.file_path = INVALID_EXTRA_COLUMN_PATH
     with pytest.raises(ValueError):
-        file_reader.insert_into_database("My Word List", "German")
+        file_reader.insert_data(course)
 
 
 def test_file_path_successfully_inserted(file_reader):
     file_reader.file_path = VALID_FILE_PATH
 
 
-def test_raise_exception_for_missing_file(file_reader):
+def test_raise_exception_for_missing_file(file_reader, course):
     input_file_path = "nonsense_non-existent_file.txt"
     file_reader.file_path = input_file_path
     with pytest.raises(FileNotFoundError):
-        file_reader.insert_into_database("My Word List", "German")
+        file_reader.insert_data(course)
 
 
-def test_raise_exception_if_no_filepath_specified(file_reader):
+def test_raise_exception_if_no_filepath_specified(file_reader, course):
     with pytest.raises(FileNotFoundError):
-        file_reader.insert_into_database("My Word List", "German")
+        file_reader.insert_data(course)
 
 
-def test_check_empty_file_is_recognized_as_empty(file_reader):
+def test_check_empty_file_is_recognized_as_empty(file_reader, course):
     empty_file_path = EMPTY_FILE_PATH
     file_reader.file_path = empty_file_path
     with pytest.raises(EmptyWordListException):
-        file_reader.insert_into_database("My Word List", "German")    
+        file_reader.insert_data(course)    
 

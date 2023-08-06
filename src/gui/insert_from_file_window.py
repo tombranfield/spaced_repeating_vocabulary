@@ -87,6 +87,14 @@ class InsertFromFileWindow(QDialog):
         self.refresh_widgets()
 
     def insert_file(self):
-        # Check course is there etc
-        file_reader = FileReader()
-        file_reader.insert_into_database(self.course.name, self.course.language)
+        if self.course and self.is_valid_file():
+            file_reader = FileReader(self.filename)
+            try:
+                file_reader.insert_data(self.course)
+            except DuplicateEntryException:
+                pass
+                # messagebox saying already exists
+                print("it already exists")
+            else:
+                # message saying it works
+                print("inserted. yay")

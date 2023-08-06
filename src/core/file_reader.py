@@ -27,7 +27,7 @@ class FileReader:
     def file_path(self, file_path: str):
         self._file_path = file_path
 
-    def insert_into_database(self, course: Course):
+    def insert_data(self, course: Course):
         """Inserts the word from the file into the database"""        
         word_pairs = self._export_word_pairs_from_file()
         word_list = WordList(course.name, course.language, word_pairs)
@@ -55,12 +55,12 @@ class FileReader:
                         word_pairs += (word_pair,)
             return word_pairs
 
-
     def is_input_file_valid(self):
         """
         Checks whether the input file consists of two columns separated by a
         tab and that it is non-empty.
         """
+        
         try:
             word_pair_list = self._export_word_pairs_from_file()
         except:
