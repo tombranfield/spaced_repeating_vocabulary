@@ -49,7 +49,13 @@ class InsertFromFileWindow(QDialog):
         self.selected_filename_label.setText(filtered_filename)
     
     def update_is_file_valid_label(self):
-        pass
+        if not self.filename:
+            self.is_file_valid_label.setText("")
+        else:
+            if self.is_valid_file():
+                self.is_file_valid_label.setText("Yes")
+            else:
+                self.is_file_valid_label.setText("No")
 
     def update_insert_button(self):
         can_insert = self.filename and self.is_valid_file()
@@ -61,9 +67,10 @@ class InsertFromFileWindow(QDialog):
             self.insert_button.setEnabled(False)
 
     def is_valid_file(self):
-        # file_dao = 
         file_reader = FileReader(self.filename)
-        return True
+        if file_reader.is_input_file_valid():
+            return True
+        return False
 
     def close_window(self):
         """Closes the window"""
