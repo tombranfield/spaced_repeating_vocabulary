@@ -42,7 +42,7 @@ class CourseChooserWidget(QMainWindow):
         self.timer.timeout.connect(self.refresh_menu_buttons)
         self.timer.timeout.connect(self.refresh_learn_button)
         self.timer.timeout.connect(self.refresh_review_button)
-        self.refresh_labels()
+        self.timer.timeout.connect(self.refresh_labels)
         self.timer.start()
 
     def setup_course_names_box(self):
@@ -80,6 +80,7 @@ class CourseChooserWidget(QMainWindow):
         self.refresh_review_button()
 
     def refresh_labels(self):
+        print("refreshing!")
         new_learnt_text = self.get_total_learnt_text()
         new_review_text = self.get_total_review_text()
         self.known_words_label.setText(new_learnt_text)
