@@ -80,7 +80,6 @@ class CourseChooserWidget(QMainWindow):
         self.refresh_review_button()
 
     def refresh_labels(self):
-        print("refreshing!")
         new_learnt_text = self.get_total_learnt_text()
         new_review_text = self.get_total_review_text()
         self.known_words_label.setText(new_learnt_text)
