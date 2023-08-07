@@ -1,13 +1,15 @@
-"""word_selector.py"""
+"""quiz_word_selector.py"""
+
 
 from datetime import datetime
 
+from src.core.quiz_word import QuizWord
 from src.core.word_list import WordList
 from src.core.word_pair import WordPair
 from src.database.database import Database
 
 
-class WordSelector:
+class QuizWordSelector:
     """
     Responsible for choosing words to learn or review from the database.
     """
@@ -17,15 +19,23 @@ class WordSelector:
 
     def words_to_learn(self) -> WordList:
         """Returns a word list containing the words to learn"""
-        words_to_learn = WordList(self.word_list_name, self._language_of_list)
-        query = ("SELECT foreign_word, translated_word FROM " 
+#        words_to_learn = WordList(self.word_list_name, self._language_of_list)
+        quiz_words = ()
+        query = ("SELECT rowid, foreign_word, translated_word FROM " 
                  + Database.table_name + " WHERE is_known = 0 AND "
                  + "word_list_name = \'" + self.word_list_name + "\'") 
         result = self.db.result_from_query(query)
-        for pair in result:
-            word_pair = WordPair(*pair)
-            words_to_learn.add_word_pair(word_pair)
-        return words_to_learn
+        print(result)
+        for tuple in result:
+            id = tuple[0]
+            word_pair = WordPair(tuple[1], tuple[2])
+            quiz_word = QuizWord(id, word_pair)
+            quiz_words += (quiz_word,)
+#        for pair in result:
+#            word_pair = WordPair(*pair)
+#            words_to_learn.add_word_pair(word_pair)
+#        return words_to_learn
+        return quiz_words
 
     def words_to_review(self) -> WordList:
         """Returns a word list containing the words to review"""

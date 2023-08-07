@@ -1,6 +1,8 @@
 """quiz_word.py"""
 
 
+from src.core.word_pair import WordPair
+
 
 class QuizWord:
     """
