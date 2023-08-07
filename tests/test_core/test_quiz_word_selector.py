@@ -1,4 +1,4 @@
-"""test_word_selector.py"""
+"""test_quiz_word_selector.py"""
 
 
 from pathlib import Path
@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 
 from src.core.word_list import WordList
 from src.core.word_pair import WordPair
-from src.core.word_selector import WordSelector
+from src.core.quiz_word_selector import WordSelector
 from src.database.database import Database
 from src.database.word_list_dao import WordListDAO
 
