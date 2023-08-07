@@ -21,6 +21,7 @@ def database():
         database = Database(db_path)
         yield database
 
+
 @pytest.fixture
 def new_word_list():
     pair_1 = WordPair("hallo", "hello")
@@ -32,14 +33,16 @@ def new_word_list():
     word_list = WordList("My List", "German", wordpairs)
     return word_list
 
+
 @pytest.fixture
 def db_with_new_words(database, new_word_list):
     word_list_dao = WordListDAO(database._db_path)
     word_list_dao.insert_word_list(new_word_list)
     yield database
 
+
 @pytest.fixture
-def word_selector_new_words(db_with_new_words):
+def quiz_word_selector_new_words(db_with_new_words):
     quiz_word_selector = QuizWordSelector("My List", db_with_new_words._db_path)
     return quiz_word_selector
 
@@ -55,18 +58,28 @@ def db_some_new_some_review(db_with_new_words):
 
 @pytest.fixture
 def word_selector_new_and_review_words(db_some_new_some_review):
-    word_selector = WordSelector("My List", db_some_new_some_review._db_path)
-    return word_selector
+    quiz_word_selector = QuizWordSelector("My List", db_some_new_some_review._db_path)
+    return quiz_word_selector
 
 
-def test_can_initialize_word_selector_successfully(word_selector_new_words):
+def test_can_initialize_word_selector_successfully(quiz_word_selector_new_words):
     pass
 
+
 @pytest.mark.curtest
-def test_get_correct_words_to_learn_with_new_words(word_selector_new_words, new_word_list):
-    out_learn_list = word_selector_new_words.words_to_learn()
-    words_to_learn = out_learn_list.foreign_words()
-    assert words_to_learn == new_word_list.foreign_words()
+def test_get_correct_words_to_learn_with_new_words(quiz_word_selector_new_words, new_word_list):
+    out_quiz_words = quiz_word_selector_new_words.words_to_learn()
+
+    new_word_pairs = new_word_list.word_pairs
+
+    for index, quiz_word in enumerate(out_quiz_words, 1):
+        assert quiz_word.id == index
+        assert quiz_word.foreign_word == new_word_pairs[index-1].foreign_word
+        assert quiz_word.translated_word == new_word_pairs[index-1].translated_word
+
+#    words_to_learn = out_learn_list.foreign_words()
+#    assert words_to_learn == new_word_list.foreign_words()
+
 
 """
 def test_get_correct_words_to_review(word_selector_new_and_review_words):

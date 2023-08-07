@@ -25,7 +25,6 @@ class QuizWordSelector:
                  + Database.table_name + " WHERE is_known = 0 AND "
                  + "word_list_name = \'" + self.word_list_name + "\'") 
         result = self.db.result_from_query(query)
-        print(result)
         for tuple in result:
             id = tuple[0]
             word_pair = WordPair(tuple[1], tuple[2])
