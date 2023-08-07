@@ -76,26 +76,20 @@ def test_get_correct_words_to_learn_with_new_words(quiz_word_selector_new_words,
 
 
 def test_get_correct_words_to_review(quiz_word_selector_new_and_review_words):
-    out_quiz_words = quiz_word_selector_new_and_review_words.words_to_review()
-    
+    out_quiz_words = quiz_word_selector_new_and_review_words.words_to_review()    
     assert out_quiz_words[0].foreign_word == "hallo"
     assert out_quiz_words[1].foreign_word == "danke"
     assert len(out_quiz_words) == 2
 
-#    words_to_review = out_review_list.foreign_words()
-#    assert words_to_review == ("hallo", "danke")
 
-"""
-def test_get_empty_list_of_words_to_review(word_selector_new_words):
-    out_review_list = word_selector_new_words.words_to_review()
-    words_to_review = out_review_list.foreign_words()
-    assert words_to_review == ()
+def test_get_empty_list_of_words_to_review(quiz_word_selector_new_words):
+    out_review_list = quiz_word_selector_new_words.words_to_review()
+    assert len(out_review_list) == 0
 
 
 def test_use_a_word_list_that_does_not_exist_in_database(database):
-    word_selector = WordSelector("Non-existant list", database._db_path)
-    words_to_learn = word_selector.words_to_learn()
-    words_to_review = word_selector.words_to_review()
-    assert words_to_learn.foreign_words() == ()
-    assert words_to_review.foreign_words() == ()
-"""
+    quiz_word_selector = QuizWordSelector("Non-existant list", database._db_path)
+    words_to_learn = quiz_word_selector.words_to_learn()
+    words_to_review = quiz_word_selector.words_to_review()
+    assert len(words_to_learn) == 0
+    assert len(words_to_review) == 0
