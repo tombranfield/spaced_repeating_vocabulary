@@ -57,7 +57,7 @@ def db_some_new_some_review(db_with_new_words):
 
 
 @pytest.fixture
-def word_selector_new_and_review_words(db_some_new_some_review):
+def quiz_word_selector_new_and_review_words(db_some_new_some_review):
     quiz_word_selector = QuizWordSelector("My List", db_some_new_some_review._db_path)
     return quiz_word_selector
 
@@ -75,11 +75,12 @@ def test_get_correct_words_to_learn_with_new_words(quiz_word_selector_new_words,
         assert quiz_word.translated_word == new_word_pairs[index-1].translated_word
 
 
-
-def test_get_correct_words_to_review(word_selector_new_and_review_words):
-    out_review_list = word_selector_new_and_review_words.words_to_review()
-
-
+def test_get_correct_words_to_review(quiz_word_selector_new_and_review_words):
+    out_quiz_words = quiz_word_selector_new_and_review_words.words_to_review()
+    
+    assert out_quiz_words[0].foreign_word == "hallo"
+    assert out_quiz_words[1].foreign_word == "danke"
+    assert len(out_quiz_words) == 2
 
 #    words_to_review = out_review_list.foreign_words()
 #    assert words_to_review == ("hallo", "danke")
