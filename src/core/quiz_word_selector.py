@@ -17,38 +17,44 @@ class QuizWordSelector:
         self.word_list_name = word_list_name
         self.db = Database(db_path)
 
-    def words_to_learn(self) -> WordList:
+    def words_to_learn(self):
         """Returns a word list containing the words to learn"""
 #        words_to_learn = WordList(self.word_list_name, self._language_of_list)
-        quiz_words = ()
+        words_to_learn = ()
         query = ("SELECT rowid, foreign_word, translated_word FROM " 
                  + Database.table_name + " WHERE is_known = 0 AND "
                  + "word_list_name = \'" + self.word_list_name + "\'") 
         result = self.db.result_from_query(query)
         for tuple in result:
-            id = tuple[0]
-            word_pair = WordPair(tuple[1], tuple[2])
+            id = entry[0]
+            word_pair = WordPair(entry[1], entry[2])
             quiz_word = QuizWord(id, word_pair)
-            quiz_words += (quiz_word,)
+            words_to_learn += (quiz_word,)
 #        for pair in result:
 #            word_pair = WordPair(*pair)
 #            words_to_learn.add_word_pair(word_pair)
 #        return words_to_learn
-        return quiz_words
+        return words_to_learn
 
-    def words_to_review(self) -> WordList:
+    def words_to_review(self):
         """Returns a word list containing the words to review"""
-        words_to_review = WordList(self.word_list_name, self._language_of_list)
-        query = ("SELECT foreign_word, translated_word, when_review FROM " 
+#        words_to_review = WordList(self.word_list_name, self._language_of_list)
+        words_to_review =  ()
+        query = ("SELECT rowid, foreign_word, translated_word, when_review FROM " 
                  + Database.table_name + " WHERE is_known = 1 AND "
                  + "word_list_name = \'" + self.word_list_name + "\'") 
         result = self.db.result_from_query(query)
         for entry in result:
-            when_review = datetime.strptime(entry[2], "%d/%m/%Y %H:%M:%S")
+            when_review = datetime.strptime(entry[3], "%d/%m/%Y %H:%M:%S")
             if datetime.now() > when_review:
-                word_pair = WordPair(entry[0], entry[1])
-                words_to_review.add_word_pair(word_pair)
+                id = entry[0]
+                word_pair = WordPair(entry[1], entry[2])
+                quiz_word = QuizWord(id, word_pair)
+                words_to_review += (quiz_word,)
+#                word_pair = WordPair(entry[0], entry[1])
+#                words_to_review.add_word_pair(word_pair)
         return words_to_review
+
 
     def _language_of_list(self):
         """Gets the language of the word list"""

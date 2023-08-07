@@ -66,28 +66,25 @@ def test_can_initialize_word_selector_successfully(quiz_word_selector_new_words)
     pass
 
 
-@pytest.mark.curtest
 def test_get_correct_words_to_learn_with_new_words(quiz_word_selector_new_words, new_word_list):
     out_quiz_words = quiz_word_selector_new_words.words_to_learn()
-
     new_word_pairs = new_word_list.word_pairs
-
     for index, quiz_word in enumerate(out_quiz_words, 1):
         assert quiz_word.id == index
         assert quiz_word.foreign_word == new_word_pairs[index-1].foreign_word
         assert quiz_word.translated_word == new_word_pairs[index-1].translated_word
 
-#    words_to_learn = out_learn_list.foreign_words()
-#    assert words_to_learn == new_word_list.foreign_words()
 
 
-"""
 def test_get_correct_words_to_review(word_selector_new_and_review_words):
     out_review_list = word_selector_new_and_review_words.words_to_review()
-    words_to_review = out_review_list.foreign_words()
-    assert words_to_review == ("hallo", "danke")
 
 
+
+#    words_to_review = out_review_list.foreign_words()
+#    assert words_to_review == ("hallo", "danke")
+
+"""
 def test_get_empty_list_of_words_to_review(word_selector_new_words):
     out_review_list = word_selector_new_words.words_to_review()
     words_to_review = out_review_list.foreign_words()
