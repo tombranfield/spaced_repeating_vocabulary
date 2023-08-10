@@ -17,7 +17,9 @@ class DeleteCourseWindow(QDialog):
     def __init__(self, course, parent=None):
         super(DeleteCourseWindow, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "delete_course_window.ui"), self)
-        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
+#        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
+        stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
+        self.setStyleSheet(open(stylesheet_path).read())
         self.courses_dao = CoursesDAO()
         self.course_name = course.name
         self.connect_widgets()

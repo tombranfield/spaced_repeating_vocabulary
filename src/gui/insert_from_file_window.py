@@ -16,7 +16,9 @@ class InsertFromFileWindow(QDialog):
     def __init__(self, course, parent=None):
         super(InsertFromFileWindow, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "insert_from_file_window.ui"), self)
-        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
+#        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
+        stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
+        self.setStyleSheet(open(stylesheet_path).read())
         self.course = course
         self.filename = ""
         self.connect_widgets()
