@@ -8,7 +8,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog
 
 from src.core.quiz_word_selector import QuizWordSelector
-
+from src.core.settings import Settings
 
 _QUIZ_TYPE = Literal["learn", "review"]
 
@@ -23,12 +23,18 @@ class Quiz(QDialog):
 
         self.course_name = course_name
         self.quiz_type = learn_or_review
-        
+
+        # Import settings
+        self.settings = Settings()        
+        self.max_learn_words = self.settings.max_learn_words
+
+        # Setup the quiz words
         self.quiz_word_selector = QuizWordSelector(self.course_name)
         self.words_to_learn = self.quiz_word_selector.words_to_learn()
         self.all_course_words = self.quiz_word_selector.all_course_words()
-
-        # Now make self.words_to_quiz
+        self.words_to_quiz = list(self.words_to_learn[:5])
+    
+        # Setup the progress bar
 
 
         self.quit_button.clicked.connect(self.close_window)       
