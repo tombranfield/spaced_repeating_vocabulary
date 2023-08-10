@@ -4,6 +4,7 @@
 import os
 from pathlib import Path
 
+from src.database.database import Database
 from src.database.exception import DuplicateEntryException
 from src.database.word_list_dao import WordListDAO
 
@@ -65,6 +66,11 @@ class CoursesDAO:
         for course in self.courses_dict():
             courses += (course,)
         return courses
+
+    def language(self, course_name):
+        """Returns the language of the course"""
+        courses_dict = self.courses_dict()
+        return courses_dict[course_name]
 
     def _does_course_already_exist(self, new_course_name) -> bool:
         """Returns whether the course already exists"""
