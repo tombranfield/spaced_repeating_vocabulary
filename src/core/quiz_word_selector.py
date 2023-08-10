@@ -21,9 +21,11 @@ class QuizWordSelector:
         """Returns a word list containing the words to learn"""
 #        words_to_learn = WordList(self.word_list_name, self._language_of_list)
         words_to_learn = ()
-        query = ("SELECT rowid, foreign_word, translated_word FROM " 
-                 + Database.table_name + " WHERE is_known = 0 AND "
-                 + "word_list_name = \'" + self.word_list_name + "\'") 
+        query = (
+            "SELECT rowid, foreign_word, translated_word FROM " 
+            + Database.table_name + " WHERE is_known = 0 AND "
+            + "word_list_name = \'" + self.word_list_name + "\'"
+        ) 
         result = self.db.result_from_query(query)
         for entry in result:
             id = entry[0]
@@ -40,9 +42,11 @@ class QuizWordSelector:
         """Returns a word list containing the words to review"""
 #        words_to_review = WordList(self.word_list_name, self._language_of_list)
         words_to_review =  ()
-        query = ("SELECT rowid, foreign_word, translated_word, when_review FROM " 
-                 + Database.table_name + " WHERE is_known = 1 AND "
-                 + "word_list_name = \'" + self.word_list_name + "\'") 
+        query = (
+            "SELECT rowid, foreign_word, translated_word, when_review FROM " 
+            + Database.table_name + " WHERE is_known = 1 AND "
+            + "word_list_name = \'" + self.word_list_name + "\'"
+        ) 
         result = self.db.result_from_query(query)
         for entry in result:
             when_review = datetime.strptime(entry[3], "%d/%m/%Y %H:%M:%S")
