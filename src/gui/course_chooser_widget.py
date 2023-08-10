@@ -13,6 +13,7 @@ from src.database.courses_dao import CoursesDAO
 from insert_from_file_window import InsertFromFileWindow
 from new_course_window import NewCourseWindow
 from delete_course_window import DeleteCourseWindow
+from quiz import Quiz
 
 
 class CourseChooserWidget(QMainWindow):
@@ -33,6 +34,8 @@ class CourseChooserWidget(QMainWindow):
         self.new_course_button.clicked.connect(self.open_new_course_window)
         self.delete_course_button.clicked.connect(self.delete_course_window)
         self.insert_from_file_button.clicked.connect(self.insert_from_file_window)
+        self.learn_button.clicked.connect(self.launch_learn_quiz)
+        self.review_button.clicked.connect(self.launch_review_quiz)
         self.setup_course_names_box()
         self.refresh_widgets()
         self.refresh_labels()
@@ -145,6 +148,12 @@ class CourseChooserWidget(QMainWindow):
             self.browse_words_button.setStyleSheet("color: black")
             self.insert_from_file_button.setStyleSheet("color: black")
     
+    def launch_learn_quiz(self):
+        dialog = Quiz("learn", parent=self)
+        dialog.exec_()
+
+    def launch_review_quiz(self):
+        pass
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
