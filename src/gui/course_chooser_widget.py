@@ -149,7 +149,7 @@ class CourseChooserWidget(QMainWindow):
             self.insert_from_file_button.setStyleSheet("color: black")
     
     def launch_learn_quiz(self):
-        dialog = Quiz("learn", parent=self)
+        dialog = Quiz(self.course.name, "learn", parent=self)
         dialog.exec_()
 
     def launch_review_quiz(self):

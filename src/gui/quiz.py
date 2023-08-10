@@ -13,14 +13,17 @@ _QUIZ_TYPE = Literal["learn", "review"]
 
 class Quiz(QDialog):
     """Quiz for learning or reviewing words"""
-    def __init__(self, learn_or_review: _QUIZ_TYPE, parent=None):
+    def __init__(self, course_name, learn_or_review: _QUIZ_TYPE, parent=None):
         super().__init__(parent)
         uic.loadUi(str(Path(__file__).parents[0] / "quiz.ui"), self)
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
 
+        self.course_name = course_name
         self.quiz_type = learn_or_review
         
+        print(self.course_name)
+        print(self.quiz_type)
         # get course name from passed parameter
         # using course name, get words from list and words to quiz
         
