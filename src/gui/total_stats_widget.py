@@ -1,5 +1,6 @@
 """total_stats_widget.py"""
 
+
 from pathlib import Path
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
@@ -15,7 +16,6 @@ class TotalStatsWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(str(Path(__file__).parents[0] / "total_stats_widget.ui"), self)
-#        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
 

@@ -15,7 +15,6 @@ class SettingsWindow(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         uic.loadUi(str(Path(__file__).parents[0] / "settings_window.ui"), self)
-#        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
         self.settings = Settings()
