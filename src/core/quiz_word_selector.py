@@ -55,10 +55,21 @@ class QuizWordSelector:
 #                words_to_review.add_word_pair(word_pair)
         return words_to_review
 
-
-    def _language_of_list(self):
-        """Gets the language of the word list"""
-        pass
+    def all_course_words(self):
+        """Returns all the words of the course in a format for the quiz"""
+        all_course_words = ()
+        query = (
+            "SELECT rowid, foreign_word, translated_word FROM "
+            + Database.table_name + " WHERE word_list_name = \'"
+            + self.word_list_name + "\'"
+        )
+        result = self.db.result_from_query(query)
+        for entry in result:
+            id = entry[0]
+            word_pair = WordPair(entry[1], entry[2])
+            quiz_word = QuizWord(id, wordpair)
+            all_course_words += (quiz_word,)
+        return all_course_words
 
 
 
