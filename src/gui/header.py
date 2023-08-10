@@ -15,7 +15,9 @@ class Header(QWidget):
         """Header class which holds the about and settings buttons"""
         super().__init__()
         uic.loadUi(str(Path(__file__).parents[0] / "header.ui"), self)
-        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
+#        self.setStyleSheet(open(str(Path("stylesheet.css"))).read())
+        stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
+        self.setStyleSheet(open(stylesheet_path).read())
 
         self.about_button.clicked.connect(self.open_about_window)
         self.settings_button.clicked.connect(self.open_settings_window)
