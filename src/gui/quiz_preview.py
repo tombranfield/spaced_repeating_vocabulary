@@ -35,4 +35,17 @@ class QuizPreview(QWidget):
 
     def get_start_button_message(self):
         """Creates text for the start button depending on the quiz"""
-        
+        if self.learn_or_review == "learn":
+            start_msg = "Learn"
+        elif self.learn_or_review == "review":
+            start_msg = "Review"
+        else:
+            raise ValueError(learn_or_review must be "learn" or "review")
+        if len(self.words_to_quiz) == 1:
+            start_msg += " this word"
+        else:
+            start_msg += " these words"        
+        return start_msg
+
+    def add_labels_to_grid(self):
+        pass
