@@ -71,7 +71,7 @@ class QuizWordSelector:
         for entry in result:
             id = entry[0]
             word_pair = WordPair(entry[1], entry[2])
-            quiz_word = QuizWord(id, wordpair)
+            quiz_word = QuizWord(id, word_pair)
             all_course_words += (quiz_word,)
         return all_course_words
 

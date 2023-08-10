@@ -7,6 +7,8 @@ from typing import Literal
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog
 
+from src.core.quiz_word_selector import QuizWordSelector
+
 
 _QUIZ_TYPE = Literal["learn", "review"]
 
@@ -22,11 +24,11 @@ class Quiz(QDialog):
         self.course_name = course_name
         self.quiz_type = learn_or_review
         
-        print(self.course_name)
-        print(self.quiz_type)
-        # get course name from passed parameter
-        # using course name, get words from list and words to quiz
-        
+        self.quiz_word_selector = QuizWordSelector(self.course_name)
+        self.words_to_learn = self.quiz_word_selector.words_to_learn()
+        self.all_course_words = self.quiz_word_selector.all_course_words()
+
+        # Now make self.words_to_quiz
 
 
         self.quit_button.clicked.connect(self.close_window)       
