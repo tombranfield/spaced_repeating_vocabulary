@@ -35,17 +35,23 @@ class QuizTypingTest(QWidget):
         self.is_correct.connect(self.parent().is_correct_slot)
         self.activate_buttons(True)
 
+        #TODO for casual testing
+        print("\t\t\t", self.quiz_word.foreign_word)
+        print("\t\t", self.settings.is_case_sensitive)
+        print("\t\t", self.settings.is_automatic_return)
+
     def setup_labels(self):
         self.translated_word_label.setText(self.quiz_word.translated_word)
         self.translated_word_label.setStyleSheet("font-size: 36px; font-weight: bold")
         self.instructions_label.setStyleSheet("font-size: 20px")
 
-    def setup_definition_entry(self):
+    def setup_answer_entry(self):
+        # TODO remove below line, is for casual testing
         self.answer_entry.setPlaceholderText(self.quiz_word.foreign_word)
         self.answer_entry.returnPressed.connect(
             self.answer_entry_return_pressed
         )
-        self.answer_entry.returnPressed.connect(
+        self.answer_entry.textEdited.connect(
             self.answer_entry_text_edited
         )
 
@@ -56,14 +62,25 @@ class QuizTypingTest(QWidget):
 
     def answer_entry_return_pressed(self):
         current_text = self.answer_entry.text()
-        print("typed", current_text)
+        if not self.settings.is_case_sensitive:
+            current_text = current_text.lower()
         if current_text == self.quiz_word.foreign_word:
-            self.send_signal()
+            # set background
+            self.send_correct_signal()
+        else:
+            # set background
+            self.send_incorrect_signal()
+        self.activate_buttons(False)
 
-    def answer_entry_text_edited(self):
-        # If automatic return
-            # If is case sensitive
-        pass
+    def answer_entry_text_edited(self, answer_input):
+        """
+        if self.settings.is_automatic_return:
+            if not self.settings.is_case_sensitive:
+                answer_input = answer_input.lower()
+            print(answer_input)
+            if answer_input == self.quiz_word.foreign_word:
+                self.send_correct_signal()
+        """
 
     def activate_buttons(self, b: bool):
         self.answer_entry.setEnabled(b)
@@ -79,8 +96,9 @@ class QuizTypingTest(QWidget):
         pass
 
     def send_correct_signal(self):
+        print("\t\t", "sent correct signal")
         self.is_correct.emit(1)
 
     def send_incorrect_signal(self):
-        print("sent incorrect signal")
+        print("\t\t", "sent incorrect signal")
         self.is_correct.emit(0)
