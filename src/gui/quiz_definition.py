@@ -27,6 +27,11 @@ class QuizDefinition(QWidget):
 
         self.quiz_word = quiz_word
 
+        # Check words
+        print(self.quiz_word.id)
+        print(self.quiz_word.foreign_word)
+        print(self.quiz_word.translated_word)
+
         self.send_next.connect(self.parent().next_slot)
 #        self.next_button.clicked.connect(self.send_signal)
 

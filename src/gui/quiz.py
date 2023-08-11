@@ -13,6 +13,7 @@ from PyQt5.QtWidgets import (
 from src.core.quiz_word_selector import QuizWordSelector
 from src.core.settings import Settings
 from src.gui.quiz_preview import QuizPreview
+from src.gui.quiz_definition import QuizDefinition
 
 
 _QUIZ_TYPE = Literal["learn", "review"]
@@ -39,14 +40,15 @@ class Quiz(QDialog):
         self.all_course_words = self.quiz_word_selector.all_course_words()
         self.num_words_to_quiz = self.get_num_words_to_quiz()
         self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
-    
+
         # Setup the progress bar
         # TODO why 7 - why did I choose this?
         self.max_progress = 7 * len(self.words_to_quiz)
         self.progress_bar.setRange(0, self.max_progress)
 
         # Initialize the active quiz word
-
+        self.active_quiz_word = self.words_to_quiz[0]
+        self.active_quiz_words = []
 
         # Initialize the quiz widgets
         self.quit_button.clicked.connect(self.quit_quiz)       
@@ -55,6 +57,11 @@ class Quiz(QDialog):
             "learn",    
             parent=self
         )
+        self.definition_widget = QuizDefinition(
+            self.active_quiz_word,
+            parent=self
+        )
+
 
         # TODO debugging combobox
         self.choose_page_box.currentIndexChanged[str].connect(
@@ -63,16 +70,24 @@ class Quiz(QDialog):
 
         # Add the quiz widgets to the layout
         self.stacked_layout.insertWidget(0, self.preview_widget)    
-
+        self.stacked_layout.insertWidget(1, self.definition_widget)
         self.stacked_layout.setCurrentIndex(0)
 
-    def initialize_quiz_widgets(self):
-        # More widgets underneath
+
+        self.previous_quiz = None
+        self.is_quiz_correct = None    
+
+    def start_slot(self, a):
+        self.play_next()
+
+    def next_slot(self, a):
+        self.is_quiz_correct = 1
+        self.play_next()
+
+    def play_next(self):
         pass
 
 
-    def add_quiz_widgets_to_stacked_layout(self):
-        pass
 
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
@@ -89,11 +104,6 @@ class Quiz(QDialog):
             return
         self.close()
 
-    def start_slot(self, a):
-        self.play_next()
-
-    def play_next(self):
-        pass
 
 
     # TODO remove this
