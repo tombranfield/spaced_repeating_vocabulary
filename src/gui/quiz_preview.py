@@ -35,7 +35,7 @@ class QuizPreview(QWidget):
     def setup_start_button(self):
         start_msg = self.get_start_button_message()
         self.start_button.setText(start_msg)
-        self.start_button.setStyleSheet("background-color: lime")
+        self.start_button.setStyleSheet("font-size: 20px; background-color: lime")
         self.start_button.clicked.connect(self.send_signal)
 
     def send_signal(self):
@@ -60,9 +60,10 @@ class QuizPreview(QWidget):
             foreign_label = QLabel(quiz_word.foreign_word)
             translated_label = QLabel(quiz_word.translated_word)
             foreign_label.setStyleSheet(
-                "font-weight: bold; border: 2px solid lightgray"
+#                "font-weight: bold; border: 2px solid lightgray"
+                "font-weight: bold"
             )
-            translated_label.setStyleSheet("border: 2px solid lightgray")
+#            translated_label.setStyleSheet("border: 2px solid lightgray")
             foreign_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
             self.grid_layout.addWidget(foreign_label, i, 0)
             self.grid_layout.addWidget(translated_label, i, 1)
