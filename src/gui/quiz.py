@@ -34,10 +34,12 @@ class Quiz(QDialog):
         self.quiz_word_selector = QuizWordSelector(self.course_name)
         self.words_to_learn = self.quiz_word_selector.words_to_learn()
         self.all_course_words = self.quiz_word_selector.all_course_words()
-        self.words_to_quiz = list(self.words_to_learn[:5])
+        self.num_words_to_quiz = self.get_num_words_to_quiz()
+        self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
     
         # Setup the progress bar
-
+        self.max_progress = 7 * len(self.words_to_quiz)
+        self.progress_bar.setRange(0, self.max_progress)
 
         # Initialize the active quiz word
 
@@ -51,7 +53,7 @@ class Quiz(QDialog):
         )
 
         # Add the quiz widgets to the layout
-#        self.stacked_layout.addWidget(self.preview_widget)    
+        self.stacked_layout.addWidget(self.preview_widget)    
 
 
     def initialize_quiz_widgets(self):
@@ -62,8 +64,8 @@ class Quiz(QDialog):
     def add_quiz_widgets_to_stacked_layout(self):
         pass
 
-    def setup_progress_bar(self):
-        pass
+    def get_num_words_to_quiz(self):
+        return min(len(self.words_to_learn), self.max_learn_words)
 
     def close_window(self):
         self.close()

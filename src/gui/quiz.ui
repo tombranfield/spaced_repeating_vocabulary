@@ -85,7 +85,10 @@
     </widget>
    </item>
    <item>
-    <widget class="QStackedWidget" name="stacked_widget">
+    <widget class="QStackedWidget" name="stacked_layout">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="page"/>
      <widget class="QWidget" name="page_2"/>
     </widget>
