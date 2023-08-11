@@ -4,7 +4,10 @@
 from pathlib import Path
 
 from PyQt5 import uic
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import (
+    pyqtSignal,
+    Qt,
+)
 from PyQt5.QtWidgets import (
     QLabel,
     QWidget,
@@ -52,8 +55,10 @@ class QuizPreview(QWidget):
         return start_msg
 
     def add_labels_to_grid(self):
-        print("adding labels...")
-        for quiz_word in self.words_to_quiz:
-            print(quiz_word.id)
-            print(quiz_word.foreign_word)
-            print(quiz_word.translated_word)
+        for i, quiz_word in enumerate(self.words_to_quiz):
+            foreign_label = QLabel(quiz_word.foreign_word)
+            translated_label = QLabel(quiz_word.translated_word)
+            foreign_label.setStyleSheet("font-weight: bold")
+            foreign_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+            self.grid_layout.addWidget(foreign_label, i, 0)
+            self.grid_layout.addWidget(translated_label, i, 1)
