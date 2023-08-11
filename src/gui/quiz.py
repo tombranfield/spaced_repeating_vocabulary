@@ -41,6 +41,7 @@ class Quiz(QDialog):
         self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
     
         # Setup the progress bar
+        # TODO why 7 - why did I choose this?
         self.max_progress = 7 * len(self.words_to_quiz)
         self.progress_bar.setRange(0, self.max_progress)
 
