@@ -1,10 +1,14 @@
 """quiz_preview.py"""
 
+
 from pathlib import Path
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QLabel
-
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import (
+    QLabel,
+    QWidget,
+)
 
 
 class QuizPreview(QWidget):
@@ -13,8 +17,8 @@ class QuizPreview(QWidget):
     send_start = pyqtSignal(int)
         
     def __init__(self, words_to_quiz, learn_or_review, parent=None):
-        super(QuizPreviewWidget, self).__init__(parent=parent)
-        uic.loadUi(str(Path(__file__).parents[0] / "about_window.ui"), self)
+        super(QuizPreview, self).__init__(parent=parent)
+        uic.loadUi(str(Path(__file__).parents[0] / "quiz_preview.ui"), self)
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
 
@@ -40,7 +44,7 @@ class QuizPreview(QWidget):
         elif self.learn_or_review == "review":
             start_msg = "Review"
         else:
-            raise ValueError(learn_or_review must be "learn" or "review")
+            raise ValueError("learn_or_review must be 'learn' or 'review'")
         if len(self.words_to_quiz) == 1:
             start_msg += " this word"
         else:
@@ -48,4 +52,8 @@ class QuizPreview(QWidget):
         return start_msg
 
     def add_labels_to_grid(self):
-        pass
+        print("adding labels...")
+        for quiz_word in self.words_to_quiz:
+            print(quiz_word.id)
+            print(quiz_word.foreign_word)
+            print(quiz_word.translated_word)

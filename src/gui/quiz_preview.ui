@@ -82,7 +82,7 @@
           </spacer>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout">
+          <layout class="QGridLayout" name="grid_layout">
            <property name="horizontalSpacing">
             <number>20</number>
            </property>

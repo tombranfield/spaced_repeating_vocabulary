@@ -9,6 +9,8 @@ from PyQt5.QtWidgets import QDialog
 
 from src.core.quiz_word_selector import QuizWordSelector
 from src.core.settings import Settings
+from src.gui.quiz_preview import QuizPreview
+
 
 _QUIZ_TYPE = Literal["learn", "review"]
 
@@ -37,16 +39,25 @@ class Quiz(QDialog):
         # Setup the progress bar
 
 
-        self.quit_button.clicked.connect(self.close_window)       
-    
+        # Initialize the active quiz word
 
-    def initialize_quiz_widgets(self):
+
+        # Initialize the quiz widgets
+        self.quit_button.clicked.connect(self.close_window)       
         self.preview_widget = QuizPreview(
             self.words_to_quiz,
             "learn",    
-            parent=self)
-        # More underneath
-        # Need list_words, and words_to_quiz
+            parent=self
+        )
+
+        # Add the quiz widgets to the layout
+#        self.stacked_layout.addWidget(self.preview_widget)    
+
+
+    def initialize_quiz_widgets(self):
+        # More widgets underneath
+        pass
+
 
     def add_quiz_widgets_to_stacked_layout(self):
         pass
@@ -56,3 +67,9 @@ class Quiz(QDialog):
 
     def close_window(self):
         self.close()
+
+    def start_slot(self, a):
+        self.play_next()
+
+    def play_next(self):
+        pass
