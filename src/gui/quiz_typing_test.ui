@@ -31,37 +31,12 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="foreign_word_label">
+    <widget class="QLabel" name="translated_word_label">
      <property name="styleSheet">
       <string notr="true">font: FreeSans;
 font-weight: bold;
 font-size: 48px
 </string>
-     </property>
-     <property name="text">
-      <string>foreign_word_label</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="translated_word_label">
-     <property name="font">
-      <font>
-       <pointsize>28</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
      </property>
      <property name="text">
       <string>translated_word_label</string>
@@ -99,7 +74,7 @@ font-size: 48px
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Type out the word to continue:</string>
+      <string>Type out the translation of the above to continue:</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -150,9 +125,9 @@ font-size: 48px
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="next_button">
+      <widget class="QPushButton" name="see_answer_button">
        <property name="text">
-        <string>Next</string>
+        <string>See Answer</string>
        </property>
       </widget>
      </item>
