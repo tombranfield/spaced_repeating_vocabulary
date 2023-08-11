@@ -26,12 +26,13 @@ class QuizDefinition(QWidget):
         self.setStyleSheet(open(stylesheet_path).read())
 
         self.quiz_word = quiz_word
+        self.setup_labels()
 
-        # Check words
-        print(self.quiz_word.id)
-        print(self.quiz_word.foreign_word)
-        print(self.quiz_word.translated_word)
-
+    def setup_labels(self):
+        self.foreign_word_label.setText(self.quiz_word.foreign_word)
+        self.translated_word_label.setText(self.quiz_word.translated_word)
+        self.translated_word_label.setStyleSheet("font-size: 28px")
+        self.instructions_label.setStyleSheet("font-size: 20px")
         self.send_next.connect(self.parent().next_slot)
 #        self.next_button.clicked.connect(self.send_signal)
 
