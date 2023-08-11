@@ -5,7 +5,10 @@ from pathlib import Path
 from typing import Literal
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import (
+    QDialog,
+    QMessageBox,
+)
 
 from src.core.quiz_word_selector import QuizWordSelector
 from src.core.settings import Settings
@@ -45,7 +48,7 @@ class Quiz(QDialog):
 
 
         # Initialize the quiz widgets
-        self.quit_button.clicked.connect(self.close_window)       
+        self.quit_button.clicked.connect(self.quit_quiz)       
         self.preview_widget = QuizPreview(
             self.words_to_quiz,
             "learn",    
@@ -60,8 +63,6 @@ class Quiz(QDialog):
         # Add the quiz widgets to the layout
         self.stacked_layout.insertWidget(0, self.preview_widget)    
 
-
-
         self.stacked_layout.setCurrentIndex(0)
 
     def initialize_quiz_widgets(self):
@@ -75,7 +76,16 @@ class Quiz(QDialog):
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
 
-    def close_window(self):
+    def quit_quiz(self):
+        quit_dialog = QMessageBox(self)
+        quit_dialog.setIcon(QMessageBox.Warning)
+        quit_dialog.setWindowTitle("Quitting")
+        msg = "Do you want to leave the quiz? All progress will be lost."
+        quit_dialog.setText(msg)
+        quit_dialog.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        button = quit_dialog.exec_()
+        if button == QMessageBox.Cancel:
+            return
         self.close()
 
     def start_slot(self, a):
