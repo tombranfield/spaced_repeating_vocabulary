@@ -125,9 +125,9 @@ font-size: 48px
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="see_answer_button">
+      <widget class="QPushButton" name="reveal_answer_button">
        <property name="text">
-        <string>See Answer</string>
+        <string>Reveal Answer</string>
        </property>
       </widget>
      </item>
