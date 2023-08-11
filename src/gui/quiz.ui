@@ -76,6 +76,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="quit_button">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>Quit</string>
        </property>

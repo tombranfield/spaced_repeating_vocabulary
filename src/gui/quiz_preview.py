@@ -56,7 +56,7 @@ class QuizPreview(QWidget):
         return start_msg
 
     def add_labels_to_grid(self):
-        for i, quiz_word in enumerate(self.words_to_quiz):
+        for i, quiz_word in enumerate(self.words_to_quiz, 2):
             foreign_label = QLabel(quiz_word.foreign_word)
             translated_label = QLabel(quiz_word.translated_word)
             foreign_label.setStyleSheet(
