@@ -82,7 +82,7 @@ font-size: 48px
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="definition_entry">
+    <widget class="QLineEdit" name="answer_entry">
      <property name="font">
       <font>
        <pointsize>20</pointsize>

@@ -12,8 +12,9 @@ from PyQt5.QtWidgets import (
 
 from src.core.quiz_word_selector import QuizWordSelector
 from src.core.settings import Settings
-from src.gui.quiz_preview import QuizPreview
 from src.gui.quiz_definition import QuizDefinition
+from src.gui.quiz_preview import QuizPreview
+from src.gui.quiz_typing_test import QuizTypingTest
 
 
 _QUIZ_TYPE = Literal["learn", "review"]
@@ -61,7 +62,10 @@ class Quiz(QDialog):
             self.active_quiz_word,
             parent=self
         )
-
+        self.typing_test = QuizTypingTest(
+            self.active_quiz_word,
+            parent=self
+        )
 
         # TODO debugging combobox
         self.choose_page_box.currentIndexChanged[str].connect(
@@ -71,6 +75,7 @@ class Quiz(QDialog):
         # Add the quiz widgets to the layout
         self.stacked_layout.insertWidget(0, self.preview_widget)    
         self.stacked_layout.insertWidget(1, self.definition_widget)
+        self.stacked_layout.insertWidget(2, self.typing_test)
         self.stacked_layout.setCurrentIndex(0)
 
 
@@ -82,6 +87,10 @@ class Quiz(QDialog):
 
     def next_slot(self, a):
         self.is_quiz_correct = 1
+        self.play_next()
+
+    def is_correct_slot(self, a):
+        self.is_quiz_correct = a
         self.play_next()
 
     def play_next(self):
