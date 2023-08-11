@@ -52,9 +52,17 @@ class Quiz(QDialog):
             parent=self
         )
 
-        # Add the quiz widgets to the layout
-        self.stacked_layout.addWidget(self.preview_widget)    
+        # TODO debugging combobox
+        self.choose_page_box.currentIndexChanged[str].connect(
+            self.choose_page_changed
+        )
 
+        # Add the quiz widgets to the layout
+        self.stacked_layout.insertWidget(0, self.preview_widget)    
+
+
+
+        self.stacked_layout.setCurrentIndex(0)
 
     def initialize_quiz_widgets(self):
         # More widgets underneath
@@ -75,3 +83,9 @@ class Quiz(QDialog):
 
     def play_next(self):
         pass
+
+
+    # TODO remove this
+    def choose_page_changed(self, s):
+        new_page_index = int(s)
+        self.stacked_layout.setCurrentIndex(new_page_index)
