@@ -35,6 +35,7 @@ class QuizPreview(QWidget):
     def setup_start_button(self):
         start_msg = self.get_start_button_message()
         self.start_button.setText(start_msg)
+        self.start_button.setStyleSheet("background-color: lime")
         self.start_button.clicked.connect(self.send_signal)
 
     def send_signal(self):
