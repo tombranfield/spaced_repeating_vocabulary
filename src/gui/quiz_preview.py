@@ -59,7 +59,10 @@ class QuizPreview(QWidget):
         for i, quiz_word in enumerate(self.words_to_quiz):
             foreign_label = QLabel(quiz_word.foreign_word)
             translated_label = QLabel(quiz_word.translated_word)
-            foreign_label.setStyleSheet("font-weight: bold")
+            foreign_label.setStyleSheet(
+                "font-weight: bold; border: 2px solid lightgray"
+            )
+            translated_label.setStyleSheet("border: 2px solid lightgray")
             foreign_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
             self.grid_layout.addWidget(foreign_label, i, 0)
             self.grid_layout.addWidget(translated_label, i, 1)
