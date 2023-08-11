@@ -51,7 +51,7 @@ class Quiz(QDialog):
         self.active_quiz_words = []
 
         # Initialize the quiz widgets
-        self.quit_button.clicked.connect(self.quit_quiz)       
+        self.setup_quit_button()
         self.preview_widget = QuizPreview(
             self.words_to_quiz,
             "learn",    
@@ -91,6 +91,11 @@ class Quiz(QDialog):
 
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
+
+    def setup_quit_button(self):
+        self.quit_button.setDefault(False)
+        self.quit_button.setAutoDefault(False)
+        self.quit_button.clicked.connect(self.quit_quiz)       
 
     def quit_quiz(self):
         quit_dialog = QMessageBox(self)
