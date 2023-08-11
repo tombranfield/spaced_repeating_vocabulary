@@ -127,7 +127,7 @@ font-size: 48px
      <item>
       <widget class="QPushButton" name="reveal_answer_button">
        <property name="text">
-        <string>Reveal Answer</string>
+        <string>Give Up</string>
        </property>
       </widget>
      </item>

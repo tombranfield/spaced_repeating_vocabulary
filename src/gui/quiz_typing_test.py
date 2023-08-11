@@ -17,8 +17,7 @@ from src.core.settings import Settings
 
 
 class QuizTypingTest(QWidget):
-    """A widget for the preview screen of the quiz"""
-
+    """A widget for a typing test in the quiz"""
     is_correct = pyqtSignal(int)
         
     def __init__(self, quiz_word, parent=None):
@@ -35,11 +34,6 @@ class QuizTypingTest(QWidget):
         self.is_correct.connect(self.parent().is_correct_slot)
         self.activate_buttons(True)
 
-        #TODO for casual testing
-        print("\t\t\t", self.quiz_word.foreign_word)
-        print("\t\t", self.settings.is_case_sensitive)
-        print("\t\t", self.settings.is_automatic_return)
-
     def setup_labels(self):
         self.translated_word_label.setText(self.quiz_word.translated_word)
         self.translated_word_label.setStyleSheet("font-size: 36px; font-weight: bold")
@@ -47,7 +41,7 @@ class QuizTypingTest(QWidget):
 
     def setup_answer_entry(self):
         # TODO remove below line, is for casual testing
-        self.answer_entry.setPlaceholderText(self.quiz_word.foreign_word)
+#        self.answer_entry.setPlaceholderText(self.quiz_word.foreign_word)
         self.answer_entry.returnPressed.connect(
             self.answer_entry_return_pressed
         )
@@ -95,9 +89,7 @@ class QuizTypingTest(QWidget):
             self.answer_entry.setStyleSheet("background: darkred")
 
     def send_correct_signal(self):
-        print("\t\t", "sent correct signal")
         self.is_correct.emit(1)
 
     def send_incorrect_signal(self):
-        print("\t\t", "sent incorrect signal")
         self.is_correct.emit(0)
