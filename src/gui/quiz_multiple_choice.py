@@ -35,7 +35,7 @@ class QuizMultipleChoice(QWidget):
         self.settings = Settings()
         self.setup_labels()
         self.setup_reveal_answer_button()
-        self.answer_buttons = self.setup_answer_buttons(self.max_quiz_words)
+        self.answer_buttons = self.create_answer_buttons(self.max_quiz_words)
         self.is_correct.connect(self.parent().is_correct_slot)
         self.activate_buttons(True)
 
@@ -48,15 +48,37 @@ class QuizMultipleChoice(QWidget):
         self.question_label.setStyleSheet("font-size: 36px; font-weight: bold")
         self.instructions_label.setStyleSheet("font-size: 20px")
 
-    def setup_answer_buttons(self, max_quiz_words):
-        print(max_quiz_words)
+    def create_answer_buttons(self, max_quiz_words):
         answer_buttons = {}
+        correct_answer_index = random.randint(0, max_quiz_words - 1)
         for i in range(max_quiz_words):
             answer_buttons[i] = QPushButton("")
             answer_buttons[i].setDefault(False)
             answer_buttons[i].setAutoDefault(False)
+            if i == correct_answer_index:
+                answer_buttons[i].setText(self.get_correct_button_text()) 
+                answer_buttons[i].clicked.connect(self.send_correct_signal)
+            else:
+                answer_buttons[i].setText(self.get_incorrect_button_text())
+                answer_buttons[i].clicked.connect(self.send_incorrect_signal)
             self.answer_button_layout.addWidget(answer_buttons[i])
         return answer_buttons            
+
+    def get_correct_button_text(self):
+        if self.mode == "english_to_foreign":
+            return self.quiz_word.foreign_word
+        elif self.mode == "foreign_to_english":
+            return self.quiz_word.translated_word
+
+    def get_incorrect_button_text(self):
+        while True:
+            random_word = random.choice(self.course_words)
+            if random_word.foreign_word != self.quiz_word.foreign_word:
+                break
+        if self.mode == "english_to_foreign":
+            return random_word.foreign_word
+        elif self.mode == "foreign_to_english":
+            return random_word.translated_word                
 
     def setup_reveal_answer_button(self):
         self.reveal_answer_button.clicked.connect(self.send_incorrect_signal)
