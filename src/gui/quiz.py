@@ -66,6 +66,7 @@ class Quiz(QDialog):
         self.multiple_choice = QuizMultipleChoice(
             self.active_quiz_word,
             self.all_course_words,
+            "english_to_foreign",
             parent=self
         )
         self.typing_test = QuizTypingTest(

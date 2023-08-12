@@ -31,15 +31,19 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="foreign_word_label">
+    <widget class="QLabel" name="question_label">
+     <property name="font">
+      <font>
+       <pointsize>36</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="styleSheet">
-      <string notr="true">font: FreeSans;
-font-weight: bold;
-font-size: 48px
-</string>
+      <string notr="true"/>
      </property>
      <property name="text">
-      <string>foreign_word_label</string>
+      <string>question_label</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -82,32 +86,7 @@ font-size: 48px
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>Answer Button 0</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="text">
-      <string>Answer Button 1</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="text">
-      <string>Answer Button 2</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_4">
-     <property name="text">
-      <string>Answer Button 3</string>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="answer_button_layout"/>
    </item>
    <item>
     <spacer name="verticalSpacer_2">
