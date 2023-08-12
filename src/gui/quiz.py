@@ -13,6 +13,7 @@ from PyQt5.QtWidgets import (
 from src.core.quiz_word_selector import QuizWordSelector
 from src.core.settings import Settings
 from src.gui.quiz_definition import QuizDefinition
+from src.gui.quiz_multiple_choice import QuizMultipleChoice
 from src.gui.quiz_preview import QuizPreview
 from src.gui.quiz_typing_test import QuizTypingTest
 
@@ -62,6 +63,11 @@ class Quiz(QDialog):
             self.active_quiz_word,
             parent=self
         )
+        self.multiple_choice = QuizMultipleChoice(
+            self.active_quiz_word,
+            self.all_course_words,
+            parent=self
+        )
         self.typing_test = QuizTypingTest(
             self.active_quiz_word,
             parent=self
@@ -75,9 +81,9 @@ class Quiz(QDialog):
         # Add the quiz widgets to the layout
         self.stacked_layout.insertWidget(0, self.preview_widget)    
         self.stacked_layout.insertWidget(1, self.definition_widget)
-        self.stacked_layout.insertWidget(2, self.typing_test)
+        self.stacked_layout.insertWidget(2, self.multiple_choice)
+        self.stacked_layout.insertWidget(3, self.typing_test)
         self.stacked_layout.setCurrentIndex(0)
-
 
         self.previous_quiz = None
         self.is_quiz_correct = None    

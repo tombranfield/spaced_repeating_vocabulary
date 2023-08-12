@@ -20,13 +20,14 @@ class QuizMultipleChoice(QWidget):
     """A widget for a typing test in the quiz"""
     is_correct = pyqtSignal(int)
         
-    def __init__(self, quiz_word, parent=None):
-        super(QuizTypingTest, self).__init__(parent=parent)
+    def __init__(self, quiz_word, course_words, parent=None):
+        super(QuizMultipleChoice, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "quiz_multiple_choice.ui"), self)
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
 
         self.quiz_word = quiz_word
+        self.course_words = course_words
         self.settings = Settings()
         self.setup_labels()
         self.setup_reveal_answer_button()
@@ -45,7 +46,6 @@ class QuizMultipleChoice(QWidget):
         self.reveal_answer_button.setAutoDefault(False)
 
     def activate_buttons(self, b: bool):
-        self.answer_entry.setEnabled(b)
         self.reveal_answer_button.setEnabled(b)
 
     def send_correct_signal(self):

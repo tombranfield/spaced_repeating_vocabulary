@@ -31,7 +31,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="translated_word_label">
+    <widget class="QLabel" name="foreign_word_label">
      <property name="styleSheet">
       <string notr="true">font: FreeSans;
 font-weight: bold;
