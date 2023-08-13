@@ -31,6 +31,11 @@ class QuizDefinition(QWidget):
         self.setup_definition_entry()
         self.show_typing_widgets(is_typing)            
 
+        # TODO trying to get focus working
+        # Prints True, so it can find the next focus child
+        print(self.focusNextChild())
+        self.definition_entry.setFocus(True)        
+
     def setup_labels(self):
         self.foreign_word_label.setText(self.quiz_word.foreign_word)
         self.translated_word_label.setText(self.quiz_word.translated_word)

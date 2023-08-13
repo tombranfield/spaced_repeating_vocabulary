@@ -78,13 +78,15 @@ class Quiz(QDialog):
         self.choose_page_box.currentIndexChanged[str].connect(
             self.choose_page_changed
         )
+        self.choose_page_box.clearFocus()
+        self.choose_page_box.setEnabled(False)
 
         # Add the quiz widgets to the layout
         self.stacked_layout.insertWidget(0, self.preview_widget)    
         self.stacked_layout.insertWidget(1, self.definition_widget)
         self.stacked_layout.insertWidget(2, self.multiple_choice)
         self.stacked_layout.insertWidget(3, self.typing_test)
-        self.stacked_layout.setCurrentIndex(0)
+        self.stacked_layout.setCurrentIndex(2)
 
         self.previous_quiz = None
         self.is_quiz_correct = None    

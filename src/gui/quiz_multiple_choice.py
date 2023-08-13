@@ -39,6 +39,8 @@ class QuizMultipleChoice(QWidget):
         self.is_correct.connect(self.parent().is_correct_slot)
         self.activate_buttons(True)
         self.answer_buttons[0].setFocus()
+        self.answer_buttons[0].setDefault(True)
+        self.answer_buttons[0].setAutoDefault(True)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_1:

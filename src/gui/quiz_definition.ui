@@ -10,6 +10,9 @@
     <height>408</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -112,6 +115,9 @@ font-size: 48px
       <font>
        <pointsize>20</pointsize>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
