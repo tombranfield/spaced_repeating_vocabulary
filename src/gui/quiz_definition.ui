@@ -10,9 +10,6 @@
     <height>408</height>
    </rect>
   </property>
-  <property name="focusPolicy">
-   <enum>Qt::StrongFocus</enum>
-  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -63,9 +60,6 @@ font-size: 48px
        <pointsize>28</pointsize>
       </font>
      </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
      <property name="text">
       <string>translated_word_label</string>
      </property>
@@ -102,7 +96,7 @@ font-size: 48px
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Type out the word to continue:</string>
+      <string>Type the word above to continue:</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -115,9 +109,6 @@ font-size: 48px
       <font>
        <pointsize>20</pointsize>
       </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -157,9 +148,6 @@ font-size: 48px
      </item>
      <item>
       <widget class="QPushButton" name="next_button">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
        <property name="text">
         <string>Next</string>
        </property>

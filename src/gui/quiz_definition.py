@@ -26,7 +26,7 @@ class QuizDefinition(QWidget):
         
     def __init__(self, quiz_word, is_typing=True, parent=None):
         super(QuizDefinition, self).__init__(parent=parent)
-        uic.loadUi(str(Path(__file__).parents[0] / "quiz_definition_2.ui"), self)
+        uic.loadUi(str(Path(__file__).parents[0] / "quiz_definition.ui"), self)
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
 
@@ -72,7 +72,7 @@ class QuizDefinition(QWidget):
         self.next_button.setAutoDefault(False)
 
     def setup_definition_entry(self):
- #       self.definition_entry.setPlaceholderText(self.quiz_word.foreign_word)
+        self.definition_entry.setPlaceholderText(self.quiz_word.foreign_word)
         self.definition_entry.returnPressed.connect(
             self.definition_entry_return_pressed
         )
