@@ -36,9 +36,15 @@ class QuizDefinition(QWidget):
         self.setup_definition_entry()
         self.setup_next_button()
         self.is_typing = is_typing
-#        self.show_typing_widgets(is_typing)            
+        self.is_typing = False
+        self.show_typing_widgets(self.is_typing)            
         self.activate_buttons(True)
         print("is typing", self.is_typing)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Enter:
+            print("pressed Enter")
+            self.next_button.click()
 
     def setup_labels(self):
         self.foreign_word_label.setText(self.quiz_word.foreign_word)
@@ -68,8 +74,8 @@ class QuizDefinition(QWidget):
     def setup_next_button(self):
         self.send_next.connect(self.parent().next_slot)
         self.next_button.clicked.connect(self.send_signal)
-        self.next_button.setDefault(False)
-        self.next_button.setAutoDefault(False)
+        self.next_button.setDefault(True)
+        self.next_button.setAutoDefault(True)
 
     def setup_definition_entry(self):
         self.definition_entry.setPlaceholderText(self.quiz_word.foreign_word)
@@ -95,6 +101,8 @@ class QuizDefinition(QWidget):
     def activate_buttons(self, b: bool):
         self.definition_entry.setEnabled(b)
         self.next_button.setEnabled(b)
+
+    
 
     def send_signal(self):
         print("sending next")
