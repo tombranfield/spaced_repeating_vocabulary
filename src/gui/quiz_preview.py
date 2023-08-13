@@ -39,6 +39,7 @@ class QuizPreview(QWidget):
         self.start_button.clicked.connect(self.send_signal)
 
     def send_signal(self):
+        print("sent start signal")
         self.send_start.emit(1)
 
     def get_start_button_message(self):

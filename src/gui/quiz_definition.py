@@ -7,15 +7,18 @@ from PyQt5 import uic
 from PyQt5.QtCore import (
     pyqtSignal,
     Qt,
+    QTimer,
 )
 from PyQt5.QtWidgets import (
+    QApplication,
     QLabel,
+    QMessageBox,
     QWidget,
 )
 
 
 class QuizDefinition(QWidget):
-    """A widget for the preview screen of the quiz"""
+    """A widget for the definition screen of the quiz"""
 
     send_next = pyqtSignal(int)
         
@@ -26,15 +29,12 @@ class QuizDefinition(QWidget):
         self.setStyleSheet(open(stylesheet_path).read())
 
         self.quiz_word = quiz_word
+        self.setup_definition_entry()
         self.setup_labels()
         self.setup_next_button()
-        self.setup_definition_entry()
+        self.is_typing = is_typing
         self.show_typing_widgets(is_typing)            
-
-        # TODO trying to get focus working
-        # Prints True, so it can find the next focus child
-        print(self.focusNextChild())
-        self.definition_entry.setFocus(True)        
+        print("is typing", self.is_typing)
 
     def setup_labels(self):
         self.foreign_word_label.setText(self.quiz_word.foreign_word)
@@ -45,13 +45,22 @@ class QuizDefinition(QWidget):
     def show_typing_widgets(self, is_typing):
         """Shows the instructions and definition entry widgets"""
         if is_typing:
+            print("typing branch")
             self.instructions_label.show()
             self.definition_entry.show()
             self.next_button.hide()
+            self.definition_entry.setEnabled(True)
+            self.next_button.setEnabled(False)
+            self.definition_entry.setFocus()
         else:
+            print("not typing branch")
             self.instructions_label.hide()
             self.definition_entry.hide()
             self.next_button.show()
+            self.definition_entry.setEnabled(False)
+            self.next_button.setEnabled(True)
+            self.next_button.setFocus()
+            
 
     def setup_next_button(self):
         self.send_next.connect(self.parent().next_slot)
@@ -64,12 +73,15 @@ class QuizDefinition(QWidget):
         self.definition_entry.returnPressed.connect(
             self.definition_entry_return_pressed
         )
+        self.definition_entry.setEnabled(True)
 
     def definition_entry_return_pressed(self):
         current_text = self.definition_entry.text()
+        print(self.isActiveWindow())
         if current_text == self.quiz_word.foreign_word:
             self.send_signal()
 
     def send_signal(self):
+        print("sending next")
         self.send_next.emit(1)
 
