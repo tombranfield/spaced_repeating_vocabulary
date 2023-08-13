@@ -43,14 +43,18 @@ class QuizMultipleChoice(QWidget):
         self.answer_buttons[0].setAutoDefault(True)
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_1:
+        if event.key() == Qt.Key_1 and self.answer_buttons[0]:
             print("\t\t\t\t1 pressed")
-        if event.key() == Qt.Key_2:
+            self.answer_buttons[0].click()
+        if event.key() == Qt.Key_2 and self.answer_buttons[1]:
             print("\t\t\t\t2 pressed")
-        if event.key() == Qt.Key_3:
+            self.answer_buttons[1].click()
+        if event.key() == Qt.Key_3 and self.answer_buttons[2]:
             print("\t\t\t\t3 pressed")
-        if event.key() == Qt.Key_4:
+            self.answer_buttons[2].click()
+        if event.key() == Qt.Key_4 and self.answer_buttons[3]:
             print("\t\t\t\t4 pressed")
+            self.answer_buttons[3].click()
 
     def setup_labels(self):
         # Depends on the mode
@@ -103,7 +107,9 @@ class QuizMultipleChoice(QWidget):
         self.reveal_answer_button.setEnabled(b)
 
     def send_correct_signal(self):
+        print("sending correct signal")
         self.is_correct.emit(1)
 
     def send_incorrect_signal(self):
+        print("sending incorrect signal")
         self.is_correct.emit(0)
