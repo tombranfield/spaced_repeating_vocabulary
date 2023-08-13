@@ -38,6 +38,17 @@ class QuizMultipleChoice(QWidget):
         self.answer_buttons = self.create_answer_buttons(self.max_quiz_words)
         self.is_correct.connect(self.parent().is_correct_slot)
         self.activate_buttons(True)
+        self.answer_buttons[0].setFocus()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_1:
+            print("\t\t\t\t1 pressed")
+        if event.key() == Qt.Key_2:
+            print("\t\t\t\t2 pressed")
+        if event.key() == Qt.Key_3:
+            print("\t\t\t\t3 pressed")
+        if event.key() == Qt.Key_4:
+            print("\t\t\t\t4 pressed")
 
     def setup_labels(self):
         # Depends on the mode
@@ -58,6 +69,7 @@ class QuizMultipleChoice(QWidget):
             if i == correct_answer_index:
                 answer_buttons[i].setText(self.get_correct_button_text()) 
                 answer_buttons[i].clicked.connect(self.send_correct_signal)
+                # TODO send signal when pressing i on keyboard
             else:
                 answer_buttons[i].setText(self.get_incorrect_button_text())
                 answer_buttons[i].clicked.connect(self.send_incorrect_signal)
