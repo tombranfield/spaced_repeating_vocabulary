@@ -57,7 +57,6 @@ class QuizMultipleChoice(QWidget):
             self.answer_buttons[3].click()
 
     def setup_labels(self):
-        # Depends on the mode
         if self.mode == "foreign_to_english":
             self.question_label.setText(self.quiz_word.foreign_word)
         elif self.mode == "english_to_foreign":
@@ -75,7 +74,6 @@ class QuizMultipleChoice(QWidget):
             if i == correct_answer_index:
                 answer_buttons[i].setText(self.get_correct_button_text()) 
                 answer_buttons[i].clicked.connect(self.send_correct_signal)
-                # TODO send signal when pressing i on keyboard
             else:
                 answer_buttons[i].setText(self.get_incorrect_button_text())
                 answer_buttons[i].clicked.connect(self.send_incorrect_signal)

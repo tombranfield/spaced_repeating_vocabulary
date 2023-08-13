@@ -33,6 +33,7 @@ class QuizTypingTest(QWidget):
         self.setup_answer_entry()
         self.setup_reveal_answer_button()
         self.is_correct.connect(self.parent().is_correct_slot)
+        self.reset_answer_entry_background()
         self.activate_buttons(True)
 
     def setup_labels(self):
