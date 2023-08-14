@@ -45,28 +45,20 @@ class QuizDefinition(QWidget):
 
         self.next_button.installEventFilter(self)
 
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_1:
-            # print("1 pressed")
-            pass
-        if event.key() == Qt.Key_Space:
-            # print("space pressed")
-            pass
-        if event.key() == Qt.Key_Enter:
-            #print("pressed Enter")
-            #self.next_button.click()
-            pass
-
     def eventFilter(self, source, event):
-        if source == self.next_button:
-            print("hi") # works
+#        if source == self.next_button:
+#            print("hi") # works
         if event.type() == QEvent.KeyPress:
-            print("keypress") # works
-            print(event.type()) # prints 6
+#            print("keypress") # works
+#            print(event.type()) # prints 6
             key = event.key()
-            print(key)
-            if key == Qt.Key_Space:
-                print("pressed Space")
+#            print(key)
+            if key != Qt.Key_Return:
+#                print("not enter, ignored")
+                return True
+            else:
+#                print("pressed return")
+                pass
         return False
     
     def setup_labels(self):
