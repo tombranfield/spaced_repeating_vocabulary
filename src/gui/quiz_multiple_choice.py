@@ -102,21 +102,25 @@ class QuizMultipleChoice(QWidget):
             return random_word.translated_word                
 
     def setup_reveal_answer_button(self):
-        self.reveal_answer_button.clicked.connect(self.send_incorrect_signal)
+        self.reveal_answer_button.clicked.connect(self.sent_incorrect_answer)
         self.reveal_answer_button.setDefault(False)
         self.reveal_answer_button.setAutoDefault(False)
 
     def sent_correct_answer(self):
         self.set_answer_buttons_background()
+        if self.answer_buttons[0].isEnabled():
+            self.send_correct_signal()
         self.activate_buttons(False)
-        self.send_correct_signal()
 
     def sent_incorrect_answer(self):
         self.set_answer_buttons_background()
+        if self.answer_buttons[0].isEnabled():
+            self.send_incorrect_signal()
         self.activate_buttons(False)
-        self.send_incorrect_signal()
 
     def activate_buttons(self, b: bool):
+        for i in range(self.max_quiz_words):
+            self.answer_buttons[i].setEnabled(b)
         self.reveal_answer_button.setEnabled(b)
 
     def reset_answer_buttons_background(self):
