@@ -31,16 +31,19 @@ class QuizMultipleChoice(QWidget):
         self.quiz_word = quiz_word
         self.course_words = course_words
         self.mode = mode
-        self.max_quiz_words = min(4, len(self.course_words))
         self.settings = Settings()
         self.setup_labels()
         self.setup_reveal_answer_button()
+
+        self.max_quiz_words = min(4, len(self.course_words))
+        self.correct_answer_index = random.randint(0, self.max_quiz_words - 1)
         self.answer_buttons = self.create_answer_buttons(self.max_quiz_words)
         self.is_correct.connect(self.parent().is_correct_slot)
+#        self.answer_buttons[0].setFocus()
+#        self.answer_buttons[0].setDefault(True)
+#        self.answer_buttons[0].setAutoDefault(True)
         self.activate_buttons(True)
-        self.answer_buttons[0].setFocus()
-        self.answer_buttons[0].setDefault(True)
-        self.answer_buttons[0].setAutoDefault(True)
+        self.reset_answer_buttons_background()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_1 and self.answer_buttons[0]:
@@ -66,17 +69,16 @@ class QuizMultipleChoice(QWidget):
 
     def create_answer_buttons(self, max_quiz_words):
         answer_buttons = {}
-        correct_answer_index = random.randint(0, max_quiz_words - 1)
         for i in range(max_quiz_words):
             answer_buttons[i] = QPushButton("")
             answer_buttons[i].setDefault(False)
             answer_buttons[i].setAutoDefault(False)
-            if i == correct_answer_index:
+            if i == self.correct_answer_index:
                 answer_buttons[i].setText(self.get_correct_button_text()) 
-                answer_buttons[i].clicked.connect(self.send_correct_signal)
+                answer_buttons[i].clicked.connect(self.sent_correct_answer)
             else:
                 answer_buttons[i].setText(self.get_incorrect_button_text())
-                answer_buttons[i].clicked.connect(self.send_incorrect_signal)
+                answer_buttons[i].clicked.connect(self.sent_incorrect_answer)
             self.answer_button_layout.addWidget(answer_buttons[i])
         return answer_buttons            
 
@@ -101,8 +103,29 @@ class QuizMultipleChoice(QWidget):
         self.reveal_answer_button.setDefault(False)
         self.reveal_answer_button.setAutoDefault(False)
 
+    def sent_correct_answer(self):
+        self.set_answer_buttons_background()
+        self.activate_buttons(False)
+        self.send_correct_signal()
+
+    def sent_incorrect_answer(self):
+        self.set_answer_buttons_background()
+        self.activate_buttons(False)
+        self.send_incorrect_signal()
+
     def activate_buttons(self, b: bool):
         self.reveal_answer_button.setEnabled(b)
+
+    def reset_answer_buttons_background(self):
+        for key in self.answer_buttons:
+            self.answer_buttons[key].setStyleSheet("background: white")
+
+    def set_answer_buttons_background(self):
+        for key in self.answer_buttons:
+            if key == self.correct_answer_index:
+                self.answer_buttons[key].setStyleSheet("background: lime")
+            else:
+                self.answer_buttons[key].setStyleSheet("background: darkred")
 
     def send_correct_signal(self):
         print("sending correct signal")

@@ -35,8 +35,13 @@ class QuizPreview(QWidget):
     def setup_start_button(self):
         start_msg = self.get_start_button_message()
         self.start_button.setText(start_msg)
-        self.start_button.setStyleSheet("font-size: 20px; background-color: lime")
+        self.start_button.setStyleSheet("font-size: 28px; background-color: lime")
+        self.start_button.setDefault(True)
+        self.start_button.setAutoDefault(True)
+        self.start_button.setFocus()
         self.start_button.clicked.connect(self.send_signal)
+        self.start_button.setEnabled(False)
+        self.start_button.setEnabled(True)
 
     def send_signal(self):
         print("sent start signal")
