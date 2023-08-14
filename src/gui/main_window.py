@@ -3,7 +3,11 @@
 import os
 import sys
 
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
+#from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5 import QtGui, QtWidgets, uic
+
+from PyQt5.QtCore import Qt, QEvent
+
 from PyQt5.QtWidgets import QDialog, QWidget, QVBoxLayout
 
 from header import Header
@@ -17,6 +21,7 @@ base_dir = os.path.dirname(__file__)
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+
         self.setStyleSheet(open(os.path.join(base_dir,"stylesheet.css")).read())
         self.setFixedSize(900, 600)
 
@@ -39,7 +44,6 @@ class MainWindow(QtWidgets.QMainWindow):
         widget = QWidget()
         widget.setLayout(self.layout)
         self.setCentralWidget(widget)
-
 
 
 

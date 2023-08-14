@@ -4,9 +4,11 @@
 from pathlib import Path
 
 from PyQt5 import uic
+
 from PyQt5.QtCore import (
     pyqtSignal,
     Qt,
+    QEvent,
     QTimer,
 )
 from PyQt5.QtWidgets import (
@@ -41,11 +43,32 @@ class QuizDefinition(QWidget):
         self.activate_buttons(True)
         print("is typing", self.is_typing)
 
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Enter:
-            print("pressed Enter")
-            self.next_button.click()
+        self.next_button.installEventFilter(self)
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_1:
+            # print("1 pressed")
+            pass
+        if event.key() == Qt.Key_Space:
+            # print("space pressed")
+            pass
+        if event.key() == Qt.Key_Enter:
+            #print("pressed Enter")
+            #self.next_button.click()
+            pass
+
+    def eventFilter(self, source, event):
+        if source == self.next_button:
+            print("hi") # works
+        if event.type() == QEvent.KeyPress:
+            print("keypress") # works
+            print(event.type()) # prints 6
+            key = event.key()
+            print(key)
+            if key == Qt.Key_Space:
+                print("pressed Space")
+        return False
+    
     def setup_labels(self):
         self.foreign_word_label.setText(self.quiz_word.foreign_word)
         self.translated_word_label.setText(self.quiz_word.translated_word)
