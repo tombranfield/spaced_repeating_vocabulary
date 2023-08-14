@@ -93,13 +93,16 @@ class Quiz(QDialog):
 
 
     def start_slot(self, a):
+        print("START SLOT CALLED")
         self.play_next()
 
     def next_slot(self, a):
+        print("NEXT SLOT CALLED")
         self.is_quiz_correct = 1
         self.play_next()
 
     def is_correct_slot(self, a):
+        print("IS CORRECT SLOT CALLED")
         self.is_quiz_correct = a
         self.play_next()
 
