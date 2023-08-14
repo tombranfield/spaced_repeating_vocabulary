@@ -7,6 +7,7 @@ import random
 from PyQt5 import uic
 from PyQt5.QtCore import (
     pyqtSignal,
+    QEvent,
     Qt,
 )
 from PyQt5.QtWidgets import (
@@ -39,25 +40,27 @@ class QuizMultipleChoice(QWidget):
         self.correct_answer_index = random.randint(0, self.max_quiz_words - 1)
         self.answer_buttons = self.create_answer_buttons(self.max_quiz_words)
         self.is_correct.connect(self.parent().is_correct_slot)
-#        self.answer_buttons[0].setFocus()
-#        self.answer_buttons[0].setDefault(True)
-#        self.answer_buttons[0].setAutoDefault(True)
+        self.answer_buttons[0].installEventFilter(self)
         self.activate_buttons(True)
         self.reset_answer_buttons_background()
+        self.reveal_answer_button.installEventFilter(self)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_1 and self.answer_buttons[0]:
-            print("\t\t\t\t1 pressed")
             self.answer_buttons[0].click()
         if event.key() == Qt.Key_2 and self.answer_buttons[1]:
-            print("\t\t\t\t2 pressed")
             self.answer_buttons[1].click()
         if event.key() == Qt.Key_3 and self.answer_buttons[2]:
-            print("\t\t\t\t3 pressed")
             self.answer_buttons[2].click()
         if event.key() == Qt.Key_4 and self.answer_buttons[3]:
-            print("\t\t\t\t4 pressed")
             self.answer_buttons[3].click()
+
+    def eventFilter(self, source, event):
+        if event.type() == QEvent.KeyPress:
+            key = event.key()
+            if key not in [Qt.Key_1, Qt.Key_2, Qt.Key_3, Qt.Key_4]:
+                return True
+        return False
 
     def setup_labels(self):
         if self.mode == "foreign_to_english":

@@ -121,6 +121,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="reveal_answer_button">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Give Up</string>
        </property>
