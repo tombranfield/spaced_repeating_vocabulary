@@ -179,30 +179,32 @@ class Quiz(QDialog):
                 return False
         return True
 
-    def finish_quiz(self, learn_or_review):
+    def finish_quiz(self):
+        self.apply_results_to_db()
+        messagebox = self.finish_messagebox()
+        button = messagebox.exec_()
+        if button == QMessageBox.Ok:
+            self.close()        
 
     def finish_messagebox(self):
         messagebox = QMessageBox(self)
         messagebox.setIcon(QMessageBox.Information)
         messagebox.setWindowTitle("Quiz Complete")
-        if learn_or_review == "learn":
+        if self.quiz_type == "learn":
             msg = get_finish_msg("learn")
-        elif learn_or_review == "review":
+        elif self.quiz_type == "review":
             msg = get_finish_msg("review")
         messagebox.setText(msg)
         messagebox.setStandardButtons(QMessageBox.Ok)
-        button = messagebox.exec_()
-        if button == QMessageBox.Ok:
-            self.close()        
         return messagebox
 
-    def get_finish_msg(self, learn_or_review):
+    def get_finish_msg(self):
         msg = "         Congratulations!\n"
-        if learn_or_review == "learn":
+        if self.quiz_type == "learn":
             msg += "         You have learned:\n\n"
             for quiz_word in self.active_quiz_words:
                 msg += "          -" + quiz_word.foreign_word
-        elif learn_or_review == "review":
+        elif self.quiz_type == "review":
             msg += "         You have reviewed " + str(self.num_words_to_quiz)
             if self.num_words_to_quiz == 1:
                 msg += " word!"
