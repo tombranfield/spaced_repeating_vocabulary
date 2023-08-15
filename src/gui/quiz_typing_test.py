@@ -8,6 +8,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import (
     pyqtSignal,
     Qt,
+    QTimer,
 )
 from PyQt5.QtWidgets import (
     QApplication,
@@ -63,11 +64,12 @@ class QuizTypingTest(QWidget):
             current_text = current_text.lower()
         if current_text == self.quiz_word.foreign_word:
             self.set_answer_entry_background(True)
-            self.send_correct_signal()
+            self.activate_buttons(False)
+            QTimer.singleShot(1000, self.send_correct_signal)
         else:
+            self.activate_buttons(False)
             self.set_answer_entry_background(False)
-            self.send_incorrect_signal()
-        self.activate_buttons(False)
+            QTimer.singleShot(1000, self.send_incorrect_signal)
 
     def answer_entry_text_edited(self, answer_input):
         if self.settings.is_automatic_return:

@@ -6,7 +6,7 @@ class QuizStack:
     Represents the sequence of different tests during a quiz
     """
     learn_sequence  = (
-        "typing_test_quiz",
+        "typing_quiz",
         "english_to_foreign_multiple_quiz",
         "foreign_to_english_multiple_quiz",
         "typing_quiz",
