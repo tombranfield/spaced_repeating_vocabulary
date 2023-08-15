@@ -3,12 +3,14 @@
 
 from pathlib import Path
 import random
+import time
 
 from PyQt5 import uic
 from PyQt5.QtCore import (
     pyqtSignal,
     QEvent,
     Qt,
+    QTimer,
 )
 from PyQt5.QtWidgets import (
     QLabel,
@@ -109,14 +111,18 @@ class QuizMultipleChoice(QWidget):
     def sent_correct_answer(self):
         self.set_answer_buttons_background()
         if self.answer_buttons[0].isEnabled():
-            self.send_correct_signal()
+            print("send correct signal")
+#            self.send_correct_signal()
         self.activate_buttons(False)
+        QTimer.singleShot(1000, self.send_correct_signal)
 
     def sent_incorrect_answer(self):
         self.set_answer_buttons_background()
         if self.answer_buttons[0].isEnabled():
-            self.send_incorrect_signal()
+            print("sent incorrect signal")
+#            self.send_incorrect_signal()
         self.activate_buttons(False)
+        QTimer.singleShot(1000, self.send_incorrect_signal)
 
     def activate_buttons(self, b: bool):
         for i in range(self.max_quiz_words):

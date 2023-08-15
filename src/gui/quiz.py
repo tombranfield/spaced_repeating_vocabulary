@@ -78,11 +78,13 @@ class Quiz(QDialog):
         )
 
         # TODO debugging combobox
+        """
         self.choose_page_box.currentIndexChanged[str].connect(
             self.choose_page_changed
         )
         self.choose_page_box.clearFocus()
         self.choose_page_box.setEnabled(True)
+        """
 
         # Add the quiz widgets to the layout
         self.stacked_layout.insertWidget(0, self.preview_widget)    
@@ -104,7 +106,7 @@ class Quiz(QDialog):
         self.play_next()
 
     def is_correct_slot(self, a):
-        print("IS CORRECT SLOT CALLED")
+        print("IS CORRECT SLOT CALLED", a)
         self.is_quiz_correct = a
         self.play_next()
 
@@ -112,14 +114,15 @@ class Quiz(QDialog):
         if self.previous_quiz:
             self.apply_quiz_results()
             self.is_quiz_correct = None
-            self.set_progress()
-            self.show_answers_pause(self.previous_quiz)
+            #TODO self.set_progress()
+            # self.show_answers_pause(self.previous_quiz)
         if self.is_add_new_active_quiz_word():
             self.add_new_active_quiz_words(self.num_active_quiz_words_to_add())
         if self.is_quiz_finished():
             self.finish_quiz()
         self.active_quiz_word = random.choice(self.active_quiz_words)
         next_quiz = self.active_quiz_word.get_next_quiz()
+        print("next quiz is", next_quiz)
         self.do_next_quiz(self.active_quiz_word, next_quiz)
         self.previous_quiz = next_quiz
 
@@ -148,7 +151,7 @@ class Quiz(QDialog):
         if not self.words_to_quiz:
             return False
         for quiz_word in self.active_quiz_words:
-            if quiz_word.get_progress_score < 3:
+            if quiz_word.progress_score < 3:
                 return False
         return True
 
@@ -174,7 +177,7 @@ class Quiz(QDialog):
         if self.words_to_quiz:
             return False
         for quiz_word in self.active_quiz_words:
-            if not quiz_word.is_quiz_finished():
+            if not quiz_word.is_quizzing_finished():
                 return False
         return True
 
@@ -241,7 +244,7 @@ class Quiz(QDialog):
             self.do_typing_quiz(self.active_quiz_word)
 
     def do_word_definition_quiz(self, active_quiz_word, is_typing):
-        self.definition_widget = QuizDefinitionWidget(
+        self.definition_widget = QuizDefinition(
             self.active_quiz_word,
             is_typing,  
             parent=self,

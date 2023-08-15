@@ -39,7 +39,6 @@ class QuizDefinition(QWidget):
         self.is_typing = is_typing
         self.show_typing_widgets(self.is_typing)            
         self.activate_buttons(True)
-        print("is typing", self.is_typing)
 
         self.next_button.installEventFilter(self)
 
@@ -68,7 +67,6 @@ class QuizDefinition(QWidget):
     def show_typing_widgets(self, is_typing):
         """Shows the instructions and definition entry widgets"""
         if is_typing:
-            print("typing branch")
             self.instructions_label.show()
             self.definition_entry.show()
             self.next_button.hide()
@@ -76,7 +74,6 @@ class QuizDefinition(QWidget):
             self.next_button.setEnabled(False)
             self.definition_entry.setFocus()
         else:
-            print("not typing branch")
             self.instructions_label.hide()
             self.definition_entry.hide()
             self.next_button.show()

@@ -2,6 +2,7 @@
 
 
 from pathlib import Path
+import time
 
 from PyQt5 import uic
 from PyQt5.QtCore import (
@@ -74,8 +75,8 @@ class QuizTypingTest(QWidget):
                 answer_input = answer_input.lower()
             if answer_input == self.quiz_word.foreign_word:
                 self.set_answer_entry_background(True)
-                self.send_correct_signal()
                 self.activate_buttons(False)
+                self.send_correct_signal()
 
     def activate_buttons(self, b: bool):
         self.answer_entry.setEnabled(b)
@@ -89,6 +90,7 @@ class QuizTypingTest(QWidget):
             self.answer_entry.setStyleSheet("background: lime")
         else:
             self.answer_entry.setStyleSheet("background: darkred")
+        print("set typing test background")
 
     def send_correct_signal(self):
         print("sent correct signal from typing test")

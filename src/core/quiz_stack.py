@@ -22,9 +22,9 @@ class QuizStack:
     def __init__(self, quiz_type):
         self.quiz_type = quiz_type
         if self.quiz_type == "learn":
-            self.items = list(learn_sequence)
+            self.items = list(self.learn_sequence)
         elif self.quiz_type == "review":
-            self.items = list(review_sequence)
+            self.items = list(self.review_sequence)
 
     def next_quiz(self):
         return self.items[-1] 
