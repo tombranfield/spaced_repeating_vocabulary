@@ -229,9 +229,19 @@ class Quiz(QDialog):
             return
         self.close()
 
+    def do_next_quiz(self, active_quiz_word, next_quiz):
+        if next_quiz == "word_definition":
+            self.do_word_definition_quiz(self.active_quiz_word, typing=False)
+        elif next_quiz == "word_definition_typing":
+            self.do_word_definition_quiz(self.active_quiz_word, typing=True)
+        elif next_quiz == "foreign_to_english_multiple_quiz":
+            self.do_foreign_to_english_multiple_quiz(self.active_quiz_word)
+        elif next_quiz == "english_to_foreign_multiple_quiz":
+            self.do_english_to_foreign_multiple_quiz(self.active_quiz_word)
+        elif next_quiz == "typing_quiz":
+            self.do_typing_quiz(self.active_quiz_word)
 
-
-    # TODO remove this
+   
     def choose_page_changed(self, s):
         new_page_index = int(s)
         self.stacked_layout.setCurrentIndex(new_page_index)
