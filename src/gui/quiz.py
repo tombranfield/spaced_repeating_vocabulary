@@ -114,17 +114,17 @@ class Quiz(QDialog):
             self.is_quiz_correct = None
             self.set_progress()
             self.show_answers_pause(self.previous_quiz)
-        if self.is_add_new_active_word():
-            self.add_new_active_words(self.num_active_words_to_add())
+        if self.is_add_new_active_quiz_word():
+            self.add_new_active_quiz_words(self.num_active_words_to_add())
         if self.is_quiz_finished():
             self.finish_quiz()
             return
         while True:
-            next_active_word = self.get_random_active_word()
-            self.active_quiz_word = next_active_word
+            # Prev version had a try: else thing
+            self.active_quiz_word = self.get_random_active_quiz_word()
             next_quiz = next_active_word.get_next_quiz()
             break
-        self.do_next_quiz(next_active_word, next_quiz)
+        self.do_next_quiz(self.active_quiz_word, next_quiz)
         self.previous_quiz = next_quiz
 
     def apply_quiz_results(self):
@@ -148,19 +148,27 @@ class Quiz(QDialog):
         if previous_quiz not in ["word_definition", "word_definition_typing"]:
             time.sleep(1)
 
-    def is_add_new_active_word(self):
+    def is_add_new_active_quiz_word(self):
         if not self.words_to_quiz:
             return False
-        for quiz_word in self.active_words:
+        for quiz_word in self.active_quiz_words:
             if quiz_word.get_progress_score < 3:
                 return False
         return True
 
-    def add_new_active_words(self):
+    def add_new_active_quiz_words(self, num_to_add):
+        for n in range(num_to_add):
+            self.add_new_active_word()
 
+    def add_new_active_quiz_word(self):
+        rand_index = random.randint(0, len(self.words_to_quiz) - 1)
+        rand_quiz_word = self.words_to_quiz.pop(rand_index)
+        self.active_quiz_words.append(rand_quiz_word)
 
-    def num_active_words_to_add(self):
-
+    def num_active_quiz_words_to_add(self):
+        if len(self.words_to_quiz) - len(self.active_quiz_words) == 1:
+            return 1
+        return 2        
 
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
