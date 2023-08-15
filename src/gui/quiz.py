@@ -120,8 +120,7 @@ class Quiz(QDialog):
             self.finish_quiz()
             return
         while True:
-            # Prev version had a try: else thing
-            self.active_quiz_word = self.get_random_active_quiz_word()
+            self.active_quiz_word = random.choice(self.active_quiz_words)
             next_quiz = next_active_word.get_next_quiz()
             break
         self.do_next_quiz(self.active_quiz_word, next_quiz)
@@ -172,6 +171,14 @@ class Quiz(QDialog):
 
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
+
+    def is_quiz_finished(self):
+        if self.words_to_quiz:
+            return False
+        for quiz_word in self.active_quiz_words:
+            if not quiz_word.is_quiz_finished():
+                return False
+        return True
 
     def setup_quit_button(self):
         self.quit_button.setDefault(False)
