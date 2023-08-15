@@ -54,7 +54,6 @@ class Quiz(QDialog):
         self.max_progress = 7 * len(self.words_to_quiz)
         self.progress_bar.setRange(0, self.max_progress)
 
-
         # Initialize the quiz widgets
         self.setup_quit_button()
         self.preview_widget = QuizPreview(
@@ -181,6 +180,8 @@ class Quiz(QDialog):
         return True
 
     def finish_quiz(self, learn_or_review):
+
+    def finish_messagebox(self):
         messagebox = QMessageBox(self)
         messagebox.setIcon(QMessageBox.Information)
         messagebox.setWindowTitle("Quiz Complete")
@@ -191,10 +192,9 @@ class Quiz(QDialog):
         messagebox.setText(msg)
         messagebox.setStandardButtons(QMessageBox.Ok)
         button = messagebox.exec_()
-        
-
-    def finish_messagebox(self):
-
+        if button == QMessageBox.Ok:
+            self.close()        
+        return messagebox
 
     def get_finish_msg(self, learn_or_review):
         msg = "         Congratulations!\n"
