@@ -5,8 +5,7 @@ class QuizStack:
     """
     Represents the sequence of different tests during a quiz
     """
-    def __init__(self):
-        self.items = [
+    learn_sequence  = (
             "typing_test_quiz",
             "english_to_foreign_multiple_quiz",
             "foreign_to_english_multiple_quiz",
@@ -14,7 +13,15 @@ class QuizStack:
             "foreign_to_english_multiple_quiz",
             "english_to_foreign_multiple_quiz",
             "word_defintion",
-        ]
+        )
+    review_sequence = (
+        "typing_quiz",
+    )
+    def __init__(self, quiz_type):
+        if quiz_type == "learn":
+            self.items = list(learn_sequence)
+        elif quiz_type == "review":
+            self.items = list(review_sequence)
 
     def correct(self):
         self.items.pop()
