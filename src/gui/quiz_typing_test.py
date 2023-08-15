@@ -38,6 +38,8 @@ class QuizTypingTest(QWidget):
         self.reset_answer_entry_background()
         self.activate_buttons(True)
 
+        print("THIS IS A TYPING TEST")
+
     def setup_labels(self):
         self.translated_word_label.setText(self.quiz_word.translated_word)
         self.translated_word_label.setStyleSheet("font-size: 36px; font-weight: bold")
@@ -78,7 +80,7 @@ class QuizTypingTest(QWidget):
             if answer_input == self.quiz_word.foreign_word:
                 self.set_answer_entry_background(True)
                 self.activate_buttons(False)
-                self.send_correct_signal()
+                QTimer.singleShot(1000, self.send_correct_signal)
 
     def activate_buttons(self, b: bool):
         self.answer_entry.setEnabled(b)
