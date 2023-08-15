@@ -97,16 +97,13 @@ class Quiz(QDialog):
         self.is_quiz_correct = None    
 
     def start_slot(self, a):
-        print("START SLOT CALLED")
         self.play_next()
 
     def next_slot(self, a):
-        print("NEXT SLOT CALLED")
         self.is_quiz_correct = 1
         self.play_next()
 
     def is_correct_slot(self, a):
-        print("IS CORRECT SLOT CALLED", a)
         self.is_quiz_correct = a
         self.play_next()
 
@@ -120,9 +117,14 @@ class Quiz(QDialog):
             self.add_new_active_quiz_words(self.num_active_quiz_words_to_add())
         if self.is_quiz_finished():
             self.finish_quiz()
-        self.active_quiz_word = random.choice(self.active_quiz_words)
-        next_quiz = self.active_quiz_word.get_next_quiz()
-        print("next quiz is", next_quiz)
+        # TODO this is horribly hacky, just testing...
+        while True:
+            try:
+                self.active_quiz_word = random.choice(self.active_quiz_words)
+                next_quiz = self.active_quiz_word.get_next_quiz()
+                break
+            except:
+                pass
         self.do_next_quiz(self.active_quiz_word, next_quiz)
         self.previous_quiz = next_quiz
 

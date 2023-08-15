@@ -38,8 +38,6 @@ class QuizTypingTest(QWidget):
         self.reset_answer_entry_background()
         self.activate_buttons(True)
 
-        print("THIS IS A TYPING TEST")
-
     def setup_labels(self):
         self.translated_word_label.setText(self.quiz_word.translated_word)
         self.translated_word_label.setStyleSheet("font-size: 36px; font-weight: bold")
@@ -94,7 +92,6 @@ class QuizTypingTest(QWidget):
             self.answer_entry.setStyleSheet("background: lime")
         else:
             self.answer_entry.setStyleSheet("background: darkred")
-        print("set typing test background")
 
     def send_correct_signal(self):
         print("sent correct signal from typing test")

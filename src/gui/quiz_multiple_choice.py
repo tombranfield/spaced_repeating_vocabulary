@@ -110,17 +110,11 @@ class QuizMultipleChoice(QWidget):
 
     def sent_correct_answer(self):
         self.set_answer_buttons_background()
-        if self.answer_buttons[0].isEnabled():
-            print("send correct signal")
-#            self.send_correct_signal()
         self.activate_buttons(False)
         QTimer.singleShot(1000, self.send_correct_signal)
 
     def sent_incorrect_answer(self):
         self.set_answer_buttons_background()
-        if self.answer_buttons[0].isEnabled():
-            print("sent incorrect signal")
-#            self.send_incorrect_signal()
         self.activate_buttons(False)
         QTimer.singleShot(1000, self.send_incorrect_signal)
 
@@ -141,9 +135,7 @@ class QuizMultipleChoice(QWidget):
                 self.answer_buttons[key].setStyleSheet("background: darkred")
 
     def send_correct_signal(self):
-        print("sending correct signal")
         self.is_correct.emit(1)
 
     def send_incorrect_signal(self):
-        print("sending incorrect signal")
         self.is_correct.emit(0)

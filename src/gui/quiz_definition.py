@@ -112,9 +112,6 @@ class QuizDefinition(QWidget):
         self.definition_entry.setEnabled(b)
         self.next_button.setEnabled(b)
 
-    
-
     def send_signal(self):
-        print("sending next")
         self.send_next.emit(1)
 
