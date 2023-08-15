@@ -14,6 +14,7 @@ class QuizStack:
         "english_to_foreign_multiple_quiz",
         "word_definition",
         )
+
     review_sequence = (
         "typing_quiz",
     )
