@@ -37,7 +37,6 @@ class QuizDefinition(QWidget):
         self.setup_definition_entry()
         self.setup_next_button()
         self.is_typing = is_typing
-        self.is_typing = False
         self.show_typing_widgets(self.is_typing)            
         self.activate_buttons(True)
         print("is typing", self.is_typing)

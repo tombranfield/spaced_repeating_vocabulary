@@ -23,7 +23,7 @@ class QuizMultipleChoice(QWidget):
     """A widget for a typing test in the quiz"""
     is_correct = pyqtSignal(int)
         
-    def __init__(self, quiz_word, course_words, mode, parent=None):
+    def __init__(self, quiz_word, course_words, quiz_type, parent=None):
         super(QuizMultipleChoice, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "quiz_multiple_choice.ui"), self)
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
@@ -31,7 +31,7 @@ class QuizMultipleChoice(QWidget):
 
         self.quiz_word = quiz_word
         self.course_words = course_words
-        self.mode = mode
+        self.quiz_type = quiz_type
         self.settings = Settings()
         self.setup_labels()
         self.setup_reveal_answer_button()
@@ -63,9 +63,9 @@ class QuizMultipleChoice(QWidget):
         return False
 
     def setup_labels(self):
-        if self.mode == "foreign_to_english":
+        if self.quiz_type == "foreign_to_english":
             self.question_label.setText(self.quiz_word.foreign_word)
-        elif self.mode == "english_to_foreign":
+        elif self.quiz_type == "english_to_foreign":
             self.question_label.setText(self.quiz_word.translated_word)
         self.question_label.setStyleSheet("font-size: 36px; font-weight: bold")
         self.instructions_label.setStyleSheet("font-size: 20px")
@@ -86,9 +86,9 @@ class QuizMultipleChoice(QWidget):
         return answer_buttons            
 
     def get_correct_button_text(self):
-        if self.mode == "english_to_foreign":
+        if self.quiz_type == "english_to_foreign":
             return self.quiz_word.foreign_word
-        elif self.mode == "foreign_to_english":
+        elif self.quiz_type == "foreign_to_english":
             return self.quiz_word.translated_word
 
     def get_incorrect_button_text(self):
@@ -96,9 +96,9 @@ class QuizMultipleChoice(QWidget):
             random_word = random.choice(self.course_words)
             if random_word.foreign_word != self.quiz_word.foreign_word:
                 break
-        if self.mode == "english_to_foreign":
+        if self.quiz_type == "english_to_foreign":
             return random_word.foreign_word
-        elif self.mode == "foreign_to_english":
+        elif self.quiz_type == "foreign_to_english":
             return random_word.translated_word                
 
     def setup_reveal_answer_button(self):

@@ -114,14 +114,11 @@ class Quiz(QDialog):
             self.set_progress()
             self.show_answers_pause(self.previous_quiz)
         if self.is_add_new_active_quiz_word():
-            self.add_new_active_quiz_words(self.num_active_words_to_add())
+            self.add_new_active_quiz_words(self.num_active_quiz_words_to_add())
         if self.is_quiz_finished():
             self.finish_quiz()
-            return
-        while True:
-            self.active_quiz_word = random.choice(self.active_quiz_words)
-            next_quiz = next_active_word.get_next_quiz()
-            break
+        self.active_quiz_word = random.choice(self.active_quiz_words)
+        next_quiz = self.active_quiz_word.get_next_quiz()
         self.do_next_quiz(self.active_quiz_word, next_quiz)
         self.previous_quiz = next_quiz
 
@@ -156,7 +153,7 @@ class Quiz(QDialog):
 
     def add_new_active_quiz_words(self, num_to_add):
         for n in range(num_to_add):
-            self.add_new_active_word()
+            self.add_new_active_quiz_word()
 
     def add_new_active_quiz_word(self):
         rand_index = random.randint(0, len(self.words_to_quiz) - 1)
@@ -231,9 +228,9 @@ class Quiz(QDialog):
 
     def do_next_quiz(self, active_quiz_word, next_quiz):
         if next_quiz == "word_definition":
-            self.do_word_definition_quiz(self.active_quiz_word, typing=False)
+            self.do_word_definition_quiz(self.active_quiz_word, is_typing=False)
         elif next_quiz == "word_definition_typing":
-            self.do_word_definition_quiz(self.active_quiz_word, typing=True)
+            self.do_word_definition_quiz(self.active_quiz_word, is_typing=True)
         elif next_quiz == "foreign_to_english_multiple_quiz":
             self.do_foreign_to_english_multiple_quiz(self.active_quiz_word)
         elif next_quiz == "english_to_foreign_multiple_quiz":
@@ -241,7 +238,13 @@ class Quiz(QDialog):
         elif next_quiz == "typing_quiz":
             self.do_typing_quiz(self.active_quiz_word)
 
-   
-    def choose_page_changed(self, s):
-        new_page_index = int(s)
-        self.stacked_layout.setCurrentIndex(new_page_index)
+    def do_word_definition_quiz(self, active_quiz_word, is_typing):
+        self.definition_widget = QuizDefinitionWidget(
+            self.active_quiz_word,
+            is_typing,  
+        )
+        self.stacked_layout.insertWidget(2, self.definition_widget)
+        self.stacked_layout.setCurrentIndex(2)
+
+    def do_foreign_to_english_multiple_quiz(self, active_quiz_word):
+        self.multiple_choice = QuizMultipleChoice
