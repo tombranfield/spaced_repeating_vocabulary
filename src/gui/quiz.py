@@ -125,6 +125,26 @@ class Quiz(QDialog):
         self.do_next_quiz(next_active_word, next_quiz)
         self.previous_quiz = next_quiz
 
+    def apply_quiz_results(self):
+        if self.previous_quiz in [
+            "word_definition", 
+            "word_defintion_typing"
+        ]:
+            self.active_quiz_word.set_next()
+        elif self.previous_quiz in [
+            "english_to_foreign_multiple_quiz",
+            "foreign_to_english_multiple_quiz",
+        ]:
+            if self.is_quiz_correct:
+                self.active_quiz_word.set_correct()
+            else:
+                self.active_quiz_word.set_incorrect_multiple_quiz()
+        elif self.previous_quiz == "typing_quiz":
+            if self.is_quiz_correct:
+                self.active_quiz_word.set_correct()
+            else:
+                self.active_quiz_word.set_incorrect_typing_quiz()
+
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
 
