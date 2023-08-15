@@ -94,9 +94,7 @@ class QuizTypingTest(QWidget):
             self.answer_entry.setStyleSheet("background: darkred")
 
     def send_correct_signal(self):
-        print("sent correct signal from typing test")
         self.is_correct.emit(1)
 
     def send_incorrect_signal(self):
-        print("sent incorrect signal from typing test")
         self.is_correct.emit(0)

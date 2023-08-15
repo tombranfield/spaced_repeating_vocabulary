@@ -129,7 +129,7 @@ class Quiz(QDialog):
         self.previous_quiz = next_quiz
 
     def apply_quiz_results(self):
-        if self.previous_quiz in ["word_definition", "word_defintion_typing"]:
+        if self.previous_quiz in ["word_definition", "word_definition_typing"]:
             self.active_quiz_word.set_next()
         elif self.previous_quiz in [
             "english_to_foreign_multiple_quiz",

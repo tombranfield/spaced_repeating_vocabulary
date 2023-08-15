@@ -99,19 +99,26 @@ class QuizDefinition(QWidget):
     def definition_entry_return_pressed(self):
         current_text = self.definition_entry.text()
         if current_text == self.quiz_word.foreign_word:
-            self.send_signal()
+            self.definition_entry.setStyleSheet("background: lime")
+            self.definition_entry.setEnabled(False)
+            QTimer.singleShot(1000, self.send_signal)
+            #self.send_signal()
 
     def definition_entry_text_edited(self, answer_input):
         if self.settings.is_automatic_return:
             if not self.settings.is_case_sensitive:
                 answer_input = answer_input.lower()
             if answer_input == self.quiz_word.foreign_word:
-                self.send_signal()
+                self.definition_entry.setStyleSheet("background: lime")
+                self.definition_entry.setEnabled(False)
+                QTimer.singleShot(1000, self.send_signal)
+                #self.send_signal()
 
     def activate_buttons(self, b: bool):
         self.definition_entry.setEnabled(b)
         self.next_button.setEnabled(b)
 
     def send_signal(self):
+        print("Sent next signal")
         self.send_next.emit(1)
 
