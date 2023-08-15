@@ -262,3 +262,11 @@ class Quiz(QDialog):
         )
         self.stacked_layout.insertWidget(1, self.multiple_choice)
         self.stacked_layout.setCurrentIndex(1)
+    
+    def do_typing_quiz(self, active_quiz_word):
+        self.typing_test = QuizTypingTest(
+            self.active_quiz_word,
+            parent=self
+        )
+        self.stacked_layout.insertWidget(3, self.typing_test)
+        self.stacked_layout.setCurrentIndex(3)
