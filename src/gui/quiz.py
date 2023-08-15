@@ -117,6 +117,7 @@ class Quiz(QDialog):
             self.add_new_active_quiz_words(self.num_active_quiz_words_to_add())
         if self.is_quiz_finished():
             self.finish_quiz()
+            return
         # TODO this is horribly hacky, just testing...
         while True:
             try:
