@@ -20,7 +20,6 @@ class QuizWord:
         self.quiz_stack = QuizStack(self.quiz_type)
         self.progress_score = 0
         self.max_progress_score = self.quiz_stack.length()
-        self.print_items()        
 
         #TODO
     def print_items(self):
@@ -47,13 +46,11 @@ class QuizWord:
     def set_next(self):
         self.progress_score += 1
         self.quiz_stack.correct()
-        self.print_items()
 
     def set_correct(self):
         self.num_correct += 1
         self.progress_score += 1
         self.quiz_stack.correct()
-        self.print_items()
 
     def set_incorrect_multiple_quiz(self):
         self.num_incorrect += 1
@@ -62,7 +59,6 @@ class QuizWord:
             self.quiz_stack.incorrect_multiple_quiz()
         if self.quiz_type == "review" and self.is_review_correct is None:
             self.is_review_correct = False
-        self.print_items()
 
     def set_incorrect_typing_quiz(self):
         self.num_incorrect += 1
@@ -70,7 +66,6 @@ class QuizWord:
         self.quiz_stack.incorrect_typing_quiz()
         if self.quiz_type == "review" and self.is_review_correct is None:
             self.is_review_correct = False
-        self.print_items()
 
     def is_quizzing_finished(self):
         return self.quiz_stack.is_finished()
