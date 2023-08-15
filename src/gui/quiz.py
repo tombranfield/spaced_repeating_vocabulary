@@ -45,14 +45,15 @@ class Quiz(QDialog):
         self.num_words_to_quiz = self.get_num_words_to_quiz()
         self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
 
+        # Initialize the active quiz word
+        self.active_quiz_word = self.words_to_quiz[0]
+        self.active_quiz_words = []
+
         # Setup the progress bar
         # TODO why 7 - why did I choose this?
         self.max_progress = 7 * len(self.words_to_quiz)
         self.progress_bar.setRange(0, self.max_progress)
 
-        # Initialize the active quiz word
-        self.active_quiz_word = self.words_to_quiz[0]
-        self.active_quiz_words = []
 
         # Initialize the quiz widgets
         self.setup_quit_button()
@@ -92,7 +93,6 @@ class Quiz(QDialog):
 
         self.previous_quiz = None
         self.is_quiz_correct = None    
-
 
     def start_slot(self, a):
         print("START SLOT CALLED")
@@ -147,6 +147,20 @@ class Quiz(QDialog):
     def show_answers_pause(self, previous_quiz):
         if previous_quiz not in ["word_definition", "word_definition_typing"]:
             time.sleep(1)
+
+    def is_add_new_active_word(self):
+        if not self.words_to_quiz:
+            return False
+        for quiz_word in self.active_words:
+            if quiz_word.get_progress_score < 3:
+                return False
+        return True
+
+    def add_new_active_words(self):
+
+
+    def num_active_words_to_add(self):
+
 
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
