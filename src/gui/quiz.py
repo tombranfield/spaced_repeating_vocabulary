@@ -242,9 +242,23 @@ class Quiz(QDialog):
         self.definition_widget = QuizDefinitionWidget(
             self.active_quiz_word,
             is_typing,  
+            parent=self,
         )
         self.stacked_layout.insertWidget(2, self.definition_widget)
         self.stacked_layout.setCurrentIndex(2)
 
     def do_foreign_to_english_multiple_quiz(self, active_quiz_word):
-        self.multiple_choice = QuizMultipleChoice
+        self.do_multiple_quiz(active_quiz_word, "foreign_to_english")
+
+    def do_english_to_foreign_multiple_quiz(self, active_quiz_word):
+        self.do_multiple_quiz(active_quiz_word, "english_to_foreign")
+
+    def do_multiple_quiz(self, active_quiz_word, mode):
+        self.multiple_choice = QuizMultipleChoice(
+            self.active_quiz_word,
+            self.all_course_words,
+            mode,   
+            parent=self,
+        )
+        self.stacked_layout.insertWidget(1, self.multiple_choice)
+        self.stacked_layout.setCurrentIndex(1)
