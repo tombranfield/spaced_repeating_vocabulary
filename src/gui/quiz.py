@@ -180,6 +180,36 @@ class Quiz(QDialog):
                 return False
         return True
 
+    def finish_quiz(self, learn_or_review):
+        messagebox = QMessageBox(self)
+        messagebox.setIcon(QMessageBox.Information)
+        messagebox.setWindowTitle("Quiz Complete")
+        if learn_or_review == "learn":
+            msg = get_finish_msg("learn")
+        elif learn_or_review == "review":
+            msg = get_finish_msg("review")
+        messagebox.setText(msg)
+        messagebox.setStandardButtons(QMessageBox.Ok)
+        button = messagebox.exec_()
+        
+
+    def finish_messagebox(self):
+
+
+    def get_finish_msg(self, learn_or_review):
+        msg = "         Congratulations!\n"
+        if learn_or_review == "learn":
+            msg += "         You have learned:\n\n"
+            for quiz_word in self.active_quiz_words:
+                msg += "          -" + quiz_word.foreign_word
+        elif learn_or_review == "review":
+            msg += "         You have reviewed " + str(self.num_words_to_quiz)
+            if self.num_words_to_quiz == 1:
+                msg += " word!"
+            else:
+                msg += " words!"
+        return msg
+
     def setup_quit_button(self):
         self.quit_button.setDefault(False)
         self.quit_button.setAutoDefault(False)
