@@ -2,6 +2,8 @@
 
 
 from pathlib import Path
+import random
+import time
 from typing import Literal
 
 from PyQt5 import uic
@@ -126,10 +128,7 @@ class Quiz(QDialog):
         self.previous_quiz = next_quiz
 
     def apply_quiz_results(self):
-        if self.previous_quiz in [
-            "word_definition", 
-            "word_defintion_typing"
-        ]:
+        if self.previous_quiz in ["word_definition", "word_defintion_typing"]:
             self.active_quiz_word.set_next()
         elif self.previous_quiz in [
             "english_to_foreign_multiple_quiz",
@@ -144,6 +143,10 @@ class Quiz(QDialog):
                 self.active_quiz_word.set_correct()
             else:
                 self.active_quiz_word.set_incorrect_typing_quiz()
+
+    def show_answers_pause(self, previous_quiz):
+        if previous_quiz not in ["word_definition", "word_definition_typing"]:
+            time.sleep(1)
 
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
