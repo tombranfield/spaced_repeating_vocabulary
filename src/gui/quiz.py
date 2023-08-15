@@ -107,9 +107,23 @@ class Quiz(QDialog):
         self.play_next()
 
     def play_next(self):
-        pass
-
-
+        if self.previous_quiz:
+            self.apply_quiz_results()
+            self.is_quiz_correct = None
+            self.set_progress()
+            self.show_answers_pause(self.previous_quiz)
+        if self.is_add_new_active_word():
+            self.add_new_active_words(self.num_active_words_to_add())
+        if self.is_quiz_finished():
+            self.finish_quiz()
+            return
+        while True:
+            next_active_word = self.get_random_active_word()
+            self.active_quiz_word = next_active_word
+            next_quiz = next_active_word.get_next_quiz()
+            break
+        self.do_next_quiz(next_active_word, next_quiz)
+        self.previous_quiz = next_quiz
 
     def get_num_words_to_quiz(self):
         return min(len(self.words_to_learn), self.max_learn_words)
