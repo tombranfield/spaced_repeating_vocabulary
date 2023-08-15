@@ -46,3 +46,6 @@ class QuizStack:
 
     def is_finished(self) -> bool:
         return True if not self.items else False
+
+    def length(self):
+        return len(self.items)

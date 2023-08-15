@@ -47,6 +47,7 @@ class Quiz(QDialog):
 
         # Initialize the active quiz word
         self.active_quiz_word = self.words_to_quiz[0]
+        self.active_quiz_word.quiz_type = self.quiz_type
         self.active_quiz_words = []
 
         # Setup the progress bar
@@ -158,6 +159,7 @@ class Quiz(QDialog):
     def add_new_active_quiz_word(self):
         rand_index = random.randint(0, len(self.words_to_quiz) - 1)
         rand_quiz_word = self.words_to_quiz.pop(rand_index)
+        rand_quiz_word.quiz_type = self.quiz_type
         self.active_quiz_words.append(rand_quiz_word)
 
     def num_active_quiz_words_to_add(self):
