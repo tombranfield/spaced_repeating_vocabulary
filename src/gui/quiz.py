@@ -119,14 +119,11 @@ class Quiz(QDialog):
         if self.is_quiz_finished():
             self.finish_quiz()
             return
-        # TODO this is horribly hacky, just testing...
         while True:
-            try:
-                self.active_quiz_word = random.choice(self.active_quiz_words)
+            self.active_quiz_word = random.choice(self.active_quiz_words)
+            if not self.active_quiz_word.is_quizzing_finished():
                 next_quiz = self.active_quiz_word.get_next_quiz()
                 break
-            except:
-                pass
         self.do_next_quiz(self.active_quiz_word, next_quiz)
         self.previous_quiz = next_quiz
 
