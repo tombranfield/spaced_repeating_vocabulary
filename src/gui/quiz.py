@@ -201,9 +201,9 @@ class Quiz(QDialog):
         return messagebox
 
     def get_finish_msg(self):
-        msg = "         Congratulations!\n"
+        msg = "         Congratulations!                   \n"
         if self.quiz_type == "learn":
-            msg += "         You have learned:\n"
+            msg += "         You have learned:\n\n"
             for quiz_word in self.active_quiz_words:
                 msg += "          -" + quiz_word.foreign_word + "\n"
         elif self.quiz_type == "review":
