@@ -275,3 +275,28 @@ class Quiz(QDialog):
         )
         self.stacked_layout.insertWidget(3, self.typing_test)
         self.stacked_layout.setCurrentIndex(3)
+
+    def set_progress(self):
+        progress = self.get_progress()
+        max_progress = self.get_max_progress()
+        self.progress_bar.setMaximum(max_progress)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setValue(progress)
+
+    def get_progress(self):
+        progress = 0
+        for quiz_word in self.active_quiz_words:
+            progress += quiz_word.progress_score
+        return progress
+
+    def get_max_progress(self):
+        max_progress = 0
+        for quiz_word in self.active_quiz_words:
+            max_progress += quiz_word.max_progress_score
+        num_unused_words = len(self.words_to_quiz) - len(self.active_quiz_words)
+        if num_unused_words:
+            max_progress += (
+                num_unused_words * self.words_to_quiz[0].max_progress_score
+            )
+        return max_progress
+        
