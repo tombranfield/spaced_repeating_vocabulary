@@ -56,6 +56,7 @@ class Quiz(QDialog):
         )
         self.progress_bar.setRange(0, self.max_progress)
         print("max progress is", self.max_progress)
+        self.progress_bar.setValue(0)
 
         # Initialize the quiz widgets
         self.setup_quit_button()
