@@ -51,8 +51,9 @@ class Quiz(QDialog):
         self.active_quiz_words = []
 
         # Setup the progress bar
-        # TODO why 7 - why did I choose this?
-        self.max_progress = 7 * len(self.words_to_quiz)
+        self.max_progress = (
+            self.active_quiz_word.max_progress_score * len(self.words_to_quiz)
+        )
         self.progress_bar.setRange(0, self.max_progress)
 
         # Initialize the quiz widgets
@@ -112,7 +113,6 @@ class Quiz(QDialog):
             self.apply_quiz_results()
             self.is_quiz_correct = None
             #TODO self.set_progress()
-            # self.show_answers_pause(self.previous_quiz)
         if self.is_add_new_active_quiz_word():
             self.add_new_active_quiz_words(self.num_active_quiz_words_to_add())
         if self.is_quiz_finished():
