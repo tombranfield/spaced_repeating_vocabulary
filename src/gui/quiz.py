@@ -55,6 +55,7 @@ class Quiz(QDialog):
             self.active_quiz_word.max_progress_score * len(self.words_to_quiz)
         )
         self.progress_bar.setRange(0, self.max_progress)
+        print("max progress is", self.max_progress)
 
         # Initialize the quiz widgets
         self.setup_quit_button()
@@ -112,7 +113,7 @@ class Quiz(QDialog):
         if self.previous_quiz:
             self.apply_quiz_results()
             self.is_quiz_correct = None
-            #TODO self.set_progress()
+            self.set_progress()
         if self.is_add_new_active_quiz_word():
             self.add_new_active_quiz_words(self.num_active_quiz_words_to_add())
         if self.is_quiz_finished():
@@ -282,6 +283,8 @@ class Quiz(QDialog):
         self.progress_bar.setMaximum(max_progress)
         self.progress_bar.setValue(0)
         self.progress_bar.setValue(progress)
+        print("Progress is now", progress)
+        print("Max progress is now", max_progress)
 
     def get_progress(self):
         progress = 0
@@ -293,10 +296,7 @@ class Quiz(QDialog):
         max_progress = 0
         for quiz_word in self.active_quiz_words:
             max_progress += quiz_word.max_progress_score
-        num_unused_words = len(self.words_to_quiz) - len(self.active_quiz_words)
-        if num_unused_words:
-            max_progress += (
-                num_unused_words * self.words_to_quiz[0].max_progress_score
-            )
+        for quiz_word in self.words_to_quiz:
+            max_progress += quiz_word.max_progress_score
+        print("max progress after get_max_progress:", max_progress)
         return max_progress
-        
