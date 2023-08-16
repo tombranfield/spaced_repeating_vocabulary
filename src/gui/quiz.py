@@ -79,15 +79,6 @@ class Quiz(QDialog):
             parent=self
         )
 
-        # TODO debugging combobox
-        """
-        self.choose_page_box.currentIndexChanged[str].connect(
-            self.choose_page_changed
-        )
-        self.choose_page_box.clearFocus()
-        self.choose_page_box.setEnabled(True)
-        """
-
         # Add the quiz widgets to the layout
         self.stacked_layout.insertWidget(0, self.preview_widget)    
         self.stacked_layout.insertWidget(1, self.multiple_choice)
@@ -183,11 +174,23 @@ class Quiz(QDialog):
         return True
 
     def finish_quiz(self):
-        # self.apply_results_to_db()
+        self.apply_results_to_database()
         messagebox = self.finish_messagebox()
         button = messagebox.exec_()
         if button == QMessageBox.Ok:
             self.close()        
+
+    def apply_results_to_database(self):
+        # quiz_word_dao = QuizWordDAO()
+        if self.quiz_type == "learn":
+            for quiz_word in self.active_quiz_words:
+                print("quiz word id:", quiz_word.id)
+                # quiz_word_dao.add_num_correct(quiz_word)
+                # quiz_word_dao.add_num_incorrect(quiz_word)
+                # quiz_word_dao.mark_as_learned(quiz_word)
+        elif self.quiz_type == "review":
+            for quiz_word in self.active_quiz_words:
+                pass
 
     def finish_messagebox(self):
         messagebox = QMessageBox(self)
