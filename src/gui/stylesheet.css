@@ -79,3 +79,8 @@ QTabWidget {
 QProgressBar {
     background-color: black
 }
+
+QProgressBar::chunk {
+    background-color: gold
+}
+
