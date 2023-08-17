@@ -29,7 +29,7 @@ def new_word_list():
     pair_3 = WordPair("danke", "thank you")
     pair_4 = WordPair("das Brot, -", "bread")
     pair_5 = WordPair("der Wein, -", "wine")
-    wordpairs = (pair_1, pair_2, pair_3)
+    wordpairs = (pair_1, pair_2, pair_3, pair_4, pair_5)
     word_list = WordList("My List", "German", wordpairs)
     return word_list
 
@@ -93,3 +93,10 @@ def test_use_a_word_list_that_does_not_exist_in_database(database):
     words_to_review = quiz_word_selector.words_to_review()
     assert len(words_to_learn) == 0
     assert len(words_to_review) == 0
+
+
+@pytest.mark.parametrize("i,expected", [(0,"hallo"), (1,"auf wiedersehen"), (2,"danke"), (3,"das Brot, -"), (4,"der Wein, -")]) 
+def test_all_course_words_are_returned_successfully(quiz_word_selector_new_words, i, expected):
+    all_course_words = quiz_word_selector_new_words.all_course_words()
+    assert len(all_course_words) == 5
+    assert all_course_words[i].foreign_word == expected
