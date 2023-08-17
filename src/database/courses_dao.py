@@ -1,4 +1,4 @@
-"""courses_dao.py"""
+"""courses_dao_2.py"""
 
 
 import os
@@ -13,84 +13,82 @@ class CoursesDAO:
     """
     Responsible for storing and retrieving the list of courses
     """
-    COURSES_PATH = str(Path(__file__).parents[2] / "data" / "courses.dat")
+    COURSES_TABLE_NAME = "COURSES" 
+    COURSES_PATH = str(Path(__file__).parents[2] / "data" / "courses.db")
 
-    def __init__(self, courses_path=COURSES_PATH):
+    def __init__(self, db_path=Database.path):
         """Initializes the database."""
-        self.courses_path = courses_path
-        self.courses = {}
+        self.db = Database(db_path)
+        self._create_courses_table()
 
     def add_new_course(self, course_name, course_language):
         """Creates a new course"""
         if self._does_course_already_exist(course_name):
             raise DuplicateEntryException
         else:
-            with open(self.courses_path, "a") as file_obj:
-                line = course_name + "|" + course_language + "\n"
-                file_obj.write(line)
+            query = (
+                "INSERT INTO " + self.COURSES_TABLE_NAME + " ("
+                + "course_name, course_language) VALUES( "
+                + "\'" + course_name + "\', "
+                + "\'" + course_language + "\')"
+            )
+            self.db.connect_and_execute(query)
 
     def delete_course(self, course_name):
         """Deletes a course and all of its words"""
-        try:
-            with open(self.courses_path, "r") as in_file:
-                with open("temp.txt", "w") as out_file:
-                    for line in in_file:
-                        line = line.strip().split("|")
-                        if line[0] != course_name:
-                            line = "|".join(line) + "\n"
-                            out_file.write(line)
-            os.replace("temp.txt", self.courses_path)
-        except FileNotFoundError:
-            pass
+        query = (
+            "DELETE FROM " + self.COURSES_TABLE_NAME + " where course_name "
+            + " = \'" + course_name + "\'"
+        )
+        self.db.connect_and_execute(query)
         word_list_dao = WordListDAO()
         word_list_dao.delete_word_list(course_name)
 
-    def courses_dict(self):
-        """Returns a list of courses"""
-        courses = {}
-        try:
-            with open(self.courses_path, "r") as file_obj:
-                for line in file_obj:
-                    line = line.strip().split("|")
-                    try:
-                        courses[line[0]] = line[1]
-                    except ValueError:
-                        pass
-        except FileNotFoundError:
-            pass
-        return courses
-
     def courses_list(self):
         """Returns a list of courses"""
-        courses = ()
-        for course in self.courses_dict():
-            courses += (course,)
+        query = "SELECT DISTINCT course_name FROM " + self.COURSES_TABLE_NAME
+        result = self.db.result_from_query(query)
+        courses = []
+        if result:
+            for course in result:
+                courses.append(course[0])
         return courses
 
     def language(self, course_name):
         """Returns the language of the course"""
-        courses_dict = self.courses_dict()
-        return courses_dict[course_name]
+        query = (
+            "SELECT course_language FROM " + self.COURSES_TABLE_NAME
+            + " WHERE course_name = \'" + course_name + "\'"
+        )
+        result = self.db.result_from_query(query)
+        if result:
+            return result[0][0]
 
-    def _does_course_already_exist(self, new_course_name) -> bool:
+    def _does_course_already_exist(self, course_name) -> bool:
         """Returns whether the course already exists"""
-        existing_courses = self.courses_list()
-        if new_course_name in existing_courses:
-                return True
+        query = (
+            "SELECT COUNT() FROM " + self.COURSES_TABLE_NAME
+            + " WHERE course_name = \'" + course_name + "\'"
+        )
+        count = self.db.result_from_query(query)[0][0]
+        if count > 0:
+            return True
         return False
 
+    def _create_courses_table(self):
+        """Creates a new courses table, if it doesn't exist"""
+        query = (
+            "CREATE TABLE IF NOT EXISTS " + self.COURSES_TABLE_NAME
+            + "(course_name TEXT, course_language TEXT);"
+        )
+        self.db.connect_and_execute(query)
+            
 
 
 if __name__ == "__main__":
-    course_name = "Harry Potter und der Stein der Weisen"
-    language = "German"
-
     courses_dao = CoursesDAO()
 
-    print(courses_dao.courses_list())
-
     courses_dao.delete_course("Harry Potter")
-    courses_dao.delete_course("a")
+    courses_dao.delete_course("My New Course")
 
     print(courses_dao.courses_list())
-

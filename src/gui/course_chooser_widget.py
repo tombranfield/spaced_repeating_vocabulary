@@ -74,7 +74,8 @@ class CourseChooserWidget(QMainWindow):
         if not self.course.name:
             self.course.language = ""
         else:
-            self.course.language = courses_dao.courses_dict()[self.course.name]
+            self.course.language = courses_dao.language(self.course.name)
+#            self.course.language = courses_dao.courses_dict()[self.course.name]
 
     def existing_course_name_changed(self, course_name):
         self.course.name = course_name
