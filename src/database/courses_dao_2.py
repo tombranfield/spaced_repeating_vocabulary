@@ -30,7 +30,7 @@ class CoursesDAO:
     def delete_course(self, course_name):
         """Deletes a course and all of its words"""
         query = (
-            "DELETE FROM " + COURSES.TABLE_NAME + " where course_name "
+            "DELETE FROM " + self.COURSES.TABLE_NAME + " where course_name "
             + " = \'" + course_name + "\'"
         )
         self.db.connect_and_execute(query)
@@ -39,19 +39,25 @@ class CoursesDAO:
 
     def courses_list(self):
         """Returns a list of courses"""
-        # Return a list of all the courses in the database
+        query = "SELECT DISTINCT course_name FROM " + self.COURSES_TABLE_NAME
+        result = result_from_query(query)
+        return result
+        # TODO this may not work
 
     def language(self, course_name):
         """Returns the language of the course"""
-        # Returns the language of the course
-        # Use a query SELECT language WHERE course_name = course_name
+        query = (
+            "SELECT language FROM " + self.COURSES_TABLE_NAME
+            + " WHERE course_name = \'" + course_name + "\'"
+        )
+        return result_from_query(query)
 
-
-    def _does_course_already_exist(self, new_course_name) -> bool:
+    def _does_course_already_exist(self, course_name) -> bool:
         """Returns whether the course already exists"""
-        # Query the database and see whether the course is already there
-        # TODO
-
+        query = (
+            "SELECT COUNT() FROM " + self.COURSES_TABLE_NAME
+            + " WHERE course_name = \'" + course_name + "\'"
+        )
 
     def _create_courses_table(self):
         """Creates a new courses table, if it doesn't exist"""
