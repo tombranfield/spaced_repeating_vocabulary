@@ -1,4 +1,4 @@
-"""courses_dao.py"""
+"""courses_dao_2.py"""
 
 
 import os
@@ -36,7 +36,7 @@ class CoursesDAO:
     def delete_course(self, course_name):
         """Deletes a course and all of its words"""
         query = (
-            "DELETE FROM " + self.COURSES.TABLE_NAME + " where course_name "
+            "DELETE FROM " + self.COURSES_TABLE_NAME + " where course_name "
             + " = \'" + course_name + "\'"
         )
         self.db.connect_and_execute(query)
@@ -53,10 +53,10 @@ class CoursesDAO:
     def language(self, course_name):
         """Returns the language of the course"""
         query = (
-            "SELECT language FROM " + self.COURSES_TABLE_NAME
+            "SELECT course_language FROM " + self.COURSES_TABLE_NAME
             + " WHERE course_name = \'" + course_name + "\'"
         )
-        return self.db.result_from_query(query)
+        return self.db.result_from_query(query)[0][0]
 
     def _does_course_already_exist(self, course_name) -> bool:
         """Returns whether the course already exists"""
@@ -64,7 +64,7 @@ class CoursesDAO:
             "SELECT COUNT() FROM " + self.COURSES_TABLE_NAME
             + " WHERE course_name = \'" + course_name + "\'"
         )
-        count = self.db.result_from_query(query)
+        count = self.db.result_from_query(query)[0][0]
         if count > 0:
             return True
         return False
@@ -85,4 +85,6 @@ if __name__ == "__main__":
 
     courses_dao = CoursesDAO()
 
+    print(courses_dao.language(course_name))
 
+    courses_dao.delete_course(course_name)
