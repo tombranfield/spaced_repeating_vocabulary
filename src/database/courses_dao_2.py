@@ -25,7 +25,13 @@ class CoursesDAO:
         if self._does_course_already_exist(course_name):
             raise DuplicateEntryException
         else:
-            # Add to COURSES_TABLE_NAME
+            query = (
+                "INSERT INTO " + self.COURSES_TABLE_NAME + " ("
+                + "course_name, course_language) VALUES( "
+                + "\'" + course_name + "\', "
+                + "\'" + course_language + "\')"
+            )
+            self.db.connect_and_execute(query)
 
     def delete_course(self, course_name):
         """Deletes a course and all of its words"""
