@@ -26,17 +26,13 @@ class QuizWordDAO:
 
     def add_num_correct(self, quiz_word, num_correct):
         cur_num_correct = self._get_column_value(quiz_word, "num_correct")
-        new_num_correct = current_num_correct + num_correct
-        new_num_correct_query = (
-            "UPDATE " + Database.table_name + " SET num_correct = "
-            + str(new_num_correct) + " WHERE id = \'" 
-            + str(quiz_word.id) + "\'"
-        )
-        self.db.connect_and_execute(new_num_correct_query)
+        new_num_correct = cur_num_correct + num_correct
+        self._update_column_value(quiz_word, "num_correct", new_num_correct)
         
-
     def add_num_incorrect(self, quiz_word, num_incorrect):
-        pass
+        cur_num_incorrect = self._get_column_value(quiz_word, "num_incorrect")
+        new_num_incorrect = cur_num_incorrect + num_incorrect
+        self._update_column_value(quiz_word, "num_incorrect", new_num_incorrect)
 
     def increase_level(self, quiz_word):
         pass
@@ -61,4 +57,4 @@ class QuizWordDAO:
             + " = " + str(new_value) + " where id = \'" + str(quiz_word.id)
             + "\'"
         )
-        self.db.connect_and_execute(query)        
+        self.db.connect_and_execute(query)
