@@ -55,3 +55,10 @@ class QuizWordDAO:
         )
         return self.db.result_from_query(query)
 
+    def _update_column_value(self, quiz_word, column_name, new_value):
+        query = (
+            "UPDATE " + Database.table_name + " set " + column_name
+            + " = " + str(new_value) + " where id = \'" + str(quiz_word.id)
+            + "\'"
+        )
+        self.db.connect_and_execute(query)        
