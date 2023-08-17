@@ -1,7 +1,7 @@
 """quiz_word_dao.py"""
 
-from datetime import datetime
 
+from src.core.review_time_setter import ReviewTimeSetter
 from src.database.database import Database
 
 
@@ -14,7 +14,6 @@ class QuizWordDAO:
         """Initializes the quiz word data access object"""
         self.db = Database(db_path)
 
-        self.db.connect_and_execute(query)
 
 
     def set_as_learned(self, quiz_word):
@@ -25,10 +24,22 @@ class QuizWordDAO:
         # set when to review
         pass
 
-    def add_num_correct(self, quiz_word):
-        pass
+    def add_num_correct(self, quiz_word, num_correct):
+        current_num_correct_query = (
+            "SELECT num_correct FROM " + Database.table_name
+            + " WHERE rowid = \'" + str(quiz_word.id) + "\'"
+        )
+        current_num_correct = result_from_query(num_correct_query)
+        new_num_correct = current_num_correct + num_correct
+        new_num_correct_query = (
+            "UPDATE " + Database.table_name + " SET num_correct = "
+            + str(new_num_correct) + " WHERE id = \'" 
+            + str(quiz_word.id) + "\'"
+        )
+        self.db.connect_and_execute(new_num_correct_query)
+        
 
-    def add_num_incorrect(self, quiz_word):
+    def add_num_incorrect(self, quiz_word, num_incorrect):
         pass
 
     def increase_level(self, quiz_word):
@@ -37,6 +48,6 @@ class QuizWordDAO:
     def set_when_to_review(self, quiz_word):
         # grabs the current level from the database
         # Calls ReviewTimeSetter with that level
-        # Calls ReviewTimeSetter's new_review_time method
+        # Calls ReviewTimeSetter's next_review_time method and gets a string
         # Modifies the when_review column with that datetime
         pass
