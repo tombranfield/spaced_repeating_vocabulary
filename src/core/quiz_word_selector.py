@@ -48,7 +48,6 @@ class QuizWordSelector:
             + "word_list_name = \'" + self.word_list_name + "\'"
         ) 
         result = self.db.result_from_query(query)
-        # TODO
         reviewable_words = {}
         for entry in result:
             when_review = datetime.strptime(entry[3], "%d/%m/%Y %H:%M:%S")
@@ -58,17 +57,9 @@ class QuizWordSelector:
                 quiz_word = QuizWord(id, word_pair)
                 # words_to_review += (quiz_word,)
                 reviewable_words[quiz_word] = when_review
-                print("in the branch")
-        print("reviewable before:")
-        for quiz_word in reviewable_words:
-            print(quiz_word.foreign_word, reviewable_words[quiz_word])
         reviewable_words = sorted(reviewable_words.items(), key = lambda x: x[1])
         for entry in reviewable_words:
-            print("reviewable after", entry[0].foreign_word, entry[1])
             words_to_review += (entry[0],)
-        print("words to review:", words_to_review)
-        for quiz_word in words_to_review:
-            print(quiz_word.foreign_word)
 #                word_pair = WordPair(entry[0], entry[1])
 #                words_to_review.add_word_pair(word_pair)
         return words_to_review

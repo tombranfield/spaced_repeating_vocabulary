@@ -81,8 +81,17 @@ def test_get_correct_words_to_learn_with_new_words(quiz_word_selector_new_words,
 
 def test_get_correct_words_to_review(quiz_word_selector_new_and_review_words):
     out_quiz_words = quiz_word_selector_new_and_review_words.words_to_review()    
-    assert out_quiz_words[0].foreign_word == "hallo"
-    assert out_quiz_words[1].foreign_word == "danke"
+    out_quiz_words_set = set()
+    for quiz_word in out_quiz_words:
+        out_quiz_words_set.add(quiz_word.foreign_word)
+    assert out_quiz_words_set == {"hallo", "danke"}
+    assert len(out_quiz_words) == 2
+
+
+def test_get_words_to_review_oldest_first(quiz_word_selector_new_and_review_words):
+    out_quiz_words = quiz_word_selector_new_and_review_words.words_to_review()
+    assert out_quiz_words[0].foreign_word == "danke"
+    assert out_quiz_words[1].foreign_word == "hallo"
     assert len(out_quiz_words) == 2
 
 
