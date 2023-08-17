@@ -25,11 +25,7 @@ class QuizWordDAO:
         pass
 
     def add_num_correct(self, quiz_word, num_correct):
-        current_num_correct_query = (
-            "SELECT num_correct FROM " + Database.table_name
-            + " WHERE rowid = \'" + str(quiz_word.id) + "\'"
-        )
-        current_num_correct = result_from_query(num_correct_query)
+        cur_num_correct = self._get_column_value(quiz_word, "num_correct")
         new_num_correct = current_num_correct + num_correct
         new_num_correct_query = (
             "UPDATE " + Database.table_name + " SET num_correct = "
@@ -51,3 +47,11 @@ class QuizWordDAO:
         # Calls ReviewTimeSetter's next_review_time method and gets a string
         # Modifies the when_review column with that datetime
         pass
+
+    def _get_column_value(self, quiz_word, column_name):
+        query = (
+            "SELECT " + column_name + " FROM " + Database.table_name
+            + " WHERE rowid = \'" + str(quiz_word.id) + "\'"
+        )
+        return self.db.result_from_query(query)
+
