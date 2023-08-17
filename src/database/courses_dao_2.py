@@ -50,7 +50,7 @@ class CoursesDAO:
             "SELECT language FROM " + self.COURSES_TABLE_NAME
             + " WHERE course_name = \'" + course_name + "\'"
         )
-        return result_from_query(query)
+        return self.db.result_from_query(query)
 
     def _does_course_already_exist(self, course_name) -> bool:
         """Returns whether the course already exists"""
@@ -58,6 +58,10 @@ class CoursesDAO:
             "SELECT COUNT() FROM " + self.COURSES_TABLE_NAME
             + " WHERE course_name = \'" + course_name + "\'"
         )
+        count = self.db.result_from_query(query)
+        if count > 0:
+            return True
+        return False
 
     def _create_courses_table(self):
         """Creates a new courses table, if it doesn't exist"""
