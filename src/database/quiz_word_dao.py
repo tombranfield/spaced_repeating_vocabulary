@@ -20,7 +20,11 @@ class QuizWordDAO:
         self.set_when_to_review(quiz_word)
 
     def finished_reviewing(self, quiz_word):
-        pass
+        if quiz_word.is_review_correct:
+            self.increase_level(quiz_word)
+        else:
+            self.reset_level(quiz_word)
+        self.set_when_to_review(quiz_word)
 
     def add_num_correct(self, quiz_word, num_correct):
         cur_num_correct = self._get_column_value(quiz_word, "num_correct")
@@ -41,7 +45,7 @@ class QuizWordDAO:
         self._update_column_value(quiz_word, "level", new_level)
 
     def reset_level(self, quiz_word):
-        self._update_column_value(quiz_word, "level, 1)
+        self._update_column_value(quiz_word, "level", 1)
 
     def set_when_to_review(self, quiz_word):
         cur_level = self._get_column_value(quiz_word, "level")
