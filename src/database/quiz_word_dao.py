@@ -14,8 +14,6 @@ class QuizWordDAO:
         """Initializes the quiz word data access object"""
         self.db = Database(db_path)
 
-
-
     def set_as_learned(self, quiz_word):
         # using quiz_word.id
         # Sets is_known column to 1
@@ -34,8 +32,13 @@ class QuizWordDAO:
         new_num_incorrect = cur_num_incorrect + num_incorrect
         self._update_column_value(quiz_word, "num_incorrect", new_num_incorrect)
 
+    def set_word_as_known(self, quiz_word):
+        self._update_column_value(quiz_word, "is_known", 1)
+
     def increase_level(self, quiz_word):
-        pass
+        cur_level = self._get_column_value(quiz_word, "level")
+        new_level = cur_level + 1
+        self._update_column_value(quiz_word, "level", new_level)
 
     def set_when_to_review(self, quiz_word):
         # grabs the current level from the database
