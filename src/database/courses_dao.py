@@ -14,7 +14,7 @@ class CoursesDAO:
     Responsible for storing and retrieving the list of courses
     """
     COURSES_TABLE_NAME = "COURSES" 
-    COURSES_PATH = str(Path(__file__).parents[2] / "data" / "courses.db")
+#    COURSES_PATH = str(Path(__file__).parents[2] / "data" / "courses.db")
 
     def __init__(self, db_path=Database.path):
         """Initializes the database."""
