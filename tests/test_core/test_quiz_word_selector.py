@@ -51,7 +51,11 @@ def quiz_word_selector_new_words(db_with_new_words):
 def db_some_new_some_review(db_with_new_words):
     query = ("UPDATE " + db_with_new_words.table_name + " "
              + "SET is_known = 1, when_review = '26/12/2022 09:30:00'"
-             + "WHERE foreign_word = 'hallo' or foreign_word = 'danke'")
+             + "WHERE foreign_word = 'hallo'")
+    db_with_new_words.connect_and_execute(query)
+    query = ("UPDATE " + db_with_new_words.table_name + " "
+             + "SET is_known = 1, when_review = '26/12/2022 09:29:00'"
+             + "WHERE foreign_word = 'danke'")
     db_with_new_words.connect_and_execute(query)
     return db_with_new_words
 
