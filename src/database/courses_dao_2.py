@@ -18,6 +18,7 @@ class CoursesDAO:
     def __init__(self, db_path=Database.path):
         """Initializes the database."""
         self.db = Database(db_path)
+        self._create_courses_table()
 
     def add_new_course(self, course_name, course_language):
         """Creates a new course"""
@@ -28,8 +29,11 @@ class CoursesDAO:
 
     def delete_course(self, course_name):
         """Deletes a course and all of its words"""
-        # Delete course from the courses table
-        # Then delete all words from the word list
+        query = (
+            "DELETE FROM " + COURSES.TABLE_NAME + " where course_name "
+            + " = \'" + course_name + "\'"
+        )
+        self.db.connect_and_execute(query)
         word_list_dao = WordListDAO()
         word_list_dao.delete_word_list(course_name)
 
@@ -46,6 +50,17 @@ class CoursesDAO:
     def _does_course_already_exist(self, new_course_name) -> bool:
         """Returns whether the course already exists"""
         # Query the database and see whether the course is already there
+        # TODO
+
+
+    def _create_courses_table(self):
+        """Creates a new courses table, if it doesn't exist"""
+        query = (
+            "CREATE TABLE IF NOT EXISTS " + self.COURSES_TABLE_NAME
+            + "(course_name TEXT, course_language TEXT);"
+        )
+        self.db.connect_and_execute(query)
+            
 
 
 if __name__ == "__main__":
@@ -54,10 +69,4 @@ if __name__ == "__main__":
 
     courses_dao = CoursesDAO()
 
-    print(courses_dao.courses_list())
-
-    courses_dao.delete_course("Harry Potter")
-    courses_dao.delete_course("a")
-
-    print(courses_dao.courses_list())
 
