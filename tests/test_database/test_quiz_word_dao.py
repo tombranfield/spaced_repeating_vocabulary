@@ -99,20 +99,21 @@ def test_set_word_as_known_successfully(quiz_word_dao):
 def test_set_when_to_review_correctly(quiz_word_dao, datetime_mock):
     quiz_word_dao.set_when_to_review()
     current_level = quiz_word_dao._get_column_value("level")
-    # This updates the column with the value of when_to_review
-    # Should be in 4 hours time
     review_time_setter = ReviewTimeSetter(current_level)
+    calc_next_review_time = review_time_setter.next_review_time()
+    read_next_review_time = quiz_word_dao._get_column_value("when_review")
+    assert calc_next_review_time == read_next_review_time
 
-    # We remove the seconds for comparison
-    # This is hacky and will fail if seconds difference causes the
-    # minutes to also be different. Need a MOCK for current_time
-    # used for review_time_setter and quiz_word_dao
+def test_set_when_to_review_correctly_after_increasing_level(quiz_word_dao, datetime_mock):
+    for i in range(10):
+        quiz_word_dao.increase_level()
+    quiz_word_dao.set_when_to_review()
+    current_level = quiz_word_dao._get_column_value("level")
+    review_time_setter = ReviewTimeSetter(current_level)
+    
     calc_next_review_time = review_time_setter.next_review_time()
     read_next_review_time = quiz_word_dao._get_column_value("when_review")
 
-    print(calc_next_review_time)
-    print(read_next_review_time)    
+    assert calc_next_review_time == read_next_review_time
 
 
-def test_set_when_to_review_correctly_level_9(quiz_word_dao):
-    pass
