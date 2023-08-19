@@ -59,13 +59,12 @@ class QuizWordDAO:
             "SELECT " + column_name + " FROM " + Database.table_name
             + " WHERE rowid = \'" + str(self.quiz_word.id) + "\'"
         )
-        result = self.db.result_from_query(query)
-        return result
+        return self.db.result_from_query(query)[0][0]
 
     def _update_column_value(self, column_name, new_value):
         query = (
             "UPDATE " + Database.table_name + " set " + column_name
-            + " = " + str(new_value) + " where id = \'" 
+            + " = " + str(new_value) + " where rowid = \'" 
             + str(self.quiz_word.id) + "\'"
         )
         self.db.connect_and_execute(query)
