@@ -15,7 +15,7 @@ class QuizWord:
         self._translated_word = word_pair.translated_word
         self.num_correct = 0
         self.num_incorrect = 0
-        self.is_review_correct = None
+        self.was_review_correct = None
         self.quiz_type = quiz_type
         self.quiz_stack = QuizStack(self.quiz_type)
         self.progress_score = 0
@@ -57,14 +57,14 @@ class QuizWord:
         if self.quiz_type == "learn":
             self.max_progress_score += 1
             self.quiz_stack.incorrect_multiple_quiz()
-        if self.quiz_type == "review" and self.is_review_correct is None:
+        if self.quiz_type == "review" and self.was_review_correct is None:
             self.is_review_correct = False
 
     def set_incorrect_typing_quiz(self):
         self.num_incorrect += 1
         self.max_progress_score += 2
         self.quiz_stack.incorrect_typing_quiz()
-        if self.quiz_type == "review" and self.is_review_correct is None:
+        if self.quiz_type == "review" and self.was_review_correct is None:
             self.is_review_correct = False
 
     def is_quizzing_finished(self):
