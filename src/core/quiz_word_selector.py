@@ -54,8 +54,7 @@ class QuizWordSelector:
             if datetime.now() > when_review:
                 id = entry[0]
                 word_pair = WordPair(entry[1], entry[2])
-                quiz_word = QuizWord(id, word_pair)
-                quiz_word.quiz_type = "review"
+                quiz_word = QuizWord(id, word_pair, "review")
                 # words_to_review += (quiz_word,)
                 reviewable_words[quiz_word] = when_review
         reviewable_words = sorted(reviewable_words.items(), key = lambda x: x[1])

@@ -53,6 +53,9 @@ class Quiz(QDialog):
         print("Quiz type:", self.quiz_type)
         for quiz_word in self.words_to_quiz:
             print(quiz_word.foreign_word)
+            print(quiz_word.quiz_type)
+            print(quiz_word.quiz_stack.items)
+            print("\n")
 
         # Initialize the active quiz word
         self.active_quiz_word = self.words_to_quiz[0]
