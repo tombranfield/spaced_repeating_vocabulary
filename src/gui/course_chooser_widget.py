@@ -154,7 +154,9 @@ class CourseChooserWidget(QMainWindow):
         dialog.exec_()
 
     def launch_review_quiz(self):
-        pass
+        dialog = Quiz(self.course.name, "review", parent=self)
+        dialog.exec_()
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
