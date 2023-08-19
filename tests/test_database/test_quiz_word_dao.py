@@ -1,10 +1,12 @@
 """test_quiz_word_dao.py"""
 
 
+import datetime
 from pathlib import Path
 import pytest
 from tempfile import TemporaryDirectory
 
+from src.core.review_time_setter import ReviewTimeSetter
 from src.core.row import Row
 from src.core.word_pair import WordPair
 from src.core.quiz_word import QuizWord
@@ -37,6 +39,19 @@ def quiz_word_dao(quiz_word):
 
         quiz_word_dao = QuizWordDAO(quiz_word, db_path)
         yield quiz_word_dao
+
+
+@pytest.fixture
+def datetime_mock(monkeypatch):
+    
+    MOCK_DATETIME = datetime.datetime(2012, 12, 25, 9, 0, 30)
+
+    class mydatetime:
+        @classmethod
+        def now(cls):
+            return MOCK_DATETIME
+
+    monkeypatch.setattr(datetime, "datetime", mydatetime)
 
 
 def test_instantiated_quiz_word_dao_successfully(quiz_word_dao):
@@ -80,3 +95,24 @@ def test_set_word_as_known_successfully(quiz_word_dao):
     is_known_after = quiz_word_dao._get_column_value("is_known")
     assert is_known_before == 0
     assert is_known_after == 1
+
+def test_set_when_to_review_correctly(quiz_word_dao, datetime_mock):
+    quiz_word_dao.set_when_to_review()
+    current_level = quiz_word_dao._get_column_value("level")
+    # This updates the column with the value of when_to_review
+    # Should be in 4 hours time
+    review_time_setter = ReviewTimeSetter(current_level)
+
+    # We remove the seconds for comparison
+    # This is hacky and will fail if seconds difference causes the
+    # minutes to also be different. Need a MOCK for current_time
+    # used for review_time_setter and quiz_word_dao
+    calc_next_review_time = review_time_setter.next_review_time()
+    read_next_review_time = quiz_word_dao._get_column_value("when_review")
+
+    print(calc_next_review_time)
+    print(read_next_review_time)    
+
+
+def test_set_when_to_review_correctly_level_9(quiz_word_dao):
+    pass

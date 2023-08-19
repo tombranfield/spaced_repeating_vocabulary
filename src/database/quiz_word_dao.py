@@ -64,7 +64,7 @@ class QuizWordDAO:
     def _update_column_value(self, column_name, new_value):
         query = (
             "UPDATE " + Database.table_name + " set " + column_name
-            + " = " + str(new_value) + " where rowid = \'" 
+            + " = '" + str(new_value) + "' where rowid = \'" 
             + str(self.quiz_word.id) + "\'"
         )
         self.db.connect_and_execute(query)
