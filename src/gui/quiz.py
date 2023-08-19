@@ -49,12 +49,10 @@ class Quiz(QDialog):
 #        self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
         self.words_to_quiz = self.get_words_to_quiz(self.num_words_to_quiz)
 
-
-        # TODO 
+        # TODO checking we are loading the correct words
         print("Quiz type:", self.quiz_type)
         for quiz_word in self.words_to_quiz:
             print(quiz_word.foreign_word)
-
 
         # Initialize the active quiz word
         self.active_quiz_word = self.words_to_quiz[0]
