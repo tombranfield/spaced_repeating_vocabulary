@@ -51,17 +51,25 @@ def test_added_num_correct_successfully(quiz_word_dao):
     assert num_correct_after == 2
 
 
-def test_added_num_incorrect_successfully():
+def test_added_num_incorrect_successfully(quiz_word_dao):
+    num_incorrect_before = quiz_word_dao._get_column_value("num_incorrect")
+    quiz_word_dao.add_num_incorrect(2)
+    num_incorrect_after = quiz_word_dao._get_column_value("num_incorrect")
+    assert num_incorrect_before == 0
+    assert num_incorrect_after == 2
+
+
+def test_increased_level_successfully(quiz_word_dao):
     pass
 
 
-def test_increased_level_successfully():
+def test_reset_level_successfully(quiz_word_dao):
     pass
 
 
-def test_reset_level_successfully():
-    pass
-
-
-def test_set_word_as_known_successfully():
-    pass
+def test_set_word_as_known_successfully(quiz_word_dao):
+    is_known_before = quiz_word_dao._get_column_value("is_known")
+    quiz_word_dao.set_word_as_known()
+    is_known_after = quiz_word_dao._get_column_value("is_known")
+    assert is_known_before == 0
+    assert is_known_after == 1
