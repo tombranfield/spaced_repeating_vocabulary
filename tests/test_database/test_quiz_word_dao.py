@@ -60,12 +60,19 @@ def test_added_num_incorrect_successfully(quiz_word_dao):
 
 
 def test_increased_level_successfully(quiz_word_dao):
-    pass
-
+    level_before = quiz_word_dao._get_column_value("level")
+    quiz_word_dao.increase_level()
+    level_after = quiz_word_dao._get_column_value("level")
+    assert level_before == 1
+    assert level_after == 2
 
 def test_reset_level_successfully(quiz_word_dao):
-    pass
-
+    quiz_word_dao.increase_level()
+    level_before = quiz_word_dao._get_column_value("level")
+    quiz_word_dao.reset_level()
+    level_after = quiz_word_dao._get_column_value("level")
+    assert level_before == 2
+    assert level_after == 1
 
 def test_set_word_as_known_successfully(quiz_word_dao):
     is_known_before = quiz_word_dao._get_column_value("is_known")

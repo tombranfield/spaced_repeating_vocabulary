@@ -69,7 +69,7 @@ class Database:
                  foreign_word TEXT,
                  translated_word TEXT,
                  language TEXT,      
-                 level INTEGER DEFAULT 0,
+                 level INTEGER DEFAULT 1,
                  last_learnt_datetime DATETIME,
                  when_review DATETIME, 
                  num_correct INTEGER DEFAULT 0,
