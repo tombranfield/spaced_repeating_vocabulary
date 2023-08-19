@@ -47,7 +47,7 @@ class Quiz(QDialog):
         self.all_course_words = self.quiz_word_selector.all_course_words()
         self.num_words_to_quiz = self.get_num_words_to_quiz()
 #        self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
-        self.words_to_quiz = self.get_words_to_quiz(num_words_to_quiz)
+        self.words_to_quiz = self.get_words_to_quiz(self.num_words_to_quiz)
 
 
         # TODO 
@@ -72,7 +72,7 @@ class Quiz(QDialog):
         self.setup_quit_button()
         self.preview_widget = QuizPreview(
             self.words_to_quiz,
-            "learn",    
+            self.quiz_type,    
             parent=self
         )
         self.definition_widget = QuizDefinition(
