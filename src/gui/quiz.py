@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import (
 
 from src.core.quiz_word_selector import QuizWordSelector
 from src.core.settings import Settings
+from src.database.quiz_word_dao import QuizWordDAO
 from src.gui.quiz_definition import QuizDefinition
 from src.gui.quiz_multiple_choice import QuizMultipleChoice
 from src.gui.quiz_preview import QuizPreview
@@ -181,14 +182,14 @@ class Quiz(QDialog):
             self.close()        
 
     def apply_results_to_database(self):
-        # quiz_word_dao = QuizWordDAO()
         if self.quiz_type == "learn":
             for quiz_word in self.active_quiz_words:
-                print("quiz word id:", quiz_word.id)
-                # quiz_word_dao.add_num_correct(quiz_word)
-                # quiz_word_dao.add_num_incorrect(quiz_word)
-                # quiz_word_dao.mark_as_learned(quiz_word)
+                quiz_word_dao = QuizWordDAO(quiz_word)
+                quiz_word_dao.add_num_correct(quiz_word)
+                quiz_word_dao.add_num_incorrect(quiz_word)
+                quiz_word_dao.set_as_learnt(quiz_word)
         elif self.quiz_type == "review":
+            print("reviewing to db not implemented yet :)")
             for quiz_word in self.active_quiz_words:
                 pass
 

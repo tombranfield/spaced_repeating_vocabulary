@@ -17,7 +17,6 @@ class QuizWordDAO:
 
     def set_as_learnt(self):
         self.set_word_as_known()
-        self.increase_level()
         self.set_when_to_review()
 
     def finished_reviewing(self):
