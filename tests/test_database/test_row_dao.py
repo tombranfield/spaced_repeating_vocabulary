@@ -65,9 +65,8 @@ def test_row_dao_correct_default_values_on_insertion(row_dao, row_of_data):
     is_known = row_dao._column_value("is_known", for_word, list_name)
     is_review = row_dao._column_value("is_review", for_word, list_name)
  
-    assert (level == num_correct == num_incorrect == is_known
-            == is_review == 0)
-
+    assert num_correct == num_incorrect == is_known == is_review == 0
+    assert level == 1
 
 def test_inserts_multiple_row_in_succession(row_dao, rows_of_data):
     num_rows_before = row_dao.total_rows()

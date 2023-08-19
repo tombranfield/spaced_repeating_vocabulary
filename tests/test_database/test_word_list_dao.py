@@ -94,8 +94,8 @@ def test_inserting_word_list_has_correct_default_values(word_list_dao, word_list
     is_known = word_list_dao._column_value("is_known", f_word, list_name)
     is_review = word_list_dao._column_value("is_review", f_word, list_name)
     
-    assert (level == num_correct == num_incorrect == is_known
-            == is_review == 0)
+    assert num_correct == num_incorrect == is_known == is_review == 0
+    assert level == 1
 
 
 def test_know_that_word_already_in_db(word_list_dao, word_list):
