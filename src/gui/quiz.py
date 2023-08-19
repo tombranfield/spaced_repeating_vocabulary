@@ -38,13 +38,23 @@ class Quiz(QDialog):
         # Import settings
         self.settings = Settings()        
         self.max_learn_words = self.settings.max_learn_words
+        self.max_review_words = self.settings.max_review_words
 
         # Setup the quiz words
         self.quiz_word_selector = QuizWordSelector(self.course_name)
         self.words_to_learn = self.quiz_word_selector.words_to_learn()
+        self.words_to_review = self.quiz_word_selector.words_to_review()
         self.all_course_words = self.quiz_word_selector.all_course_words()
         self.num_words_to_quiz = self.get_num_words_to_quiz()
-        self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
+#        self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
+        self.words_to_quiz = self.get_words_to_quiz(num_words_to_quiz)
+
+
+        # TODO 
+        print("Quiz type:", self.quiz_type)
+        for quiz_word in self.words_to_quiz:
+            print(quiz_word.foreign_word)
+
 
         # Initialize the active quiz word
         self.active_quiz_word = self.words_to_quiz[0]
@@ -164,7 +174,16 @@ class Quiz(QDialog):
         return 2        
 
     def get_num_words_to_quiz(self):
-        return min(len(self.words_to_learn), self.max_learn_words)
+        if self.quiz_type == "learn":
+            return min(len(self.words_to_learn), self.max_learn_words)
+        elif self.quiz_type == "review":
+            return min(len(self.words_to_review), self.max_review_words)
+
+    def get_words_to_quiz(self, num_words_to_quiz):
+        if self.quiz_type == "learn":
+            return list(self.words_to_learn[:num_words_to_quiz])
+        elif self.quiz_type == "review":
+            return list(self.words_to_review[:num_words_to_quiz])
 
     def is_quiz_finished(self):
         if self.words_to_quiz:
