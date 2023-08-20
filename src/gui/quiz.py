@@ -46,16 +46,7 @@ class Quiz(QDialog):
         self.words_to_review = self.quiz_word_selector.words_to_review()
         self.all_course_words = self.quiz_word_selector.all_course_words()
         self.num_words_to_quiz = self.get_num_words_to_quiz()
-#        self.words_to_quiz = list(self.words_to_learn[:self.num_words_to_quiz])
         self.words_to_quiz = self.get_words_to_quiz(self.num_words_to_quiz)
-
-        # TODO checking we are loading the correct words
-        print("Quiz type:", self.quiz_type)
-        for quiz_word in self.words_to_quiz:
-            print(quiz_word.foreign_word)
-            print(quiz_word.quiz_type)
-            print(quiz_word.quiz_stack.items)
-            print("\n")
 
         # Initialize the active quiz word
         self.active_quiz_word = self.words_to_quiz[0]
@@ -168,17 +159,14 @@ class Quiz(QDialog):
         return True
 
     def add_new_active_quiz_words(self, num_to_add):
-        print("adding new active quiz words")
         for n in range(num_to_add):
             self.add_new_active_quiz_word()
 
     def add_new_active_quiz_word(self):
-        print("adding a new active quiz word")
         rand_index = random.randint(0, len(self.words_to_quiz) - 1)
         rand_quiz_word = self.words_to_quiz.pop(rand_index)
         rand_quiz_word.quiz_type = self.quiz_type
         self.active_quiz_words.append(rand_quiz_word)
-        print("length of quiz words is now", len(self.active_quiz_words))
 
     def num_active_quiz_words_to_add(self):
         if len(self.words_to_quiz) - len(self.active_quiz_words) == 1:
