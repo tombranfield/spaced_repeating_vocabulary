@@ -41,9 +41,7 @@ class QuizTypingTest(QWidget):
         self.is_correct.connect(self.parent().is_correct_slot)
         self.reset_answer_entry_background()
         self.activate_buttons(True)
-        
-        # TODO testing message box
-        self.create_and_destroy_message_box()
+        self.create_temp_dialog()
 
     def setup_labels(self):
         self.translated_word_label.setText(self.quiz_word.translated_word)
@@ -106,14 +104,6 @@ class QuizTypingTest(QWidget):
     def send_incorrect_signal(self):
         self.is_correct.emit(0)
 
-    def create_and_destroy_message_box(self):
-        """
-        message_box = QMessageBox()
-        message_box.exec_()
-        message_box.close()
-        message_box.done(0)
-        message_box.accept()
-        """
-
+    def create_temp_dialog(self):
         dlg = TempDialog(self)
         dlg.exec_()

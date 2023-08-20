@@ -13,6 +13,8 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
+from src.gui.temp_dialog import TempDialog
+
 
 class QuizPreview(QWidget):
     """A widget for the preview screen of the quiz"""
@@ -31,6 +33,7 @@ class QuizPreview(QWidget):
         self.send_start.connect(self.parent().start_slot)
         self.setup_start_button()
         self.add_labels_to_grid()
+        self.create_temp_dialog()
 
     def setup_start_button(self):
         start_msg = self.get_start_button_message()
@@ -70,3 +73,7 @@ class QuizPreview(QWidget):
             foreign_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
             self.grid_layout.addWidget(foreign_label, i, 0)
             self.grid_layout.addWidget(translated_label, i, 1)
+    
+    def create_temp_dialog(self):
+        dlg = TempDialog(self)
+        dlg.exec_()
