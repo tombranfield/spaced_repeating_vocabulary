@@ -19,6 +19,7 @@ from PyQt5.QtWidgets import (
 )
 
 from src.core.settings import Settings
+from src.gui.temp_dialog import TempDialog
 
 
 class QuizMultipleChoice(QWidget):
@@ -46,6 +47,7 @@ class QuizMultipleChoice(QWidget):
         self.activate_buttons(True)
         self.reset_answer_buttons_background()
         self.reveal_answer_button.installEventFilter(self)
+        self.create_temp_dialog()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_1 and self.answer_buttons[0]:
@@ -139,3 +141,7 @@ class QuizMultipleChoice(QWidget):
 
     def send_incorrect_signal(self):
         self.is_correct.emit(0)
+
+    def create_temp_dialog(self):
+        dlg = TempDialog(self)
+        dlg.exec_()

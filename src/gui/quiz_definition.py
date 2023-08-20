@@ -18,6 +18,7 @@ from PyQt5.QtWidgets import (
 )
 
 from src.core.settings import Settings
+from src.gui.temp_dialog import TempDialog
 
 
 class QuizDefinition(QWidget):
@@ -39,8 +40,8 @@ class QuizDefinition(QWidget):
         self.is_typing = is_typing
         self.show_typing_widgets(self.is_typing)            
         self.activate_buttons(True)
-
         self.next_button.installEventFilter(self)
+        self.create_temp_dialog()
 
     def eventFilter(self, source, event):
 #        if source == self.next_button:
@@ -121,3 +122,6 @@ class QuizDefinition(QWidget):
     def send_signal(self):
         self.send_next.emit(1)
 
+    def create_temp_dialog(self):
+        dlg = TempDialog(self)
+        dlg.exec_()
