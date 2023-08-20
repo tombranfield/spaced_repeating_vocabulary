@@ -100,6 +100,7 @@ class InsertFromFileWindow(QDialog):
                 self.unsuccessful_message_box()
             else:
                 self.successful_message_box()
+                self.close()
     
     def message_box(self, title: str, message: str):
         dlg = QMessageBox(self)
