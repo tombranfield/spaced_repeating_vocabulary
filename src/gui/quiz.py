@@ -208,15 +208,11 @@ class Quiz(QDialog):
                 quiz_word_dao.add_num_incorrect(quiz_word.num_incorrect)
                 quiz_word_dao.set_as_learnt()
         elif self.quiz_type == "review":
-            print("reviewing to db not implemented yet :)")
             for quiz_word in self.active_quiz_words:
-                pass
-                """
                 quiz_word_dao = QuizWordDAO(quiz_word)
                 quiz_word_dao.add_num_correct(quiz_word.num_correct)
                 quiz_word_dao.add_num_incorrect(quiz_word.num_incorrect)
                 quiz_word_dao.finished_reviewing(quiz_word.was_review_correct)
-                """
 
     def finish_messagebox(self):
         messagebox = QMessageBox(self)
