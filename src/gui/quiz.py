@@ -154,20 +154,31 @@ class Quiz(QDialog):
     def is_add_new_active_quiz_word(self):
         if not self.words_to_quiz:
             return False
-        for quiz_word in self.active_quiz_words:
-            if quiz_word.progress_score < 3:
+        if self.quiz_type == "learn":
+            for quiz_word in self.active_quiz_words:
+                if quiz_word.progress_score < 3:
+                    return False
+        if self.quiz_type == "review":
+            num_non_empty_quiz_words = 0
+            for quiz_word in self.active_quiz_words:
+                if len(quiz_word.quiz_stack.items) > 0:
+                    num_non_empty_quiz_words += 1
+            if num_non_empty_quiz_words >= 2:
                 return False
         return True
 
     def add_new_active_quiz_words(self, num_to_add):
+        print("adding new active quiz words")
         for n in range(num_to_add):
             self.add_new_active_quiz_word()
 
     def add_new_active_quiz_word(self):
+        print("adding a new active quiz word")
         rand_index = random.randint(0, len(self.words_to_quiz) - 1)
         rand_quiz_word = self.words_to_quiz.pop(rand_index)
         rand_quiz_word.quiz_type = self.quiz_type
         self.active_quiz_words.append(rand_quiz_word)
+        print("length of quiz words is now", len(self.active_quiz_words))
 
     def num_active_quiz_words_to_add(self):
         if len(self.words_to_quiz) - len(self.active_quiz_words) == 1:

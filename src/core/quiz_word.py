@@ -21,7 +21,6 @@ class QuizWord:
         self.progress_score = 0
         self.max_progress_score = self.quiz_stack.length()
 
-        #TODO
     def print_items(self):
         print(
             "Quiz stack of", self._foreign_word, " is now ",
