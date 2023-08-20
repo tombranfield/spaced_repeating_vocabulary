@@ -71,15 +71,4 @@ class FileReader:
 
 
 if __name__ == "__main__":
-
-    test_file_path = "../../TODO/short.txt"
-
-    file_reader = FileReader(test_file_path)
-
-    print(file_reader.file_path)    
-
-    print(file_reader.is_input_file_valid())
-
-    my_course = Course("My Newest List", "German")
-
-    file_reader.insert_into_database(my_course)
+    pass

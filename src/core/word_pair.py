@@ -14,8 +14,4 @@ class WordPair:
 
 
 if __name__ == "__main__":
-    
-    my_pair = WordPair("bullig", "cheap")
-
-    print(my_pair.foreign_word)
-    print(my_pair.translated_word)
+    pass

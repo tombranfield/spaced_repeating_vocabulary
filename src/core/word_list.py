@@ -51,16 +51,4 @@ class WordList:
 
 
 if __name__ == "__main__":
-
-    wordpair_1 = WordPair("bullig", "cheap")
-    wordpair_2 = WordPair("danke", "thank you")
-    wordpairs = (wordpair_1, wordpair_2)
-
-    my_list = WordList("harry potter", "german", wordpairs)
-    
-    print(my_list._word_pairs)
-
-    broken_list = WordList("", 'german', wordpairs)
-
-
-    print("word_list.py done")
+    pass

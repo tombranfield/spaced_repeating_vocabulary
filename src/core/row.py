@@ -17,7 +17,4 @@ class Row:
 
 
 if __name__ == "__main__":
-    my_row = Row("bullig", "cheap", "german", "harry potter und der stein der weisen")
-
-    print(my_row)
-    print(my_row.language)
+    pass

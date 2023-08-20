@@ -83,9 +83,4 @@ class QuizWordSelector:
 
 
 if __name__ == "__main__":
-    
-    word_list = "Harry Potter und der Stein"
-
-    word_selector = WordSelector(word_list)
-
-    out_list = word_selector.words_to_review()
+    pass
