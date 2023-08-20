@@ -12,12 +12,15 @@ from PyQt5.QtCore import (
 )
 from PyQt5.QtWidgets import (
     QApplication,
+    QDialog,
     QLabel,
-    QMessageBox
+    QMessageBox,
     QWidget,
 )
 
+
 from src.core.settings import Settings
+from src.gui.temp_dialog import TempDialog
 
 
 class QuizTypingTest(QWidget):
@@ -41,7 +44,6 @@ class QuizTypingTest(QWidget):
         
         # TODO testing message box
         self.create_and_destroy_message_box()
-
 
     def setup_labels(self):
         self.translated_word_label.setText(self.quiz_word.translated_word)
@@ -105,7 +107,13 @@ class QuizTypingTest(QWidget):
         self.is_correct.emit(0)
 
     def create_and_destroy_message_box(self):
+        """
         message_box = QMessageBox()
         message_box.exec_()
-        message_box.done(1)
-        # message_box.close()
+        message_box.close()
+        message_box.done(0)
+        message_box.accept()
+        """
+
+        dlg = TempDialog(self)
+        dlg.exec_()
