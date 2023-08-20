@@ -212,7 +212,7 @@ class Quiz(QDialog):
                 quiz_word_dao = QuizWordDAO(quiz_word)
                 quiz_word_dao.add_num_correct(quiz_word.num_correct)
                 quiz_word_dao.add_num_incorrect(quiz_word.num_incorrect)
-                quiz_word_dao.finished_reviewing(quiz_word.was_review_correct)
+                quiz_word_dao.finished_reviewing()
 
     def finish_messagebox(self):
         messagebox = QMessageBox(self)

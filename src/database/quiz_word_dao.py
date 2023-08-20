@@ -20,7 +20,7 @@ class QuizWordDAO:
         self.set_when_to_review()
 
     def finished_reviewing(self):
-        if self.quiz_word.is_review_correct:
+        if self.quiz_word.was_review_correct:
             self.increase_level()
         else:
             self.reset_level()
