@@ -19,7 +19,6 @@ class QuizWordSelector:
 
     def words_to_learn(self):
         """Returns a word list containing the words to learn"""
-#        words_to_learn = WordList(self.word_list_name, self._language_of_list)
         words_to_learn = ()
         query = (
             "SELECT rowid, foreign_word, translated_word FROM " 
@@ -32,15 +31,10 @@ class QuizWordSelector:
             word_pair = WordPair(entry[1], entry[2])
             quiz_word = QuizWord(id, word_pair)
             words_to_learn += (quiz_word,)
-#        for pair in result:
-#            word_pair = WordPair(*pair)
-#            words_to_learn.add_word_pair(word_pair)
-#        return words_to_learn
         return words_to_learn
 
     def words_to_review(self):
         """Returns a word list containing the words to review"""
-#        words_to_review = WordList(self.word_list_name, self._language_of_list)
         words_to_review =  ()
         query = (
             "SELECT rowid, foreign_word, translated_word, when_review FROM " 
@@ -55,13 +49,10 @@ class QuizWordSelector:
                 id = entry[0]
                 word_pair = WordPair(entry[1], entry[2])
                 quiz_word = QuizWord(id, word_pair, "review")
-                # words_to_review += (quiz_word,)
                 reviewable_words[quiz_word] = when_review
         reviewable_words = sorted(reviewable_words.items(), key = lambda x: x[1])
         for entry in reviewable_words:
             words_to_review += (entry[0],)
-#                word_pair = WordPair(entry[0], entry[1])
-#                words_to_review.add_word_pair(word_pair)
         return words_to_review
 
     def all_course_words(self):
