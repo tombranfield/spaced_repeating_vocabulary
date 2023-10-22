@@ -64,6 +64,20 @@ class CoursesDAO:
         if result:
             return result[0][0]
 
+    def course_words(self, course_name):
+        """Returns the words of the course"""
+        course_words = namedtuple("row", ["id", "foreign_word",
+            "translated_word", "is_known", "when_review"])
+        query = (
+            "SELECT rowid, foreign_word, translated_word, is_known, "
+            + "when_review FROM " + Database.table_name + " WHERE "
+            + "word_list_name = \'" + course_name + "\'"
+        )
+        result = self.db.result_from_query(query)
+        for entry in result:
+            id = entry[0]
+            
+
     def _does_course_already_exist(self, course_name) -> bool:
         """Returns whether the course already exists"""
         query = (
