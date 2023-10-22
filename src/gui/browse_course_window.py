@@ -20,6 +20,7 @@ class BrowseCourseWindow(QDialog):
         self.setStyleSheet(open(stylesheet_path).read())
         self.course_name = course.name
         self.setup_widgets()
+        self._NUM_WORDS_PER_TAB = 100
 
     def setup_widgets(self):
         """Connects widget signals and slots"""
@@ -48,7 +49,7 @@ class BrowseCourseWindow(QDialog):
         # TODO
         num_words = 1000
         num_words_per_tab = 25
-        num_tabs = math.ceil(num_words / num_words_per_tab)
+        num_tabs = math.ceil(num_words / self._NUM_WORDS_PER_TAB)
         tab_widget = QTabWidget()
         tab_widget.setTabPosition(QTabWidget.North)
         # TODO write create_tab
@@ -61,5 +62,13 @@ class BrowseCourseWindow(QDialog):
             tab.setLayout(tab.layout)
         return tab_widget
 
+    def create_tab(self, tab_index):
+        tab = QWidget()
+        tab.layout = QGridLayout()
 
+        starting_offset = tab_index * self._NUM_WORDS_PER_TAB
+        if starting_offset + 100 > self.num_words:
+            max = self.num_words
+        else:
+            max = starting_offset + self._NUM_WORDS_PER_TAB
 
