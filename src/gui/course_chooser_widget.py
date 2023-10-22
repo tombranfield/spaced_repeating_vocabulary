@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QDialog, QMainWindow, QWidget
 from src.core.course import Course
 from src.core.total_stats import TotalStats
 from src.database.courses_dao import CoursesDAO
+from browse_course_window import BrowseCourseWindow
 from insert_from_file_window import InsertFromFileWindow
 from new_course_window import NewCourseWindow
 from delete_course_window import DeleteCourseWindow
@@ -68,6 +69,7 @@ class CourseChooserWidget(QMainWindow):
 
     def browse_course_window(self):
         dialog = BrowseCourseWindow(self.course, parent=self)
+        dialog.exec_()
 
     def insert_from_file_window(self):
         dialog = InsertFromFileWindow(self.course, parent=self)
