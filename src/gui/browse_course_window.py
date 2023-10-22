@@ -62,6 +62,7 @@ class BrowseCourseWindow(QDialog):
             tab.setLayout(tab.layout)
         return tab_widget
 
+
     def create_tab(self, tab_index):
         tab = QWidget()
         tab.layout = QGridLayout()
@@ -71,4 +72,41 @@ class BrowseCourseWindow(QDialog):
             max = self.num_words
         else:
             max = starting_offset + self._NUM_WORDS_PER_TAB
+
+        for i in range(starting_offset, max):
+            row_id = self.row_entries[i][0]
+            foreign_word = self.row_entries[i][1]
+            translated_word = self.row_entries[i][2]
+            is_known = self.row_entries[i][3]
+            when_review = self.row_entries[i][4]
+
+            delete_button = self.get_delete_button()
+            delete_button.setDefault(False)
+            delete_button.setAutoDefault(False)
+            delete_button.clicked.connect(
+                         lambda clicked, id=row_id : self.delete_row(clicked, id))
+
+            empty_lab = QLabel("")
+
+            foreign_word_entry = QLineEdit(foreign_word)
+            foreign_word_entry.textEdited.connect(
+                           lambda x, id=row_id : self.foreign_word_edited(x, id))
+
+            translated_word_entry = QLineEdit(translated_word)
+            translated_word_entry.textEdited.connect(
+                       lambda x, id=row_id : self.translated_word_edited(x, id))
+
+            is_known_label = self.get_is_known_label(is_known)
+
+            when_review_label = QLabel(when_review)
+
+            tab.layout.addWidget(delete_button, i, 0)
+            tab.layout.addWidget(empty_lab, i, 1)
+            tab.layout.addWidget(foreign_word_entry, i, 2)
+            tab.layout.addWidget(translated_word_entry, i, 3)
+            tab.layout.addWidget(is_known_label, i, 4)
+            tab.layout.addWidget(when_review_label, i, 5, 1, 2)
+
+        tab.setLayout(tab.layout)
+        return tab
 
