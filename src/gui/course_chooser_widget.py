@@ -140,17 +140,17 @@ class CourseChooserWidget(QMainWindow):
     def refresh_menu_buttons(self):
         if self.course.name == "":
             self.delete_course_button.setEnabled(False)
-            self.browse_words_button.setEnabled(False)
+            self.browse_course_button.setEnabled(False)
             self.insert_from_file_button.setEnabled(False)
             self.delete_course_button.setStyleSheet("color: gray")
-            self.browse_words_button.setStyleSheet("color: gray")
+            self.browse_course_button.setStyleSheet("color: gray")
             self.insert_from_file_button.setStyleSheet("color: gray")
         else:
             self.delete_course_button.setEnabled(True)
-            self.browse_words_button.setEnabled(True)
+            self.browse_course_button.setEnabled(True)
             self.insert_from_file_button.setEnabled(True)
             self.delete_course_button.setStyleSheet("color: black")
-            self.browse_words_button.setStyleSheet("color: black")
+            self.browse_course_button.setStyleSheet("color: black")
             self.insert_from_file_button.setStyleSheet("color: black")
     
     def launch_learn_quiz(self):
