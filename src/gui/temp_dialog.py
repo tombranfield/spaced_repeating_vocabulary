@@ -15,7 +15,7 @@ class TempDialog(QDialog):
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
         self.ok_button.clicked.connect(self.close_window)       
-        QTimer.singleShot(50, self.close) # 1 (100) millisecond works well, try going gradually lower
+        QTimer.singleShot(70, self.close) # 1 (100) millisecond works well, try going gradually lower
     
     def close_window(self):
         self.close()
