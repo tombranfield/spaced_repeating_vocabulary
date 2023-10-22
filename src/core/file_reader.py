@@ -47,6 +47,8 @@ class FileReader:
                 try:
                     word_pair = WordPair(str(line[0].strip()), str(line[1]))
                 except IndexError:
+                    #TODO
+                    print("index error")
                     raise IndexError("Two tab-delimited columns required")
                 else:
                     if len(line) > 2:
@@ -59,8 +61,7 @@ class FileReader:
         """
         Checks whether the input file consists of two columns separated by a
         tab and that it is non-empty.
-        """
-        
+        """        
         try:
             word_pair_list = self._export_word_pairs_from_file()
         except:

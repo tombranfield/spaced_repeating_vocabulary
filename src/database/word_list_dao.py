@@ -27,8 +27,6 @@ class WordListDAO:
             raise EmptyWordListException
         for word_pair in word_list.word_pairs:
             foreign_word = word_pair.foreign_word
-            if self._is_word_already_there(foreign_word, word_list.name):
-                raise DuplicateEntryException
         rows = self._create_rows(word_list)
         self._insert_rows(rows)
 

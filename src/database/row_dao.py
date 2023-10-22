@@ -22,8 +22,6 @@ class RowDAO:
 
     def insert_row(self, row):
         """Inserts an individual row into the database"""
-        if self._is_word_already_there(row.foreign_word, row.word_list_name):
-            raise DuplicateEntryException
         insert_query = self._create_insert_query(row)
         self.db.connect_and_execute(insert_query)
 
