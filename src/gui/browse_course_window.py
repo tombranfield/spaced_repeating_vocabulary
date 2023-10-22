@@ -47,6 +47,9 @@ class BrowseCourseWindow(QDialog):
 
     def get_row_entries(self):
         #TODO
+        # Get words of list is in database
+        # It grabs id, foreign, trans, is_known, when_review
+        # I should put it into a Row class?
         words = self.get_words_of_list(list_name)
         row_entries = [list(t) for t in words]
         for l in row_entries:
@@ -62,8 +65,26 @@ class BrowseCourseWindow(QDialog):
         return row_entries
 
 
+    def get_review_time_remaining(self, when_review):
+        now = datetime.now()
+        when_review = when_review.rstrip()
+        when_review = datetime.strptime(when_review,
+            "%d/%m/%Y %H:%M:%S")
+        if now > when_review:
+            return "Review <b>now</b>"
+        else:
+            diff = when_review - now
+            if abs(diff.days) >= 1:
+                return "Review in " + str(abs(diff.days)) + " days"
+            num_hours = math.ceil(diff.seconds / 3600)
+            if num_hours > 1:
+                return "Review in " + str(num_hours) + " hours"
+            else:
+                num_minutes = math.ceil(diff.seconds / 60)
+                return "Review in " + str(num_minutes) + " minutes"
 
-   def get_tab_widget(self):
+
+    def get_tab_widget(self):
         # Need num of words in list
         # TODO
         num_words = 1000
