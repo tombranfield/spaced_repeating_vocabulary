@@ -19,6 +19,7 @@ class BrowseCourseWindow(QDialog):
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
         self.course_name = course.name
+        self.row_entries = self.get_row_entries()
         self.setup_widgets()
         self._NUM_WORDS_PER_TAB = 100
 
@@ -43,6 +44,24 @@ class BrowseCourseWindow(QDialog):
     def close_window(self):
         """Closes the window"""
         self.close()
+
+    def get_row_entries(self):
+        #TODO
+        words = self.get_words_of_list(list_name)
+        row_entries = [list(t) for t in words]
+        for l in row_entries:
+            # Magic Numbers. Convert words to classes, not arrays
+            # ie database function get_words_of_list should return
+            # a row class, then get/set elements using methods
+            if l[3] == 0:
+                l[4] = "        "
+            else:
+                when_review = l[4]
+                review_string = self.get_review_time_remaining(when_review)
+                l[4] = review_string
+        return row_entries
+
+
 
    def get_tab_widget(self):
         # Need num of words in list
