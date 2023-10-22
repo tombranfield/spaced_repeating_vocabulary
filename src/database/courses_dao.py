@@ -66,8 +66,7 @@ class CoursesDAO:
 
     def course_words(self, course_name):
         """Returns the words of the course"""
-        course_words = namedtuple("row", ["id", "foreign_word",
-            "translated_word", "is_known", "when_review"])
+        course_words = []
         query = (
             "SELECT rowid, foreign_word, translated_word, is_known, "
             + "when_review FROM " + Database.table_name + " WHERE "
@@ -76,6 +75,13 @@ class CoursesDAO:
         result = self.db.result_from_query(query)
         for entry in result:
             id = entry[0]
+            for_word = entry[1]
+            trans_word = entry[2]
+            is_known = entry[3]
+            when_review = entry[4]
+            row = [id, for_word, trans_word, is_known, when_review]
+            course_words.append(row)
+        return course_words
             
 
     def _does_course_already_exist(self, course_name) -> bool:
@@ -102,7 +108,6 @@ class CoursesDAO:
 if __name__ == "__main__":
     courses_dao = CoursesDAO()
 
-    courses_dao.delete_course("Harry Potter")
-    courses_dao.delete_course("My New Course")
-
     print(courses_dao.courses_list())
+
+    print(courses_dao.course_words("My Newest List"))
