@@ -33,6 +33,7 @@ class CourseChooserWidget(QMainWindow):
             self.existing_course_name_changed)
         self.new_course_button.clicked.connect(self.open_new_course_window)
         self.delete_course_button.clicked.connect(self.delete_course_window)
+        self.browse_course_button.clicked.connect(self.browse_course_window)
         self.insert_from_file_button.clicked.connect(self.insert_from_file_window)
         self.learn_button.clicked.connect(self.launch_learn_quiz)
         self.review_button.clicked.connect(self.launch_review_quiz)
@@ -64,6 +65,9 @@ class CourseChooserWidget(QMainWindow):
         dialog = DeleteCourseWindow(self.course, parent=self)
         dialog.exec_()
         self.setup_course_names_box()
+
+    def browse_course_window(self):
+        dialog = BrowseCourseWindow(self.course, parent=self)
 
     def insert_from_file_window(self):
         dialog = InsertFromFileWindow(self.course, parent=self)

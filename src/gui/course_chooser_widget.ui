@@ -188,7 +188,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="browse_words_button">
+       <widget class="QPushButton" name="browse_course_button">
         <property name="text">
          <string>Browse Words</string>
         </property>
