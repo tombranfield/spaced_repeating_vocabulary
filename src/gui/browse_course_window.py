@@ -34,6 +34,7 @@ class BrowseCourseWindow(QDialog):
         self.setup_widgets()
         self._NUM_WORDS_PER_TAB = 100
         self.tab_widget = self.get_tab_widget()
+        self.tab_widget.currentChanged.connect(self.tabs_changed)
         self.scroll_area.setWidget(self.tab_widget)
 
     def setup_widgets(self):
@@ -105,7 +106,6 @@ class BrowseCourseWindow(QDialog):
     def get_delete_button(self, row_id):
         delete_button = QPushButton()
         img_path = str(Path(__file__).parents[2] / "data/cross.png")
-        print(img_path)
         delete_pixmap = QPixmap(img_path)
         delete_button.setIcon(QIcon(delete_pixmap))
         delete_button.setDefault(False)
@@ -116,6 +116,8 @@ class BrowseCourseWindow(QDialog):
         return delete_button
 
     def delete_row(self, clicked, id):
+        #TODO
+        print("deleting row!")
         pass # Do later
 
 
@@ -127,6 +129,8 @@ class BrowseCourseWindow(QDialog):
         return foreign_word_entry
 
     def foreign_word_edited(self, row_id, new_text):
+        #TODO
+        print("Changing foreign word!")
         pass
 
     def get_trans_word_entry(self, row_id, translated_word):
@@ -137,11 +141,13 @@ class BrowseCourseWindow(QDialog):
         return translated_word_entry
 
     def translated_word_edited(self, row_id, new_text):
+        #TODO
+        print("Changing translated word!")
         pass
 
     def get_is_known_label(self, is_known):
         if is_known:
-            msg = "<font color='lime'>" + "KNOWN" + "</font>"
+            msg = "<font color='green'>" + "KNOWN" + "</font>"
         else:
             msg = "<font color='red'>" + "UNKNOWN" + "</font>"
         return QLabel(msg)
@@ -155,33 +161,9 @@ class BrowseCourseWindow(QDialog):
 
         for i in range(starting_offset, max):
             row = self.course_words[i]
-            # Don't need these below, just use row.foreign_word etc
-            id = row.id
-            foreign_word = row.foreign_word
-            translated_word = row.translated_word
-            is_known = row.is_known
-            when_review = row.when_review
 
+            # Get widgets to put on each row of the tab
             delete_button = self.get_delete_button(row.id)
-            """
-            Do we need these or not - they are in function already
-            delete_button.setDefault(False)
-            delete_button.setAutoDefault(False)
-            delete_button.clicked.connect(
-                         lambda clicked, id=row_id : self.delete_row(clicked, id))
-            """
-
-            """
-            # Again, might not need these as in function - check
-            foreign_word_entry = QLineEdit(foreign_word)
-            foreign_word_entry.textEdited.connect(
-                           lambda x, id=row_id : self.foreign_word_edited(x, id))
-
-            translated_word_entry = QLineEdit(translated_word)
-            translated_word_entry.textEdited.connect(
-                       lambda x, id=row_id : self.translated_word_edited(x, id))
-            """
-
             foreign_word_entry = self.get_foreign_word_entry(
                 row.id, row.foreign_word
             )
@@ -189,12 +171,10 @@ class BrowseCourseWindow(QDialog):
                 row.id, row.translated_word
             )
             empty_lab = QLabel("")
-
             is_known_label = self.get_is_known_label(is_known)
-
             when_review_label = QLabel(when_review)
 
-            # Add widgets to tab            
+            # Add widgets to the tab's grid layout
             tab.layout.addWidget(delete_button, i, 0)
             tab.layout.addWidget(empty_lab, i, 1)
             tab.layout.addWidget(foreign_word_entry, i, 2)
@@ -204,3 +184,18 @@ class BrowseCourseWindow(QDialog):
 
         tab.setLayout(tab.layout)
         return tab
+
+    def tabs_changed(self, tab_index):
+        self.tab_widget.currentChanged.disconnect()
+        tab_name = str(tab_index + 1)
+
+        # Create a new tab widget
+        tab = self.create_tab(tab_index)
+        
+        # Remove the previous tab and insert a new one
+        current_index = tab_index
+        self.tab_widget.removeTab(current_index)
+        self.tab_widget.insertTab(current_index, tab, tab_name)
+        self.tab_widget.setCurrentIndex(current_index)
+
+        self.tab_widget.currentChanged.connect(self.tabs_changed)
