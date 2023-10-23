@@ -103,7 +103,7 @@ class BrowseCourseWindow(QDialog):
             max = starting_offset + self._NUM_WORDS_PER_TAB
         return max        
         
-    def get_delete_button(self):
+    def get_delete_button(self, row_id):
         delete_button = QPushButton()
         delete_pixmap = QPixmap("Data/cross.png")
         delete_button.setIcon(QIcon(delete_pixmap))
@@ -113,6 +113,30 @@ class BrowseCourseWindow(QDialog):
             lambda clicked, id=row_id : self.delete_row(clicked, id)
         )
         return delete_button
+
+    def delete_row(self, clicked, id):
+        pass # Do later
+
+
+    def get_foreign_word_entry(self, row_id, foreign_word):
+        foreign_word_entry = QLineEdit(foreign_word)
+        foreign_word_entry.textEdited.connect(
+            lambda x, id=row_id : self.foreign_word_edited(x, id)
+        )
+        return foreign_word_entry
+
+    def foreign_word_edited(self, row_id, new_text):
+        pass
+
+    def get_trans_word_entry(self, row_id, translated_word):
+        translated_word_entry = QLineEdit(translated_word)
+        translated_word_entry.textEdited.connect(
+            lambda x, id=row_id : self.translated_word_edited(x, id)
+        )
+        return translated_word_entry
+
+    def translated_word_edited(self, row_id, new_text):
+        pass
 
     def create_tab(self, tab_index):
         tab = QWidget()
@@ -130,8 +154,9 @@ class BrowseCourseWindow(QDialog):
             is_known = row.is_known
             when_review = row.when_review
 
-            delete_button = self.get_delete_button()
+            delete_button = self.get_delete_button(row.id)
             """
+            Do we need these or not - they are in function already
             delete_button.setDefault(False)
             delete_button.setAutoDefault(False)
             delete_button.clicked.connect(
@@ -139,7 +164,6 @@ class BrowseCourseWindow(QDialog):
             """
 
 
-        """
             empty_lab = QLabel("")
 
             foreign_word_entry = QLineEdit(foreign_word)
@@ -153,6 +177,8 @@ class BrowseCourseWindow(QDialog):
             is_known_label = self.get_is_known_label(is_known)
 
             when_review_label = QLabel(when_review)
+            
+            """
 
             tab.layout.addWidget(delete_button, i, 0)
             tab.layout.addWidget(empty_lab, i, 1)
