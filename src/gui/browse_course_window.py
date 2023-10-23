@@ -1,6 +1,7 @@
 """browse_course_window.py"""
 
 
+import math
 from pathlib import Path
 import sys
 
@@ -19,7 +20,9 @@ class BrowseCourseWindow(QDialog):
         stylesheet_path = str(Path(__file__).parents[0] / "stylesheet.css")
         self.setStyleSheet(open(stylesheet_path).read())
         self.course_name = course.name
-        self.row_entries = self.get_row_entries()
+        self.course_words = self.get_course_words()
+        print(self.course_name)
+        print(len(self.course_words))
         self.setup_widgets()
         self._NUM_WORDS_PER_TAB = 100
 
@@ -29,7 +32,7 @@ class BrowseCourseWindow(QDialog):
         self.setup_course_names_box()
         self.course_names_box.currentTextChanged.connect(
             self.existing_course_name_changed)
-        self.tab_widget = self.get_tab_widget()
+        # self.tab_widget = self.get_tab_widget()
 
     def setup_course_names_box(self):
         courses_dao = CoursesDAO()
@@ -45,12 +48,13 @@ class BrowseCourseWindow(QDialog):
         """Closes the window"""
         self.close()
 
+    """
     def get_row_entries(self):
         #TODO
         # Get words of list is in database
         # It grabs id, foreign, trans, is_known, when_review
         # I should put it into a Row class?
-        words = self.get_words_of_list(list_name)
+        course_words = self._get_words_of_course()
         row_entries = [list(t) for t in words]
         for l in row_entries:
             # Magic Numbers. Convert words to classes, not arrays
@@ -63,6 +67,12 @@ class BrowseCourseWindow(QDialog):
                 review_string = self.get_review_time_remaining(when_review)
                 l[4] = review_string
         return row_entries
+    """
+
+    def get_course_words(self):
+        courses_dao = CoursesDAO()
+        course_words = courses_dao.course_words(self.course_name)
+        return course_words
 
 
     def get_review_time_remaining(self, when_review):
@@ -83,7 +93,7 @@ class BrowseCourseWindow(QDialog):
                 num_minutes = math.ceil(diff.seconds / 60)
                 return "Review in " + str(num_minutes) + " minutes"
 
-
+    """
     def get_tab_widget(self):
         # Need num of words in list
         # TODO
@@ -102,7 +112,7 @@ class BrowseCourseWindow(QDialog):
             tab.setLayout(tab.layout)
         return tab_widget
 
-
+    
     def create_tab(self, tab_index):
         tab = QWidget()
         tab.layout = QGridLayout()
@@ -149,4 +159,4 @@ class BrowseCourseWindow(QDialog):
 
         tab.setLayout(tab.layout)
         return tab
-
+    """
