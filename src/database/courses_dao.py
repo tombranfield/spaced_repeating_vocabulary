@@ -81,7 +81,7 @@ class CoursesDAO:
             trans_word = entry[2]
             is_known = entry[3]
             when_review = entry[4]
-            row = CourseWord(id, for_word, trans_word, is_known, when_review)
+            row = course_word(id, for_word, trans_word, is_known, when_review)
             course_words.append(row)
         return course_words
             

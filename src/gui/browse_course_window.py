@@ -6,7 +6,15 @@ from pathlib import Path
 import sys
 
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QDialog, QTabWidget, QGridLayout, QWidget
+from PyQt5.QtWidgets import (
+    QDialog, 
+    QTabWidget, 
+    QGridLayout, 
+    QWidget,
+    QPushButton
+)
+from PyQt5.QtGui import QPixmap, QIcon
+
 
 from src.core.course import Course
 from src.database.courses_dao import CoursesDAO
@@ -24,7 +32,7 @@ class BrowseCourseWindow(QDialog):
         self.setup_widgets()
         self._NUM_WORDS_PER_TAB = 100
         # TODO informal testing
-        self.create_tab(10)        
+        self.create_tab(1)        
 
 
         #self.tab_widget = self.get_tab_widget()
@@ -88,37 +96,50 @@ class BrowseCourseWindow(QDialog):
             tab.setLayout(tab.layout)
         return tab_widget
 
-    
-    def create_tab(self, tab_index):
-        print("creating tab")
-        print(self.course_words.keys())   
-        print(self.course_words.keys()[:5])   
-        print(self.course_words.keys()[5:])   
-
-        """
-         tab = QWidget()
-        tab.layout = QGridLayout()
-
-        starting_offset = tab_index * self._NUM_WORDS_PER_TAB
+    def get_max_offset(self, starting_offset):
         if starting_offset + 100 > len(self.course_words):
             max = len(self.course_words)
         else:
             max = starting_offset + self._NUM_WORDS_PER_TAB
+        return max        
+        
+    def get_delete_button(self):
+        delete_button = QPushButton()
+        delete_pixmap = QPixmap("Data/cross.png")
+        delete_button.setIcon(QIcon(delete_pixmap))
+        delete_button.setDefault(False)
+        delete_button.setAutoDefault(False)
+        delete_button.clicked.connect(
+            lambda clicked, id=row_id : self.delete_row(clicked, id)
+        )
+        return delete_button
+
+    def create_tab(self, tab_index):
+        tab = QWidget()
+        tab.layout = QGridLayout()
+
+        starting_offset = tab_index * self._NUM_WORDS_PER_TAB
+        max = self.get_max_offset(starting_offset)
 
         for i in range(starting_offset, max):
-
-            row_id = self.row_entries[i][0]
-            foreign_word = self.row_entries[i][1]
-            translated_word = self.row_entries[i][2]
-            is_known = self.row_entries[i][3]
-            when_review = self.row_entries[i][4]
+            row = self.course_words[i]
+            # Don't need these below, just use row.foreign_word etc
+            id = row.id
+            foreign_word = row.foreign_word
+            translated_word = row.translated_word
+            is_known = row.is_known
+            when_review = row.when_review
 
             delete_button = self.get_delete_button()
+            """
             delete_button.setDefault(False)
             delete_button.setAutoDefault(False)
             delete_button.clicked.connect(
                          lambda clicked, id=row_id : self.delete_row(clicked, id))
+            """
 
+
+        """
             empty_lab = QLabel("")
 
             foreign_word_entry = QLineEdit(foreign_word)
