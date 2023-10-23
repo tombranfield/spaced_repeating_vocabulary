@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QDialog, QTabWidget, QGridLayout
+from PyQt5.QtWidgets import QDialog, QTabWidget, QGridLayout, QWidget
 
 from src.core.course import Course
 from src.database.courses_dao import CoursesDAO
@@ -21,10 +21,13 @@ class BrowseCourseWindow(QDialog):
         self.setStyleSheet(open(stylesheet_path).read())
         self.course_name = course.name
         self.course_words = self.get_course_words()
-        print(self.course_name)
-        print(len(self.course_words))
         self.setup_widgets()
         self._NUM_WORDS_PER_TAB = 100
+        # TODO informal testing
+        self.create_tab(10)        
+
+
+        #self.tab_widget = self.get_tab_widget()
 
     def setup_widgets(self):
         """Connects widget signals and slots"""
@@ -32,7 +35,6 @@ class BrowseCourseWindow(QDialog):
         self.setup_course_names_box()
         self.course_names_box.currentTextChanged.connect(
             self.existing_course_name_changed)
-        # self.tab_widget = self.get_tab_widget()
 
     def setup_course_names_box(self):
         courses_dao = CoursesDAO()
@@ -48,32 +50,10 @@ class BrowseCourseWindow(QDialog):
         """Closes the window"""
         self.close()
 
-    """
-    def get_row_entries(self):
-        #TODO
-        # Get words of list is in database
-        # It grabs id, foreign, trans, is_known, when_review
-        # I should put it into a Row class?
-        course_words = self._get_words_of_course()
-        row_entries = [list(t) for t in words]
-        for l in row_entries:
-            # Magic Numbers. Convert words to classes, not arrays
-            # ie database function get_words_of_list should return
-            # a row class, then get/set elements using methods
-            if l[3] == 0:
-                l[4] = "        "
-            else:
-                when_review = l[4]
-                review_string = self.get_review_time_remaining(when_review)
-                l[4] = review_string
-        return row_entries
-    """
-
     def get_course_words(self):
         courses_dao = CoursesDAO()
         course_words = courses_dao.course_words(self.course_name)
         return course_words
-
 
     def get_review_time_remaining(self, when_review):
         now = datetime.now()
@@ -93,16 +73,12 @@ class BrowseCourseWindow(QDialog):
                 num_minutes = math.ceil(diff.seconds / 60)
                 return "Review in " + str(num_minutes) + " minutes"
 
-    """
     def get_tab_widget(self):
-        # Need num of words in list
-        # TODO
-        num_words = 1000
+        num_words = len(self.course_words)
         num_words_per_tab = 25
         num_tabs = math.ceil(num_words / self._NUM_WORDS_PER_TAB)
         tab_widget = QTabWidget()
         tab_widget.setTabPosition(QTabWidget.North)
-        # TODO write create_tab
         first_tab = self.create_tab(0)
         tab_widget.addTab(first_tab, "1")
         for tab_num in range(2, num_tabs + 1):
@@ -114,16 +90,23 @@ class BrowseCourseWindow(QDialog):
 
     
     def create_tab(self, tab_index):
-        tab = QWidget()
+        print("creating tab")
+        print(self.course_words.keys())   
+        print(self.course_words.keys()[:5])   
+        print(self.course_words.keys()[5:])   
+
+        """
+         tab = QWidget()
         tab.layout = QGridLayout()
 
         starting_offset = tab_index * self._NUM_WORDS_PER_TAB
-        if starting_offset + 100 > self.num_words:
-            max = self.num_words
+        if starting_offset + 100 > len(self.course_words):
+            max = len(self.course_words)
         else:
             max = starting_offset + self._NUM_WORDS_PER_TAB
 
         for i in range(starting_offset, max):
+
             row_id = self.row_entries[i][0]
             foreign_word = self.row_entries[i][1]
             translated_word = self.row_entries[i][2]
@@ -159,4 +142,4 @@ class BrowseCourseWindow(QDialog):
 
         tab.setLayout(tab.layout)
         return tab
-    """
+        """

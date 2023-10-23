@@ -67,8 +67,8 @@ class CoursesDAO:
 
     def course_words(self, course_name):
         """Returns the words of the course"""
-        course_words = {}
-        course_word = namedtuple("id", ["foreign_word", "translated_word", "is_known", "when_review"])
+        course_words = []
+        course_word = namedtuple("CourseWord", ["id", "foreign_word", "translated_word", "is_known", "when_review"])
         query = (
             "SELECT rowid, foreign_word, translated_word, is_known, "
             + "when_review FROM " + Database.table_name + " WHERE "
@@ -81,9 +81,8 @@ class CoursesDAO:
             trans_word = entry[2]
             is_known = entry[3]
             when_review = entry[4]
-            row = [id, for_word, trans_word, is_known, when_review]
-            course_words[id] = course_word(for_word, trans_word, is_known, when_review)
-        print(len(course_words))
+            row = CourseWord(id, for_word, trans_word, is_known, when_review)
+            course_words.append(row)
         return course_words
             
 
