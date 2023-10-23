@@ -33,11 +33,8 @@ class BrowseCourseWindow(QDialog):
         self.course_words = self.get_course_words()
         self.setup_widgets()
         self._NUM_WORDS_PER_TAB = 100
-        # TODO informal testing
-        self.create_tab(1)        
-
-
-        #self.tab_widget = self.get_tab_widget()
+        self.tab_widget = self.get_tab_widget()
+        self.scroll_area.setWidget(self.tab_widget)
 
     def setup_widgets(self):
         """Connects widget signals and slots"""
@@ -107,7 +104,9 @@ class BrowseCourseWindow(QDialog):
         
     def get_delete_button(self, row_id):
         delete_button = QPushButton()
-        delete_pixmap = QPixmap("Data/cross.png")
+        img_path = str(Path(__file__).parents[2] / "data/cross.png")
+        print(img_path)
+        delete_pixmap = QPixmap(img_path)
         delete_button.setIcon(QIcon(delete_pixmap))
         delete_button.setDefault(False)
         delete_button.setAutoDefault(False)
@@ -194,9 +193,8 @@ class BrowseCourseWindow(QDialog):
             is_known_label = self.get_is_known_label(is_known)
 
             when_review_label = QLabel(when_review)
-            
-            """
 
+            # Add widgets to tab            
             tab.layout.addWidget(delete_button, i, 0)
             tab.layout.addWidget(empty_lab, i, 1)
             tab.layout.addWidget(foreign_word_entry, i, 2)
@@ -206,4 +204,3 @@ class BrowseCourseWindow(QDialog):
 
         tab.setLayout(tab.layout)
         return tab
-        """
