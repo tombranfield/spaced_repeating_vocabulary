@@ -11,7 +11,9 @@ from PyQt5.QtWidgets import (
     QTabWidget, 
     QGridLayout, 
     QWidget,
-    QPushButton
+    QPushButton,
+    QLabel,
+    QLineEdit,
 )
 from PyQt5.QtGui import QPixmap, QIcon
 
@@ -138,6 +140,13 @@ class BrowseCourseWindow(QDialog):
     def translated_word_edited(self, row_id, new_text):
         pass
 
+    def get_is_known_label(self, is_known):
+        if is_known:
+            msg = "<font color='lime'>" + "KNOWN" + "</font>"
+        else:
+            msg = "<font color='red'>" + "UNKNOWN" + "</font>"
+        return QLabel(msg)
+
     def create_tab(self, tab_index):
         tab = QWidget()
         tab.layout = QGridLayout()
@@ -163,9 +172,8 @@ class BrowseCourseWindow(QDialog):
                          lambda clicked, id=row_id : self.delete_row(clicked, id))
             """
 
-
-            empty_lab = QLabel("")
-
+            """
+            # Again, might not need these as in function - check
             foreign_word_entry = QLineEdit(foreign_word)
             foreign_word_entry.textEdited.connect(
                            lambda x, id=row_id : self.foreign_word_edited(x, id))
@@ -173,6 +181,15 @@ class BrowseCourseWindow(QDialog):
             translated_word_entry = QLineEdit(translated_word)
             translated_word_entry.textEdited.connect(
                        lambda x, id=row_id : self.translated_word_edited(x, id))
+            """
+
+            foreign_word_entry = self.get_foreign_word_entry(
+                row.id, row.foreign_word
+            )
+            translated_word_entry = self.get_trans_word_entry(
+                row.id, row.translated_word
+            )
+            empty_lab = QLabel("")
 
             is_known_label = self.get_is_known_label(is_known)
 
