@@ -2,6 +2,7 @@
 
 
 from pathlib import Path
+import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QDialog, QWidget
@@ -20,6 +21,7 @@ class Header(QWidget):
 
         self.about_button.clicked.connect(self.open_about_window)
         self.settings_button.clicked.connect(self.open_settings_window)
+        self.exit_button.clicked.connect(self.close_window)
 
     def open_about_window(self):
         dialog = AboutWindow(self)
@@ -29,6 +31,8 @@ class Header(QWidget):
         dialog = SettingsWindow(self)
         dialog.exec_()
 
+    def close_window(self):
+        sys.exit()
 
 
 if __name__ == "__main__":

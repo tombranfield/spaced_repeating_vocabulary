@@ -35,7 +35,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="box" stretch="0,0">
+    <layout class="QHBoxLayout" name="box" stretch="0,0,0">
      <property name="leftMargin">
       <number>0</number>
      </property>
@@ -65,6 +65,13 @@
        </property>
        <property name="text">
         <string>Settings</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="exit_button">
+       <property name="text">
+        <string>Exit</string>
        </property>
       </widget>
      </item>
