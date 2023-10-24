@@ -116,9 +116,30 @@ class BrowseCourseWindow(QDialog):
         return delete_button
 
     def delete_row(self, clicked, id):
-        #TODO
-        print("deleting row!")
-        pass # Do later
+        dlg = QMessageBox(self)
+        dlg.setIcon(QMessageBox.Warning)
+        dlg.setWindowTitle("Confirm deletion")
+        msg = "Do you really want to delete this?"
+        dlg.setText(msg)
+        dlg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        button = dlg.exec_()
+        if button == QMessageBox.Cancel:
+            return
+        courses_dao = CoursesDAO()
+        courses_dao.delete_word(id)
+        # get current tab
+        current_index = self.tab_widget.currentIndex()
+
+        # What to do here if deleted last tab in the list?
+        self.num_words = self.get_num_words_of_list(self.list_name)
+        self.num_tabs = math.ceil(self.num_words / NUM_WORDS_PER_TAB)
+        self.row_entries = self.get_row_entries(self.list_name)
+        self.set_new_tabs(self.num_tabs)
+        # go to previous tab
+        try:
+            self.tab_widget.setCurrentIndex(current_index)
+        except:
+            self.tab_widget.setCurrentIndex(current_index-1)
 
 
     def get_foreign_word_entry(self, row_id, foreign_word):
