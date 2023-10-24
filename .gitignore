@@ -166,3 +166,6 @@ todo.txt
 # Database
 *.db
 *.dat
+
+# Data files
+*harry-short*

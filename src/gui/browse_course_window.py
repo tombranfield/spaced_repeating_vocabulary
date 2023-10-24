@@ -32,6 +32,8 @@ class BrowseCourseWindow(QDialog):
         self.setStyleSheet(open(stylesheet_path).read())
         self.course_name = course.name
         self.course_words = self.get_course_words()
+        self.new_foreign_word = ""
+        self.new_trans_word = ""
         self.setup_widgets()
         self._NUM_WORDS_PER_TAB = 100
         self.tab_widget = self.get_tab_widget()
@@ -41,11 +43,30 @@ class BrowseCourseWindow(QDialog):
     def setup_widgets(self):
         """Connects widget signals and slots"""
         self.close_button.clicked.connect(self.close_window)
-        # insert new word button
+        self.insert_word_button.clicked.connect(self.insert_new_word)
+        self.foreign_word_lineEdit.textChanged.connect(
+            self.new_foreign_word_text_changed)
+        self.trans_word_lineEdit.textChanged.connect(
+            self.new_trans_word_text_changed)
 
     def close_window(self):
         """Closes the window"""
         self.close()
+
+    def new_foreign_word_text_changed(self, new_text):
+        self.new_foreign_word = new_text
+        # check for other lineedit, enable button if ness
+
+    def new_trans_word_text_changed(self, new_text):
+        self.new_trans_word = new_text
+        # check for other lineedit, enable button if ness
+
+    def insert_new_word(self):
+        # TODO temporary
+        print("Inserting new word!")
+        print(self.new_foreign_word, self.new_trans_word)
+        # Reset the lineEdit fields to blank
+        # Set disabled
 
     def get_course_words(self):
         courses_dao = CoursesDAO()
