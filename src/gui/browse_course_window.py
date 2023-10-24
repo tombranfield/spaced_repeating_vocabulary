@@ -170,13 +170,11 @@ class BrowseCourseWindow(QDialog):
             translated_word_entry = self.get_trans_word_entry(
                 row.id, row.translated_word
             )
-            empty_lab = QLabel("")
-            is_known_label = self.get_is_known_label(is_known)
-            when_review_label = QLabel(when_review)
+            is_known_label = self.get_is_known_label(row.is_known)
+            when_review_label = QLabel(row.when_review)
 
             # Add widgets to the tab's grid layout
             tab.layout.addWidget(delete_button, i, 0)
-            tab.layout.addWidget(empty_lab, i, 1)
             tab.layout.addWidget(foreign_word_entry, i, 2)
             tab.layout.addWidget(translated_word_entry, i, 3)
             tab.layout.addWidget(is_known_label, i, 4)
