@@ -20,7 +20,10 @@ from PyQt5.QtGui import QPixmap, QIcon
 
 
 from src.core.course import Course
+from src.core.row import Row
 from src.database.courses_dao import CoursesDAO
+from src.database.row_dao import RowDAO
+
 
 
 class BrowseCourseWindow(QDialog):
@@ -48,6 +51,8 @@ class BrowseCourseWindow(QDialog):
             self.new_foreign_word_text_changed)
         self.trans_word_lineEdit.textChanged.connect(
             self.new_trans_word_text_changed)
+        self.set_insert_new_word_button_status()
+        
 
     def close_window(self):
         """Closes the window"""
@@ -55,18 +60,32 @@ class BrowseCourseWindow(QDialog):
 
     def new_foreign_word_text_changed(self, new_text):
         self.new_foreign_word = new_text
-        # check for other lineedit, enable button if ness
+        self.set_insert_new_word_button_status()
+
 
     def new_trans_word_text_changed(self, new_text):
         self.new_trans_word = new_text
-        # check for other lineedit, enable button if ness
+        self.set_insert_new_word_button_status()
+
 
     def insert_new_word(self):
-        # TODO temporary
-        print("Inserting new word!")
-        print(self.new_foreign_word, self.new_trans_word)
-        # Reset the lineEdit fields to blank
-        # Set disabled
+        courses_dao = CoursesDAO()
+        language = courses_dao.language(self.course_name)
+        new_row = Row(self.new_foreign_word, self.new_trans_word,
+                      language, self.course_name)
+        row_dao = RowDAO()
+        row_dao.insert_row(new_row)
+        self.foreign_word_lineEdit.setText("")
+        self.trans_word_lineEdit.setText("")
+        print("Inserted new word!")
+
+    def set_insert_new_word_button_status(self):
+        if self.new_foreign_word and self.new_trans_word:
+            self.insert_word_button.setStyleSheet("background: lime")
+            self.insert_word_button.setEnabled(True)
+        else:
+            self.insert_word_button.setStyleSheet("background: gray")
+            self.insert_word_button.setEnabled(False)
 
     def get_course_words(self):
         courses_dao = CoursesDAO()
@@ -142,6 +161,7 @@ class BrowseCourseWindow(QDialog):
 
         # What to do here if deleted last tab in the list?
         # TODO redrawing the table when deletion has happened
+        #TODO the quoted stuff works
         """
         self.num_words = self.get_num_words_of_list(self.list_name)
         self.num_tabs = math.ceil(self.num_words / NUM_WORDS_PER_TAB)
