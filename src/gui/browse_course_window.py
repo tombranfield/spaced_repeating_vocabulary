@@ -41,19 +41,7 @@ class BrowseCourseWindow(QDialog):
     def setup_widgets(self):
         """Connects widget signals and slots"""
         self.close_button.clicked.connect(self.close_window)
-        self.setup_course_names_box()
-        self.course_names_box.currentTextChanged.connect(
-            self.existing_course_name_changed)
-
-    def setup_course_names_box(self):
-        courses_dao = CoursesDAO()
-        course_names = courses_dao.courses_list()
-        self.course_names_box.addItems(course_names)
-        course_index = course_names.index(self.course_name)
-        self.course_names_box.setCurrentIndex(course_index)
-
-    def existing_course_name_changed(self):
-        pass
+        # insert new word button
 
     def close_window(self):
         """Closes the window"""

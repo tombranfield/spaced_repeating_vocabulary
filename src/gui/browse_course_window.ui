@@ -47,20 +47,41 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_5">
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>Choose a course:    </string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
+       <string>Insert New Word</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="course_names_box"/>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Maximum</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="foreign_word_lineEdit">
+      <property name="placeholderText">
+       <string>Foreign Word</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="trans_word_lineEdit">
+      <property name="placeholderText">
+       <string>Translation</string>
+      </property>
+     </widget>
     </item>
     <item>
      <spacer name="horizontalSpacer_7">
