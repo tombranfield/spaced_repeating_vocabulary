@@ -85,17 +85,16 @@ class CoursesDAO:
             course_words.append(row)
         return course_words
 
-    def delete_word(self, course_name, id):
-        pass
+    def delete_word(self, id: str):
+        query = ("DELETE FROM " + Database.table_name + " where "
+                 + "rowid = \'" + id)
+        self.db.connect_and_execute(query)
 
-
-    def change_foreign_word(self, course_name, id):
+    def change_foreign_word(self, course_name, id: str):
         self._update_column_value(id, "foreign_word", new_trans_word)
 
-
-    def change_translated_word(self, course_name, id, new_trans_word):
+    def change_translated_word(self, course_name, id: str, new_trans_word):
         self._update_column_value(id, "translated_word", new_trans_word)
-
 
     def _update_column_value(self, id, column_name, new_value):
         query = (
