@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import (
     QPushButton,
     QLabel,
     QLineEdit,
+    QMessageBox,
 )
 from PyQt5.QtGui import QPixmap, QIcon
 
@@ -131,40 +132,42 @@ class BrowseCourseWindow(QDialog):
         current_index = self.tab_widget.currentIndex()
 
         # What to do here if deleted last tab in the list?
+        # TODO redrawing the table when deletion has happened
+        """
         self.num_words = self.get_num_words_of_list(self.list_name)
         self.num_tabs = math.ceil(self.num_words / NUM_WORDS_PER_TAB)
         self.row_entries = self.get_row_entries(self.list_name)
         self.set_new_tabs(self.num_tabs)
         # go to previous tab
+
+        """
+        self.tab_widget = self.get_tab_widget()
         try:
             self.tab_widget.setCurrentIndex(current_index)
         except:
             self.tab_widget.setCurrentIndex(current_index-1)
 
-
     def get_foreign_word_entry(self, row_id, foreign_word):
         foreign_word_entry = QLineEdit(foreign_word)
         foreign_word_entry.textEdited.connect(
-            lambda x, id=row_id : self.foreign_word_edited(x, id)
+            lambda x, id=row_id : self.foreign_word_edited(id, x)
         )
         return foreign_word_entry
 
     def foreign_word_edited(self, row_id, new_text):
-        #TODO
-        print("Changing foreign word!")
-        pass
+        courses_dao = CoursesDAO()
+        courses_dao.change_foreign_word(row_id, new_text)
 
     def get_trans_word_entry(self, row_id, translated_word):
         translated_word_entry = QLineEdit(translated_word)
         translated_word_entry.textEdited.connect(
-            lambda x, id=row_id : self.translated_word_edited(x, id)
+            lambda x, id=row_id : self.translated_word_edited(id, x)
         )
         return translated_word_entry
 
     def translated_word_edited(self, row_id, new_text):
-        #TODO
-        print("Changing translated word!")
-        pass
+        courses_dao = CoursesDAO()
+        courses_dao.change_translated_word(row_id, new_text)
 
     def get_is_known_label(self, is_known):
         if is_known:

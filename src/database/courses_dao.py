@@ -22,6 +22,7 @@ class CoursesDAO:
         self.db = Database(db_path)
         self._create_courses_table()
 
+
     def add_new_course(self, course_name, course_language):
         """Creates a new course"""
         if self._does_course_already_exist(course_name):
@@ -35,6 +36,7 @@ class CoursesDAO:
             )
             self.db.connect_and_execute(query)
 
+
     def delete_course(self, course_name):
         """Deletes a course and all of its words"""
         query = (
@@ -44,6 +46,7 @@ class CoursesDAO:
         self.db.connect_and_execute(query)
         word_list_dao = WordListDAO()
         word_list_dao.delete_word_list(course_name)
+
 
     def courses_list(self):
         """Returns a list of courses"""
@@ -55,6 +58,7 @@ class CoursesDAO:
                 courses.append(course[0])
         return courses
 
+
     def language(self, course_name):
         """Returns the language of the course"""
         query = (
@@ -64,6 +68,7 @@ class CoursesDAO:
         result = self.db.result_from_query(query)
         if result:
             return result[0][0]
+
 
     def course_words(self, course_name):
         """Returns the words of the course"""
@@ -85,25 +90,29 @@ class CoursesDAO:
             course_words.append(row)
         return course_words
 
+
     def delete_word(self, id: str):
         query = ("DELETE FROM " + Database.table_name + " where "
-                 + "rowid = \'" + id)
+                 + "rowid = \'" + str(id) + "\'")
         self.db.connect_and_execute(query)
 
-    def change_foreign_word(self, course_name, id: str):
-        self._update_column_value(id, "foreign_word", new_trans_word)
 
-    def change_translated_word(self, course_name, id: str, new_trans_word):
+    def change_foreign_word(self, id, new_foreign_word):
+        self._update_column_value(id, "foreign_word", new_foreign_word)
+
+
+    def change_translated_word(self, id: str, new_trans_word):
         self._update_column_value(id, "translated_word", new_trans_word)
+
 
     def _update_column_value(self, id, column_name, new_value):
         query = (
             "UPDATE " + Database.table_name + " set " + column_name
-            + " = '" + str(new_value) + "' where rowid = \'"
+            + " = \'" + str(new_value) + "\' where rowid = \'"
             + str(id) + "\'"
         )
         self.db.connect_and_execute(query)
-            
+
 
     def _does_course_already_exist(self, course_name) -> bool:
         """Returns whether the course already exists"""
