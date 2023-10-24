@@ -4,7 +4,7 @@ A Python/PyQt/SQLite-based program for learning foreign language vocabulary usin
 
 Based loosely off Memrise - I wanted to make my own version of it since I was getting frustrated with their business.
 
-Create word lists ("courses") and learn the words using a combination of multiple choice and typing tests at particular set
+Create word lists and learn them using a combination of multiple choice and typing tests at particular set
 intervals to aid recall and retention
 
 Requires Python >=3.7
