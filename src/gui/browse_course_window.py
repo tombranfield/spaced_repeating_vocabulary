@@ -77,7 +77,14 @@ class BrowseCourseWindow(QDialog):
         row_dao.insert_row(new_row)
         self.foreign_word_lineEdit.setText("")
         self.trans_word_lineEdit.setText("")
-        print("Inserted new word!")
+        self.refresh_tab_widget()
+
+
+    def refresh_tab_widget(self):
+        self.course_words = self.get_course_words()
+        self.tab_widget = self.get_tab_widget()
+        self.scroll_area.setWidget(self.tab_widget)
+
 
     def set_insert_new_word_button_status(self):
         if self.new_foreign_word and self.new_trans_word:
