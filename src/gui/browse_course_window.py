@@ -15,6 +15,8 @@ from PyQt5.QtWidgets import (
     QLabel,
     QLineEdit,
     QMessageBox,
+    QSpacerItem,
+    QSizePolicy,
 )
 from PyQt5.QtGui import QPixmap, QIcon
 
@@ -127,9 +129,24 @@ class BrowseCourseWindow(QDialog):
         self.tab_widget.setCurrentIndex(final_tab_index)
 
     def scroll_to_bottom(self):
+        fract_pos_down = self.get_fract_pos_down_of_final_tab()
+        max = self.scroll_area.verticalScrollBar().maximum()
+        down_pos = math.floor(fract_pos_down * max)
+        self.scroll_area.verticalScrollBar().setValue(down_pos)
+
+        """
         self.scroll_area.verticalScrollBar().setValue(
             self.scroll_area.verticalScrollBar().maximum()
         )
+        """
+
+    def get_fract_pos_down_of_final_tab(self):
+        final_tab_index = self.get_num_tabs() - 1
+        starting_offset = final_tab_index * self._NUM_WORDS_PER_TAB
+        max = self.get_max_offset(starting_offset)
+        fract_down = (max - starting_offset) / self._NUM_WORDS_PER_TAB
+        return fract_down
+
 
     def get_tab_widget(self):
         """
@@ -145,8 +162,9 @@ class BrowseCourseWindow(QDialog):
         for tab_num in range(2, num_tabs + 1):
             tab = QWidget()
             tab_widget.addTab(tab, str(tab_num))
-            tab.layout = QGridLayout()
-            tab.setLayout(tab.layout)
+            #TODO I don't know what below does
+            #tab.layout = QGridLayout()
+            #tab.setLayout(tab.layout)
         return tab_widget
 
     def get_max_offset(self, starting_offset):
@@ -218,6 +236,7 @@ class BrowseCourseWindow(QDialog):
             msg = "<font color='red'>" + "UNKNOWN" + "</font>"
         return QLabel(msg)
 
+
     def create_tab(self, tab_index):
         tab = QWidget()
         tab.layout = QGridLayout()
@@ -246,8 +265,15 @@ class BrowseCourseWindow(QDialog):
             tab.layout.addWidget(is_known_label, i, 4)
             tab.layout.addWidget(when_review_label, i, 5, 1, 2)
 
+        # Adding empty labels to the grid layout to add as empty space
+        empty_label = QLabel("")
+        if (max - starting_offset) < self._NUM_WORDS_PER_TAB:
+            for i in range(max, max + self._NUM_WORDS_PER_TAB):
+                tab.layout.addWidget(QLabel(""), i, 0)
+
         tab.setLayout(tab.layout)
         return tab
+
 
     def tabs_changed(self, tab_index):
         self.tab_widget.currentChanged.disconnect()
