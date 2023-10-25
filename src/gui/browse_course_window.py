@@ -75,6 +75,8 @@ class BrowseCourseWindow(QDialog):
         self.foreign_word_lineEdit.setText("")
         self.trans_word_lineEdit.setText("")
         self.refresh_tab_widget()
+        self.move_to_last_tab()
+        self.scroll_to_bottom()
 
     def refresh_tab_widget(self):
         self.course_words = self.get_course_words()
@@ -123,6 +125,11 @@ class BrowseCourseWindow(QDialog):
         num_tabs = self.get_num_tabs()
         final_tab_index = num_tabs - 1
         self.tab_widget.setCurrentIndex(final_tab_index)
+
+    def scroll_to_bottom(self):
+        self.scroll_area.verticalScrollBar().setValue(
+            self.scroll_area.verticalScrollBar().maximum()
+        )
 
     def get_tab_widget(self):
         """
