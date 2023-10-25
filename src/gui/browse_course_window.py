@@ -51,8 +51,7 @@ class BrowseCourseWindow(QDialog):
             self.new_foreign_word_text_changed)
         self.trans_word_lineEdit.textChanged.connect(
             self.new_trans_word_text_changed)
-        self.set_insert_new_word_button_status()
-        
+        self.set_insert_new_word_button_status()        
 
     def close_window(self):
         """Closes the window"""
@@ -62,11 +61,9 @@ class BrowseCourseWindow(QDialog):
         self.new_foreign_word = new_text
         self.set_insert_new_word_button_status()
 
-
     def new_trans_word_text_changed(self, new_text):
         self.new_trans_word = new_text
         self.set_insert_new_word_button_status()
-
 
     def insert_new_word(self):
         courses_dao = CoursesDAO()
@@ -79,13 +76,11 @@ class BrowseCourseWindow(QDialog):
         self.trans_word_lineEdit.setText("")
         self.refresh_tab_widget()
 
-
     def refresh_tab_widget(self):
         self.course_words = self.get_course_words()
         self.tab_widget = self.get_tab_widget()
         self.tab_widget.currentChanged.connect(self.tabs_changed)
         self.scroll_area.setWidget(self.tab_widget)
-
 
     def set_insert_new_word_button_status(self):
         if self.new_foreign_word and self.new_trans_word:
@@ -118,10 +113,24 @@ class BrowseCourseWindow(QDialog):
                 num_minutes = math.ceil(diff.seconds / 60)
                 return "Review in " + str(num_minutes) + " minutes"
 
-    def get_tab_widget(self):
+    def get_num_tabs(self):
         num_words = len(self.course_words)
         num_words_per_tab = 25
         num_tabs = math.ceil(num_words / self._NUM_WORDS_PER_TAB)
+        return num_tabs
+
+    def move_to_last_tab(self):
+        num_tabs = self.get_num_tabs()
+        final_tab_index = num_tabs - 1
+        self.tab_widget.setCurrentIndex(final_tab_index)
+
+    def get_tab_widget(self):
+        """
+        num_words = len(self.course_words)
+        num_words_per_tab = 25
+        num_tabs = math.ceil(num_words / self._NUM_WORDS_PER_TAB)
+        """
+        num_tabs = self.get_num_tabs()
         tab_widget = QTabWidget()
         tab_widget.setTabPosition(QTabWidget.North)
         first_tab = self.create_tab(0)
@@ -153,6 +162,7 @@ class BrowseCourseWindow(QDialog):
         return delete_button
 
     def delete_row(self, clicked, id):
+        #TODO refactor, separate function for msg box and tab moving
         dlg = QMessageBox(self)
         dlg.setIcon(QMessageBox.Warning)
         dlg.setWindowTitle("Confirm deletion")
