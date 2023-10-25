@@ -27,7 +27,7 @@ from src.database.row_dao import RowDAO
 
 
 class BrowseCourseWindow(QDialog):
-    """A window for the user to delete the course"""
+    """A window for the user to browse the course words"""
     def __init__(self, course, parent=None):
         super(BrowseCourseWindow, self).__init__(parent=parent)
         uic.loadUi(str(Path(__file__).parents[0] / "browse_course_window.ui"), self)
@@ -83,6 +83,7 @@ class BrowseCourseWindow(QDialog):
     def refresh_tab_widget(self):
         self.course_words = self.get_course_words()
         self.tab_widget = self.get_tab_widget()
+        self.tab_widget.currentChanged.connect(self.tabs_changed)
         self.scroll_area.setWidget(self.tab_widget)
 
 
@@ -163,25 +164,13 @@ class BrowseCourseWindow(QDialog):
             return
         courses_dao = CoursesDAO()
         courses_dao.delete_word(id)
-        # get current tab
-        current_index = self.tab_widget.currentIndex()
-
-        # What to do here if deleted last tab in the list?
-        # TODO redrawing the table when deletion has happened
-        #TODO the quoted stuff works
-        """
-        self.num_words = self.get_num_words_of_list(self.list_name)
-        self.num_tabs = math.ceil(self.num_words / NUM_WORDS_PER_TAB)
-        self.row_entries = self.get_row_entries(self.list_name)
-        self.set_new_tabs(self.num_tabs)
-        # go to previous tab
-
-        """
-        self.tab_widget = self.get_tab_widget()
+        current_tab_index = self.tab_widget.currentIndex()
+        self.refresh_tab_widget()
         try:
-            self.tab_widget.setCurrentIndex(current_index)
+            self.tab_widget.setCurrentIndex(current_tab_index)
         except:
-            self.tab_widget.setCurrentIndex(current_index-1)
+            self.tab_widget.setCurrentIndex(current_tab_index-1)
+
 
     def get_foreign_word_entry(self, row_id, foreign_word):
         foreign_word_entry = QLineEdit(foreign_word)
