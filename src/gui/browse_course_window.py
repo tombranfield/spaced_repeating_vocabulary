@@ -134,12 +134,6 @@ class BrowseCourseWindow(QDialog):
         down_pos = math.floor(fract_pos_down * max)
         self.scroll_area.verticalScrollBar().setValue(down_pos)
 
-        """
-        self.scroll_area.verticalScrollBar().setValue(
-            self.scroll_area.verticalScrollBar().maximum()
-        )
-        """
-
     def get_fract_pos_down_of_final_tab(self):
         final_tab_index = self.get_num_tabs() - 1
         starting_offset = final_tab_index * self._NUM_WORDS_PER_TAB
@@ -147,13 +141,7 @@ class BrowseCourseWindow(QDialog):
         fract_down = (max - starting_offset) / self._NUM_WORDS_PER_TAB
         return fract_down
 
-
     def get_tab_widget(self):
-        """
-        num_words = len(self.course_words)
-        num_words_per_tab = 25
-        num_tabs = math.ceil(num_words / self._NUM_WORDS_PER_TAB)
-        """
         num_tabs = self.get_num_tabs()
         tab_widget = QTabWidget()
         tab_widget.setTabPosition(QTabWidget.North)
@@ -163,8 +151,8 @@ class BrowseCourseWindow(QDialog):
             tab = QWidget()
             tab_widget.addTab(tab, str(tab_num))
             #TODO I don't know what below does
-            #tab.layout = QGridLayout()
-            #tab.setLayout(tab.layout)
+            tab.layout = QGridLayout()
+            tab.setLayout(tab.layout)
         return tab_widget
 
     def get_max_offset(self, starting_offset):
@@ -268,7 +256,7 @@ class BrowseCourseWindow(QDialog):
         # Adding empty labels to the grid layout to add as empty space
         empty_label = QLabel("")
         if (max - starting_offset) < self._NUM_WORDS_PER_TAB:
-            for i in range(max, max + self._NUM_WORDS_PER_TAB):
+            for i in range(max, starting_offset + self._NUM_WORDS_PER_TAB):
                 tab.layout.addWidget(QLabel(""), i, 0)
 
         tab.setLayout(tab.layout)
