@@ -172,3 +172,6 @@ todo.txt
 
 # misc folder
 misc/
+
+# ole requirements
+*old_requirements.txt
